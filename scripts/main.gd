@@ -1,10 +1,11 @@
 extends Node
 
 @export var mob_scene: PackedScene
+@export var hook: PackedScene
 var score
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 
@@ -64,3 +65,15 @@ func _on_start_timer_timeout():
 	$MobTimer.start()
 	$ScoreTimer.start()
 	print("timer start")
+
+
+	
+
+
+func _on_player_shoot(direction):
+	var h = hook.instantiate()
+	h.position = $Player.position
+	h.speed = 2000
+	h.direction = direction
+	h.connect("wall_hit", Callable($Player, "_on_wall_hooked"))
+	add_child(h)
