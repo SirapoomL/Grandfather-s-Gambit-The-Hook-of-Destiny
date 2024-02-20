@@ -1,6 +1,7 @@
 extends CharacterBody2D
 class_name Player
 signal hit
+signal shoot
 
 @export var speed = 400
 @export var jump_force = -450 # Usually jump force should be negative
@@ -9,6 +10,7 @@ var screen_size # Size of the game window.
 var jump_state
 var jump_quota = 3
 var state = 'normal'
+var clickPos
 
 func start(pos):
 	position = pos
@@ -19,11 +21,23 @@ func start(pos):
 func _ready():
 	screen_size = get_viewport_rect().size
 	hide()
+	
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.pressed:
+			print(event.position)
+			clickPos = event.position
+		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	velocity.x = 0
 	velocity.y += gravity*delta
+	
+	if Input.is_action_just_pressed("shoot"):
+		shoot.emit(clickPos)
+		print("shoot")
+	
 	if is_on_floor():
 		state = 'normal'
 		jump_state = 0
@@ -58,10 +72,6 @@ func _physics_process(delta):
 		$AnimatedSprite2D.flip_v = velocity.y > 0
 	pass
 
+#func shoot():
+	#pass
 
-func _on_body_entered(body):
-	hide() # Player disappears after being hit.
-	hit.emit()
-	# Must be deferred as we can't change physics properties on a physics callback.
-	$CollisionShape2D.set_deferred("disabled", true)
-	pass # Replace with function body.

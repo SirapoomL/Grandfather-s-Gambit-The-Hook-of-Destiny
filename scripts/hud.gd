@@ -35,12 +35,9 @@ func update_score(score):
 	
 func _on_start_button_pressed():
 	$StartButton.hide()
-	$"Play Demo".hide()
 	start_game.emit()
 
 func _on_message_timer_timeout():
 	$Message.hide()
 
 
-func _on_play_demo_pressed():
-	get_tree().change_scene_to_file("res://scene/DemoComponents/demo.tscn")
