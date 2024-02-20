@@ -8,6 +8,3 @@ script = ExtResource("1_178cc")
 
 [node name="DemoPlayer" parent="." instance=ExtResource("1_a40wt")]
 position = Vector2(742, 268)
-speed = null
-jump_force = null
-gravity = null

@@ -61,6 +61,6 @@ func _on_score_timer_timeout():
 	$HUD.update_score(score)
 
 func _on_start_timer_timeout():
-	$MobTimer.start()
+	#$MobTimer.start()
 	$ScoreTimer.start()
 	print("timer start")

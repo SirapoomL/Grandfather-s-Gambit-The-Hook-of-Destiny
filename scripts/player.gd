@@ -7,7 +7,8 @@ signal hit
 @export var gravity = 980 # Adjust the gravity to your needs
 var screen_size # Size of the game window.
 var jump_state
-var jump_quota = 2
+var jump_quota = 3
+var state = 'normal'
 
 func start(pos):
 	position = pos
@@ -23,17 +24,17 @@ func _ready():
 func _physics_process(delta):
 	velocity.x = 0
 	velocity.y += gravity*delta
-	if Input.is_action_pressed("move_right"):
+	if is_on_floor():
+		state = 'normal'
+		jump_state = 0
+	if state == 'normal' and Input.is_action_pressed("move_right"):
 		velocity.x = speed
-	if Input.is_action_pressed("move_left"):
+	if state == 'normal' and Input.is_action_pressed("move_left"):
 		velocity.x = -speed
-	if Input.is_action_just_pressed("jump"):
-		if is_on_floor():
-			jump_state = 1
-			velocity.y = jump_force
-		elif  jump_state < jump_quota:
-			jump_state += 1
-			velocity.y = jump_force
+	if Input.is_action_just_pressed("jump") and jump_state < jump_quota:
+		state = 'normal'
+		jump_state += 1
+		velocity.y = jump_force
 	#position += velocity * delta
 	#position = position.clamp(Vector2.ZERO, screen_size)
 	move_and_slide()
