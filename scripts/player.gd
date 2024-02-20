@@ -82,11 +82,11 @@ func _physics_process(delta):
 		$AnimatedSprite2D.flip_v = velocity.y > 0
 	pass
 
-func _on_wall_hooked(position):
-	print("on wall hooked", position)
+func _on_wall_hooked(arg_position):
+	print("on wall hooked", arg_position)
 	if state == "dead": return
 	
-	var direction = (position - self.position).normalized()
+	var direction = (arg_position - self.position).normalized()
 	#print(direction)
 	state = "just_hooked"
 	set_velocity(direction * 2000)
