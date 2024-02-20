@@ -6,11 +6,11 @@ signal shoot(direction)
 @export var speed = 400
 @export var jump_force = -450 # Usually jump force should be negative
 @export var gravity = 980 # Adjust the gravity to your needs
-@export var hook_speed = 2000
+@export var hook_speed = 1200
 var screen_size # Size of the game window.
 var jump_state
 var jump_quota = 3
-var state = 'normal'
+var state = 'dead'
 
 func start(pos):
 	position = pos
@@ -89,6 +89,6 @@ func _on_wall_hooked(arg_position):
 	var direction = (arg_position - self.position).normalized()
 	#print(direction)
 	state = "just_hooked"
-	set_velocity(direction * 2000)
+	set_velocity(direction * hook_speed)
 	
 
