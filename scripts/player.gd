@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Player
 signal hit
 signal shoot(direction)
+signal kill(mob)
 
 @export var speed = 400
 @export var jump_force = -450 # Usually jump force should be negative
@@ -60,10 +61,15 @@ func _physics_process(delta):
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		if collision.get_collider() is Enemy:
-			hide()
-			hit.emit()
-			state = "dead"
-			$CollisionShape2D.set_deferred("disabled", true)
+			if state == "hooking":
+				print("hit")
+				kill.emit(collision.get_collider())
+				collision.get_collider().queue_free()
+			else:
+				hide()
+				hit.emit()
+				state = "dead"
+				$CollisionShape2D.set_deferred("disabled", true)
 		elif state == "hooking":
 			state = "normal"
 			velocity.y = 0

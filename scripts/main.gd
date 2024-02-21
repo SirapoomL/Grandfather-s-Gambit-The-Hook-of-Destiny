@@ -77,3 +77,5 @@ func _on_player_shoot(direction):
 	h.direction = direction
 	h.connect("wall_hit", Callable($Player, "_on_wall_hooked"))
 	add_child(h)
+
+	
