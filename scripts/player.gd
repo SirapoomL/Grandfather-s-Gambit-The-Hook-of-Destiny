@@ -3,6 +3,9 @@ class_name Player
 signal hit
 signal shoot(direction)
 signal kill(mob)
+signal finish_hook
+
+enum State {DEAD, NORMAL, JUST_HOOKED, HOOKING, HOLD_HOOK}
 
 @export var speed = 400
 @export var jump_force = -450 # Usually jump force should be negative
@@ -11,11 +14,11 @@ signal kill(mob)
 var screen_size # Size of the game window.
 var jump_state = 3
 var jump_quota = 3
-var state = 'dead'
+var state = State.DEAD
 
 func start(pos):
 	position = pos
-	state = 'normal'
+	state = State.NORMAL
 	show()
 	$CollisionShape2D.disabled = false
 
@@ -24,6 +27,10 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	hide()
 		
+func change_state(s: State):
+	if state == State.HOOKING && s == State.NORMAL:
+		finish_hook.emit()
+	state = s
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -32,30 +39,30 @@ func _physics_process(delta):
 	#print(state)
 	#print(GameState.is_playing())
 	#print(GameState.get_current_state())
-	if state == "dead": return
+	if state == State.DEAD: return
 	
 	if GameInputMapper.is_action_just_pressed("shoot"):
 		var cliclPos = get_local_mouse_position()
 		var direction = cliclPos.normalized()
 		shoot.emit(direction)
 	
-	if state == 'normal':
+	if state == State.NORMAL:
 		velocity.x = 0
 		velocity.y += gravity*delta
 		if is_on_floor():
-			state = 'normal'
+			change_state(State.NORMAL)
 			jump_state = 0
 		if GameInputMapper.is_action_pressed("move_right"):
 			velocity.x = speed
 		if GameInputMapper.is_action_pressed("move_left"):
 			velocity.x = -speed
-	elif state == "just_hooked":
-		state = "hooking"
+	elif state == State.JUST_HOOKED:
+		change_state(State.HOOKING)
 
 		
 	
 	if GameInputMapper.is_action_just_pressed("jump") and jump_state < jump_quota:
-		state = 'normal'
+		change_state(State.NORMAL)
 		jump_state += 1
 		velocity.y = jump_force
 		#position += velocity * delta
@@ -65,17 +72,17 @@ func _physics_process(delta):
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		if collision.get_collider() is Enemy or collision.get_collider() is GroundEnemy:
-			if state == "hooking":
+			if state == State.HOOKING:
 				print("hit")
 				kill.emit(collision.get_collider())
 				collision.get_collider().queue_free()
 			else:
 				hide()
 				hit.emit()
-				state = "dead"
+				change_state(State.DEAD)
 				$CollisionShape2D.set_deferred("disabled", true)
-		elif state == "hooking":
-			state = "normal"
+		elif state == State.HOOKING:
+			change_state(State.NORMAL)
 			velocity.y = 0
 			
 	
@@ -94,11 +101,11 @@ func _physics_process(delta):
 
 func _on_wall_hooked(arg_position):
 	print("on wall hooked", arg_position)
-	if state == "dead": return
+	if state == State.DEAD: return
 	
 	var direction = (arg_position - self.position).normalized()
 	#print(direction)
-	state = "just_hooked"
+	change_state(State.JUST_HOOKED)
 	set_velocity(direction * hook_speed)
 	
 
