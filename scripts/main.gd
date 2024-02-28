@@ -1,8 +1,10 @@
 extends Node
 
 @export var mob_scene: PackedScene
+@export var ground_enemy_spirit_scene: PackedScene
 @export var hook: PackedScene
 var score
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -33,6 +35,7 @@ func new_game():
 	
 func _on_mob_timer_timeout():
 	# Create a new instance of the Mob scene.
+	var spirit_mob = ground_enemy_spirit_scene.instantiate()
 	var mob = mob_scene.instantiate()
 
 	# Choose a random location on Path2D.
@@ -45,6 +48,7 @@ func _on_mob_timer_timeout():
 
 	# Set the mob's position to a random location.
 	mob.position = mob_spawn_location.position
+	spirit_mob.position.x = mob_spawn_location.position.x
 
 	# Add some randomness to the direction.
 	direction += randf_range(-PI / 4, PI / 4)
@@ -56,6 +60,10 @@ func _on_mob_timer_timeout():
 
 	# Spawn the mob by adding it to the Main scene.
 	add_child(mob)
+	
+	# 1 in 20 chance
+	if randi_range(0, 20) == 0:
+		add_child(spirit_mob)
 	
 func _on_score_timer_timeout():
 	score += 1
