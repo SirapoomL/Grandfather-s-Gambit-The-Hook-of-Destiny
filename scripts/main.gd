@@ -24,6 +24,7 @@ func game_over():
 func new_game():
 	score = 0
 	print("game start")
+	GameState.set_current_state(GameState.State.PLAYING)
 	get_tree().call_group("mobs", "queue_free")
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
@@ -32,6 +33,8 @@ func new_game():
 	$Music.play()
 	
 func _on_mob_timer_timeout():
+	if !GameState.is_playing():
+		return
 	# Create a new instance of the Mob scene.
 	var mob = mob_scene.instantiate()
 

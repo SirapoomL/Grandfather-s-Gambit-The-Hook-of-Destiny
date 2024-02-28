@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://ce7ef7uabu7dn"]
+
+[node name="Backpack" type="CanvasLayer"]
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = 276.0
+offset_top = 137.0
+offset_right = 580.0
+offset_bottom = 236.0
+text = "Bagpack Interface"

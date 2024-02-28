@@ -1,0 +1,75 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy07ciachl1ir"]
+
+[ext_resource type="Script" path="res://scene/UI/setting.gd" id="1_4kx1r"]
+
+[node name="Setting" type="CanvasLayer"]
+script = ExtResource("1_4kx1r")
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = 425.0
+offset_top = 200.0
+offset_right = 595.0
+offset_bottom = 687.0
+theme_override_font_sizes/font_size = 24
+text = "move left
+
+move right
+
+jump
+
+shoot
+
+inventory
+
+skill stree"
+
+[node name="move_left_value" type="Button" parent="."]
+offset_left = 614.0
+offset_top = 216.0
+offset_right = 814.0
+offset_bottom = 251.0
+
+[node name="move_right_value" type="Button" parent="."]
+offset_left = 619.0
+offset_top = 288.0
+offset_right = 819.0
+offset_bottom = 323.0
+
+[node name="jump_value" type="Button" parent="."]
+offset_left = 632.0
+offset_top = 363.0
+offset_right = 832.0
+offset_bottom = 398.0
+
+[node name="shoot_value" type="Button" parent="."]
+offset_left = 624.0
+offset_top = 439.0
+offset_right = 824.0
+offset_bottom = 474.0
+
+[node name="inventory_value" type="Button" parent="."]
+offset_left = 621.0
+offset_top = 523.0
+offset_right = 821.0
+offset_bottom = 558.0
+
+[node name="skill_tree_value" type="Button" parent="."]
+offset_left = 607.0
+offset_top = 583.0
+offset_right = 807.0
+offset_bottom = 618.0
+
+[node name="info_panel" type="TextEdit" parent="."]
+offset_left = 536.0
+offset_top = 410.0
+offset_right = 1047.0
+offset_bottom = 491.0
+theme_override_font_sizes/font_size = 32
+text = "press any key or mouse button"
+
+[connection signal="button_down" from="move_left_value" to="." method="_on_move_left_value_button_down"]
+[connection signal="button_down" from="move_right_value" to="." method="_on_move_right_value_button_down"]
+[connection signal="button_down" from="jump_value" to="." method="_on_jump_value_button_down"]
+[connection signal="button_down" from="shoot_value" to="." method="_on_shoot_value_button_down"]
+[connection signal="button_down" from="inventory_value" to="." method="_on_inventory_value_button_down"]
+[connection signal="button_down" from="skill_tree_value" to="." method="_on_skill_tree_value_button_down"]

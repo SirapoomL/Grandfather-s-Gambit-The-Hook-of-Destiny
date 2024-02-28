@@ -9,7 +9,7 @@ signal kill(mob)
 @export var gravity = 980 # Adjust the gravity to your needs
 @export var hook_speed = 1200
 var screen_size # Size of the game window.
-var jump_state
+var jump_state = 3
 var jump_quota = 3
 var state = 'dead'
 
@@ -27,10 +27,14 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	if !GameState.is_playing():
+		return
 	#print(state)
+	#print(GameState.is_playing())
+	#print(GameState.get_current_state())
 	if state == "dead": return
 	
-	if Input.is_action_just_pressed("shoot"):
+	if GameInputMapper.is_action_just_pressed("shoot"):
 		var cliclPos = get_local_mouse_position()
 		var direction = cliclPos.normalized()
 		shoot.emit(direction)
@@ -41,16 +45,16 @@ func _physics_process(delta):
 		if is_on_floor():
 			state = 'normal'
 			jump_state = 0
-		if Input.is_action_pressed("move_right"):
+		if GameInputMapper.is_action_pressed("move_right"):
 			velocity.x = speed
-		if Input.is_action_pressed("move_left"):
+		if GameInputMapper.is_action_pressed("move_left"):
 			velocity.x = -speed
 	elif state == "just_hooked":
 		state = "hooking"
 
 		
 	
-	if Input.is_action_just_pressed("jump") and jump_state < jump_quota:
+	if GameInputMapper.is_action_just_pressed("jump") and jump_state < jump_quota:
 		state = 'normal'
 		jump_state += 1
 		velocity.y = jump_force

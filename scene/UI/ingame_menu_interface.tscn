@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgou2ctgr645i"]
+
+[ext_resource type="PackedScene" uid="uid://c0puo681utsw7" path="res://scene/UI/skill_tree.tscn" id="1_1onwn"]
+[ext_resource type="Script" path="res://scripts/ingame_menu_interface.gd" id="1_c6jo6"]
+[ext_resource type="PackedScene" uid="uid://ce7ef7uabu7dn" path="res://scene/UI/backpack.tscn" id="2_htjcw"]
+[ext_resource type="PackedScene" uid="uid://dy07ciachl1ir" path="res://scene/UI/setting.tscn" id="4_elaoo"]
+
+[node name="Menu_Interface" type="CanvasLayer"]
+script = ExtResource("1_c6jo6")
+
+[node name="Skill_Tree" parent="." instance=ExtResource("1_1onwn")]
+
+[node name="Backpack" parent="." instance=ExtResource("2_htjcw")]
+
+[node name="Setting" parent="." instance=ExtResource("4_elaoo")]

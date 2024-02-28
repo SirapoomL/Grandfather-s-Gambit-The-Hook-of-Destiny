@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://c0puo681utsw7"]
+
+[node name="Skill_Tree" type="CanvasLayer"]
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = 158.0
+offset_top = 135.0
+offset_right = 405.0
+offset_bottom = 188.0
+text = "skill tree interface
+"
