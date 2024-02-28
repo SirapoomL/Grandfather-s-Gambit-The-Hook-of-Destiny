@@ -63,7 +63,7 @@ func _on_mob_timer_timeout():
 	mob.linear_velocity = velocity.rotated(direction)
 
 	# Spawn the mob by adding it to the Main scene.
-	#add_child(mob)
+	add_child(mob)
 	
 	if (ground_mob_count < 3) and (randi_range(0, 30) == 0):
 		ground_mob_count += 1
