@@ -3,6 +3,7 @@ extends Node
 @export var mob_scene: PackedScene
 @export var ground_enemy_spirit_scene: PackedScene
 @export var hook: PackedScene
+@export var swing_hook: PackedScene
 var score
 var ground_mob_count: int
 
@@ -79,7 +80,17 @@ func _on_start_timer_timeout():
 	$ScoreTimer.start()
 	print("timer start")
 
-func _on_player_shoot(direction):
+func _on_player_shoot(direction, is_holding):
+	if is_holding:
+		var sh = swing_hook.instantiate()
+		sh.position = $Player.position
+		sh.speed = 2000
+		sh.direction = direction
+		$Player.set_swing_hook(sh)
+		sh.connect("wall_hit", Callable($Player, "_on_wall_swing"))
+		add_child(sh)
+		return
+	
 	var h = hook.instantiate()
 	h.position = $Player.position
 	h.speed = 2000

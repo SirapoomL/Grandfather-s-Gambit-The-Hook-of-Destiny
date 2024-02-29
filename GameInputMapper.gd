@@ -22,6 +22,12 @@ func is_action_just_pressed(input):
 		if Input.is_action_just_pressed(key):
 			return true
 	return false
+	
+func is_action_just_released(input):
+	for key in keybinds[input]:
+		if Input.is_action_just_released(key):
+			return true
+	return false
 
 func is_action_pressed(input):
 	for key in keybinds[input]:
