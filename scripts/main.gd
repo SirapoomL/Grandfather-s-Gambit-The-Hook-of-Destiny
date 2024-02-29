@@ -75,7 +75,7 @@ func _on_score_timer_timeout():
 	$HUD.update_score(score)
 
 func _on_start_timer_timeout():
-	$MobTimer.start()
+	#$MobTimer.start()
 	$ScoreTimer.start()
 	print("timer start")
 
@@ -85,5 +85,4 @@ func _on_player_shoot(direction):
 	h.speed = 2000
 	h.direction = direction
 	h.connect("wall_hit", Callable($Player, "_on_wall_hooked"))
-	$Player.register_hook(h)
 	add_child(h)

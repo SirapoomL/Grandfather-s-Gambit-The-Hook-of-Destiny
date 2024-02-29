@@ -25,3 +25,8 @@ func _physics_process(delta):
 func _on_body_entered(body):
 	if body is StaticBody2D:
 		wall_hit.emit(position)
+		speed = 0
+
+
+func _on_timer_timeout():
+	queue_free()

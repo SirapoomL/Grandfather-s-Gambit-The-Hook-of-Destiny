@@ -11,11 +11,12 @@ enum State {DEAD, NORMAL, JUST_HOOKED, HOOKING, HOLD_HOOK}
 @export var jump_force = -450 # Usually jump force should be negative
 @export var gravity = 980 # Adjust the gravity to your needs
 @export var hook_speed = 1200
+@export var hook_quota = 2
 var screen_size # Size of the game window.
 var jump_state = 3
 var jump_quota = 3
-var hooks = []
-var hook_quota = 2
+var hook_count = 0
+var hook_despawn_duration = 0.5
 var state = State.DEAD
 
 func start(pos):
@@ -30,8 +31,9 @@ func _ready():
 	hide()
 		
 func change_state(s: State):
-	if state == State.HOOKING && s == State.NORMAL:
-		finish_hook.emit()
+	if state == State.HOOKING:
+		if s == State.NORMAL || s == State.JUST_HOOKED:
+			hook_count -= 1
 	state = s
 	
 func process_animation(delta):
@@ -96,9 +98,11 @@ func _physics_process(delta):
 	if state == State.DEAD: return
 	
 	if GameInputMapper.is_action_just_pressed("shoot"):
-		var cliclPos = get_local_mouse_position()
-		var direction = cliclPos.normalized()
-		shoot.emit(direction)
+		if hook_count < hook_quota:
+			hook_count += 1
+			var cliclPos = get_local_mouse_position()
+			var direction = cliclPos.normalized()
+			shoot.emit(direction)
 	
 	process_movement(delta)
 	move_and_slide()
@@ -115,10 +119,5 @@ func _on_wall_hooked(arg_position):
 	#print(direction)
 	change_state(State.JUST_HOOKED)
 	set_velocity(direction * hook_speed)
-	
-func register_hook(h: Hook):
-	hooks.push_back(h)
-	if len(hooks) > hook_quota:
-		var dh = hooks.pop_front()
-		dh.queue_free()
+		
 
