@@ -37,11 +37,11 @@ func _ready():
 		
 func change_state(s: State):
 	if state == State.HOOKING:
-		if s == State.NORMAL || s == State.JUST_HOOKED:
+		if s == State.NORMAL || s == State.JUST_HOOKED || s == State.SWING:
 			hook_count -= 1
-	elif state == State.SWING:
-		if s == State.NORMAL || s == State.JUST_HOOKED:
-			hook_count -= 1
+	#elif state == State.SWING:
+		#if s == State.NORMAL || s == State.JUST_HOOKED :
+			#hook_count -= 1
 	state = s
 	
 func process_animation(delta):
@@ -111,15 +111,12 @@ func _physics_process(delta):
 	# Handling shoot
 	# TODO: extract this as a method
 	if GameInputMapper.is_action_just_released("shoot"):
+		if swing_hook:
+			swing_hook.queue_free()
+			swing_hook = null
+			
 		if state == State.SWING:
 			change_state(State.NORMAL)
-			swing_hook.queue_free()
-			swing_hook = get_node("")
-		elif swing_hook:
-			swing_hook.queue_free()
-			swing_hook = get_node("")
-			hook_count -= 1
-			
 		elif shoot_hold_duration <= hold_threshold:
 			shoot_action(false)
 		shoot_hold_duration = 0
@@ -139,13 +136,14 @@ func _physics_process(delta):
 	process_collision(delta)
 	
 	process_animation(delta)
+	#print(hook_count)
 
 func shoot_action(is_holding):
 	# swing hook can't be duplicated
 	if swing_hook && is_holding:
 		return
 	if hook_count < hook_quota:
-		hook_count += 1
+		hook_count += 0 if is_holding else 1
 		var cliclPos = get_local_mouse_position()
 		var direction = cliclPos.normalized()
 		shoot.emit(direction, is_holding)
