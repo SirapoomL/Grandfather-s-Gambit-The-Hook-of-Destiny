@@ -14,6 +14,8 @@ enum State {DEAD, NORMAL, JUST_HOOKED, HOOKING, HOLD_HOOK}
 var screen_size # Size of the game window.
 var jump_state = 3
 var jump_quota = 3
+var hooks = []
+var hook_quota = 2
 var state = State.DEAD
 
 func start(pos):
@@ -114,4 +116,9 @@ func _on_wall_hooked(arg_position):
 	change_state(State.JUST_HOOKED)
 	set_velocity(direction * hook_speed)
 	
+func register_hook(h: Hook):
+	hooks.push_back(h)
+	if len(hooks) > hook_quota:
+		var dh = hooks.pop_front()
+		dh.queue_free()
 
