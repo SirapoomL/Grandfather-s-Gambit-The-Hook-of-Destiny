@@ -12,6 +12,7 @@ enum State {DEAD, NORMAL, JUST_HOOKED, HOOKING, HOLD_HOOK, SWING}
 @export var gravity = 980 # Adjust the gravity to your needs
 @export var hook_speed = 1200
 @export var hook_quota = 2
+@export var hook_acc = 98*2
 var screen_size # Size of the game window.
 var jump_state = 3
 var jump_quota = 3
@@ -22,7 +23,6 @@ var shoot_hold_duration = 0.0
 var hold_triggered = false
 var hold_threshold = 0.13
 var swing_hook: Hook
-var swing_pin: Vector2 = Vector2(0, 0)
 
 func start(pos):
 	position = pos
@@ -78,9 +78,9 @@ func process_movement(delta):
 	#Handle Left Right Up Down
 	match state:
 		State.NORMAL:
-			velocity.x = 0
 			velocity.y += gravity*delta
 			if is_on_floor():
+				velocity.x = 0
 				change_state(State.NORMAL)
 				jump_state = 0
 			if GameInputMapper.is_action_pressed("move_right"):
@@ -90,8 +90,22 @@ func process_movement(delta):
 		State.JUST_HOOKED:
 			change_state(State.HOOKING)
 		State.SWING:
-			var lever = position - swing_pin
-			print("swing movement is not implemented yet")
+			var radius = position - swing_hook.position
+			velocity = velocity.project(velocity - velocity.project(radius))
+			var g = Vector2(0, gravity)
+			var cent_acc = - (radius * (velocity.dot(velocity) /  pow(radius.length(), 2))) 
+			
+			var player_acc: Vector2 = Vector2(0,0)
+			if GameInputMapper.is_action_pressed("move_right"):
+				player_acc.x = hook_acc
+			if GameInputMapper.is_action_pressed("move_left"):
+				player_acc.x = -hook_acc
+			
+			var acc = g - g.project(radius) + cent_acc + player_acc
+			
+			# dv = a * dt
+			velocity += acc * delta
+			#print("swing movement is not implemented yet")
 		
 	#Handle Jump
 	if GameInputMapper.is_action_just_pressed("jump") and jump_state < jump_quota:
@@ -163,5 +177,5 @@ func set_swing_hook(sh: Hook):
 func _on_wall_swing(arg_position):
 	print("on wall swing", arg_position)
 	if state == State.DEAD: return
-	swing_pin = arg_position
 	change_state(State.SWING)
+	
