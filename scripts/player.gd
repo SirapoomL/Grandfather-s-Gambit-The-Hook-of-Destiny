@@ -90,16 +90,22 @@ func process_movement(delta):
 		State.JUST_HOOKED:
 			change_state(State.HOOKING)
 		State.SWING:
+			if is_on_floor():
+				velocity.x = 0
+				change_state(State.NORMAL)
+				jump_state = 0
+				return
 			var radius = position - swing_hook.position
-			velocity = velocity.project(velocity - velocity.project(radius))
+			if velocity.length() != 0.0:
+				velocity = velocity.project(velocity - velocity.project(radius))
 			var g = Vector2(0, gravity)
-			var cent_acc = - (radius * (velocity.dot(velocity) /  pow(radius.length(), 2))) 
-			
+			var cent_acc = - (radius * (velocity.dot(velocity) /  pow(radius.length(), 3))) 
 			var player_acc: Vector2 = Vector2(0,0)
 			if GameInputMapper.is_action_pressed("move_right"):
 				player_acc.x = hook_acc
 			if GameInputMapper.is_action_pressed("move_left"):
 				player_acc.x = -hook_acc
+				
 			
 			var acc = g - g.project(radius) + cent_acc + player_acc
 			
@@ -150,7 +156,7 @@ func _physics_process(delta):
 	process_collision(delta)
 	
 	process_animation(delta)
-	#print(hook_count)
+	#print(position)
 
 func shoot_action(is_holding):
 	# swing hook can't be duplicated
