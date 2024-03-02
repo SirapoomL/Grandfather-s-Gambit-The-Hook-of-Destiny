@@ -96,18 +96,24 @@ func process_movement(delta):
 				jump_state = 0
 				return
 			var radius = position - swing_hook.position
+			#print(radius.length())
 			if velocity.length() != 0.0:
 				velocity = velocity.project(velocity - velocity.project(radius))
 			var g = Vector2(0, gravity)
-			var cent_acc = - (radius * (velocity.dot(velocity) /  pow(radius.length(), 3))) 
+			var cent_acc = -(radius.normalized() * (velocity.dot(velocity) /  pow(radius.length(), 1))) * 0.50 # magic ratio. You can adjust it, but you wouldn't know why it works.
+			# well actually, it's working, don't touch it. 
+			# TODO: 4 hrs spent on this. add this counter if you adjust and it doesn't work.
 			var player_acc: Vector2 = Vector2(0,0)
 			if GameInputMapper.is_action_pressed("move_right"):
 				player_acc.x = hook_acc
 			if GameInputMapper.is_action_pressed("move_left"):
 				player_acc.x = -hook_acc
+			var tangent_player_acc = player_acc - player_acc.project(radius) 
 				
 			
-			var acc = g - g.project(radius) + cent_acc + player_acc
+			var acc = g - g.project(radius) + cent_acc + tangent_player_acc
+			#var acc = radius.cross(g - g.project(radius)) * radius.length() * radius.normalized() / radius.length_squared()
+			
 			
 			# dv = a * dt
 			velocity += acc * delta
