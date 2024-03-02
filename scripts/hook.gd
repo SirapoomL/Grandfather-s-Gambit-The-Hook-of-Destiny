@@ -23,9 +23,13 @@ func _physics_process(delta):
 
 
 func _on_body_entered(body):
-	if body is StaticBody2D:
-		wall_hit.emit(position)
-		speed = 0
+	if body is StaticTerrain:
+		if body is StaticHookTerrain:
+			wall_hit.emit(position)
+			speed = 0
+		else:
+			#TODO: break hook
+			pass
 
 
 func _on_timer_timeout():
