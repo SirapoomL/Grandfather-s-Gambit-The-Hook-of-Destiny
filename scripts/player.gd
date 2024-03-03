@@ -1,23 +1,28 @@
 extends CharacterBody2D
 class_name Player
 signal hit
-signal shoot(direction)
+signal shoot(direction, hold)
 signal kill(mob)
 signal finish_hook
 
-enum State {DEAD, NORMAL, JUST_HOOKED, HOOKING, HOLD_HOOK}
+enum State {DEAD, NORMAL, JUST_HOOKED, HOOKING, HOLD_HOOK, SWING}
 
 @export var speed = 400
 @export var jump_force = -450 # Usually jump force should be negative
 @export var gravity = 980 # Adjust the gravity to your needs
 @export var hook_speed = 1200
 @export var hook_quota = 2
+@export var hook_acc = 98*2
 var screen_size # Size of the game window.
 var jump_state = 3
 var jump_quota = 3
 var hook_count = 0
 var hook_despawn_duration = 0.5
 var state = State.DEAD
+var shoot_hold_duration = 0.0
+var hold_triggered = false
+var hold_threshold = 0.13
+var swing_hook: Hook
 
 func start(pos):
 	position = pos
@@ -32,8 +37,11 @@ func _ready():
 		
 func change_state(s: State):
 	if state == State.HOOKING:
-		if s == State.NORMAL || s == State.JUST_HOOKED:
+		if s == State.NORMAL || s == State.JUST_HOOKED || s == State.SWING:
 			hook_count -= 1
+	#elif state == State.SWING:
+		#if s == State.NORMAL || s == State.JUST_HOOKED :
+			#hook_count -= 1
 	state = s
 	
 func process_animation(delta):
@@ -70,9 +78,9 @@ func process_movement(delta):
 	#Handle Left Right Up Down
 	match state:
 		State.NORMAL:
-			velocity.x = 0
 			velocity.y += gravity*delta
 			if is_on_floor():
+				velocity.x = 0
 				change_state(State.NORMAL)
 				jump_state = 0
 			if GameInputMapper.is_action_pressed("move_right"):
@@ -81,6 +89,35 @@ func process_movement(delta):
 				velocity.x = -speed
 		State.JUST_HOOKED:
 			change_state(State.HOOKING)
+		State.SWING:
+			if is_on_floor():
+				velocity.x = 0
+				change_state(State.NORMAL)
+				jump_state = 0
+				return
+			var radius = position - swing_hook.position
+			#print(radius.length())
+			if velocity.length() != 0.0:
+				velocity = velocity.project(velocity - velocity.project(radius))
+			var g = Vector2(0, gravity)
+			var cent_acc = -(radius.normalized() * (velocity.dot(velocity) /  pow(radius.length(), 1))) * 0.50 # magic ratio. You can adjust it, but you wouldn't know why it works.
+			# well actually, it's working, don't touch it. 
+			# TODO: 4 hrs spent on this. add this counter if you adjust and it doesn't work.
+			var player_acc: Vector2 = Vector2(0,0)
+			if GameInputMapper.is_action_pressed("move_right"):
+				player_acc.x = hook_acc
+			if GameInputMapper.is_action_pressed("move_left"):
+				player_acc.x = -hook_acc
+			var tangent_player_acc = player_acc - player_acc.project(radius) 
+				
+			
+			var acc = g - g.project(radius) + cent_acc + tangent_player_acc
+			#var acc = radius.cross(g - g.project(radius)) * radius.length() * radius.normalized() / radius.length_squared()
+			
+			
+			# dv = a * dt
+			velocity += acc * delta
+			#print("swing movement is not implemented yet")
 		
 	#Handle Jump
 	if GameInputMapper.is_action_just_pressed("jump") and jump_state < jump_quota:
@@ -97,12 +134,27 @@ func _physics_process(delta):
 
 	if state == State.DEAD: return
 	
-	if GameInputMapper.is_action_just_pressed("shoot"):
-		if hook_count < hook_quota:
-			hook_count += 1
-			var cliclPos = get_local_mouse_position()
-			var direction = cliclPos.normalized()
-			shoot.emit(direction)
+	# Handling shoot
+	# TODO: extract this as a method
+	if GameInputMapper.is_action_just_released("shoot"):
+		if swing_hook:
+			swing_hook.queue_free()
+			swing_hook = null
+			
+		if state == State.SWING:
+			change_state(State.NORMAL)
+		elif shoot_hold_duration <= hold_threshold:
+			shoot_action(false)
+		shoot_hold_duration = 0
+		hold_triggered = false
+	
+	if GameInputMapper.is_action_pressed("shoot"):
+		shoot_hold_duration += delta
+		if not hold_triggered && shoot_hold_duration > hold_threshold:
+			hold_triggered = true
+			shoot_action(true)
+			print("hold triggered")
+		
 	
 	process_movement(delta)
 	move_and_slide()
@@ -110,6 +162,17 @@ func _physics_process(delta):
 	process_collision(delta)
 	
 	process_animation(delta)
+	#print(position)
+
+func shoot_action(is_holding):
+	# swing hook can't be duplicated
+	if swing_hook && is_holding:
+		return
+	if hook_count < hook_quota:
+		hook_count += 0 if is_holding else 1
+		var cliclPos = get_local_mouse_position()
+		var direction = cliclPos.normalized()
+		shoot.emit(direction, is_holding)
 
 func _on_wall_hooked(arg_position):
 	print("on wall hooked", arg_position)
@@ -119,5 +182,12 @@ func _on_wall_hooked(arg_position):
 	#print(direction)
 	change_state(State.JUST_HOOKED)
 	set_velocity(direction * hook_speed)
-		
-
+	
+func set_swing_hook(sh: Hook):
+	swing_hook = sh
+	
+func _on_wall_swing(arg_position):
+	print("on wall swing", arg_position)
+	if state == State.DEAD: return
+	change_state(State.SWING)
+	
