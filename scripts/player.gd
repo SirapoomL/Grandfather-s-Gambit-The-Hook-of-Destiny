@@ -24,6 +24,9 @@ var hold_triggered = false
 var hold_threshold = 0.13
 var swing_hook: Hook
 
+func _get_debug_hud():
+	return get_tree().root.get_node("Main/DebugHud")
+
 func start(pos):
 	position = pos
 	state = State.NORMAL
@@ -163,6 +166,7 @@ func _physics_process(delta):
 	
 	process_animation(delta)
 	#print(position)
+	_get_debug_hud().update_hook_count(hook_count)
 
 func shoot_action(is_holding):
 	# swing hook can't be duplicated
@@ -190,4 +194,6 @@ func _on_wall_swing(arg_position):
 	print("on wall swing", arg_position)
 	if state == State.DEAD: return
 	change_state(State.SWING)
+
+	
 	
