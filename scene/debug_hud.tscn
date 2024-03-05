@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0nwidecrygbl"]
+
+[ext_resource type="Script" path="res://scripts/debug_hud.gd" id="1_1cmec"]
+
+[node name="DebugHud" type="CanvasLayer"]
+script = ExtResource("1_1cmec")
+
+[node name="HookCountLabel" type="Label" parent="."]
+offset_left = 28.0
+offset_top = 26.0
+offset_right = 291.0
+offset_bottom = 116.0
+theme_override_font_sizes/font_size = 36
+text = "Hook Count:"
+vertical_alignment = 1
