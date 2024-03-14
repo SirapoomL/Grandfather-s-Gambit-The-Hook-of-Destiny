@@ -1,0 +1,62 @@
+# Final project Roadmap Planning
+
+## TODO
+
+- ui:
+  - mainmenu:
+  - pause menu:
+    - settings:
+      - quitting
+      - control mapping
+    - weapons and skills
+    - skill tree
+  - HUD:
+    - health bar
+    - weapon type
+    - debuff-bnuff
+    - potion
+    - skill (weapon art) (with cooldown)
+
+- player:
+  - movement:
+    - normal movement (tune)
+    - normal hook (tune):
+      - can hold to wall
+    - swing hook (tune)
+    - other hook types
+    - wall holding
+  - combat:
+    - weapon type
+    - ground attack
+    - air attack
+    - hook attack (certain hook type)
+    - light and heavy attack
+    - skill (weapon art) (with cooldown)
+    - ?? combo ??
+  - stats:
+    - health
+    - attack
+    - exp
+  - skill:
+  - mastery:
+
+- level:
+  - terrain and obstacles:
+    - normal terrain
+    - hazard
+    - destructible terrain
+    - moving terrain
+    - bonfire
+    - hook point
+    - holdable terrain
+  - enemy:
+    - ground enemy
+    - flying enemy
+    - projectile enemy
+    - wall crawler
+  - boss:
+    - 2 bosses
+    - arena
+  - treasure:
+    - potion
+    - exp
