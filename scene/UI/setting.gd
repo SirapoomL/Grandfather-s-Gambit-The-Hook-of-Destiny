@@ -7,7 +7,7 @@ func _ready():
 	$info_panel.hide()
 	pass # Replace with function body.
 
-func _process(delta):
+func _process(_delta):
 	if awaiting_input_for != "":
 		var actions = GameInputMapper.get_actions_just_pressed()
 		if actions.size() == 0:
