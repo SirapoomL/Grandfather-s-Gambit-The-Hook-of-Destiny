@@ -18,10 +18,10 @@ func process_movement(player, delta):
 				player.jump_state = 0
 			if GameInputMapper.is_action_pressed("move_right"):
 				player.velocity.x = player.speed
-				player.set_deferred("rotation", 0)
+				#player.set_deferred("rotation", 0)
 			if GameInputMapper.is_action_pressed("move_left"):
 				player.velocity.x = -player.speed
-				player.set_deferred("rotation", -PI)
+				#player.set_deferred("rotation", -PI)
 		player.State.JUST_HOOKED:
 			player.change_state(player.State.HOOKING)
 		player.State.SWING:
@@ -30,19 +30,22 @@ func process_movement(player, delta):
 				player.change_state(player.State.NORMAL)
 				player.jump_state = 0
 				return
-			var radius = player.position - player.swing_hook.position
-			if player.velocity.length() != 0.0:
-				player.velocity = player.velocity.project(player.velocity - player.velocity.project(radius))
-			var g = Vector2(0, player.gravity)
-			var cent_acc = -(radius.normalized() * (player.velocity.dot(player.velocity) /  pow(radius.length(), 1))) * 0.50
-			var player_acc: Vector2 = Vector2(0,0)
+				
+			# apply gravity
+			player.velocity.y += player.gravity * delta
+			
+			# left/right strafe
 			if GameInputMapper.is_action_pressed("move_right"):
-				player_acc.x = player.hook_acc
+				if player.velocity.x < player.speed:
+					player.velocity.x = move_toward(player.velocity.x, player.speed, player.speed * delta)
 			if GameInputMapper.is_action_pressed("move_left"):
-				player_acc.x = -player.hook_acc
-			var tangent_player_acc = player_acc - player_acc.project(radius) 
-			var acc = g - g.project(radius) + cent_acc + tangent_player_acc
-			player.velocity += acc * delta
+				if player.velocity.x > -player.speed:
+					player.velocity.x = move_toward(player.velocity.x, -player.speed, player.speed * delta)
+					
+			# project velocity
+			var hook_direction = (player.position - player.swing_hook.position).normalized()
+			if player.velocity.dot(hook_direction) > 0:
+				player.velocity = player.velocity.project(hook_direction.orthogonal())
 
 	if GameInputMapper.is_action_just_pressed("jump") and player.jump_state < player.jump_quota:
 		player.change_state(player.State.NORMAL)
