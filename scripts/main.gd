@@ -66,8 +66,8 @@ func _on_mob_timer_timeout():
 	# Spawn the mob by adding it to the Main scene.
 	#add_child(mob)
 	
-	if (ground_mob_count < 3) and (randi_range(0, 1) == 0):
-		#ground_mob_count += 1
+	if (ground_mob_count < 3) and (randi_range(0, 5) == 0):
+		ground_mob_count += 1
 		add_child(ground_mob)
 		print("Spawn ground mob:", ground_mob_count)
 	

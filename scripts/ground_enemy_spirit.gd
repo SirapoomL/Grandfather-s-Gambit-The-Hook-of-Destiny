@@ -1,7 +1,7 @@
 extends RigidBody2D
 class_name GroundEnemy
 
-var speed = 45
+var speed = 60
 var player_chase = false
 var player = null
 
