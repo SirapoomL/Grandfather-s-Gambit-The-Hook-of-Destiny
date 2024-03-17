@@ -30,6 +30,7 @@ func new_game():
 	print("game start")
 	GameState.set_current_state(GameState.State.PLAYING)
 	get_tree().call_group("mobs", "queue_free")
+	#get_tree().call_group("GroundEnemy", "_self_kill") #TODO delete all ground enemy at the begining of the game
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$HUD.update_score(score)
@@ -64,8 +65,10 @@ func _on_mob_timer_timeout():
 	mob.linear_velocity = velocity.rotated(direction)
 
 	# Spawn the mob by adding it to the Main scene.
-	#add_child(mob)
+	if (randi_range(0, 3) == 0):
+		add_child(mob)
 	
+	# Spawn the ground mob by adding it to the Main scene.
 	if (ground_mob_count < 3) and (randi_range(0, 5) == 0):
 		ground_mob_count += 1
 		add_child(ground_mob)
