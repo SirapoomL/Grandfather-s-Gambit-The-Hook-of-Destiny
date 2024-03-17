@@ -1,15 +1,67 @@
-[gd_scene load_steps=5 format=3 uid="uid://dgou2ctgr645i"]
+[gd_scene load_steps=3 format=3 uid="uid://dgou2ctgr645i"]
 
-[ext_resource type="PackedScene" uid="uid://c0puo681utsw7" path="res://scene/UI/skill_tree.tscn" id="1_1onwn"]
 [ext_resource type="Script" path="res://scripts/ingame_menu_interface.gd" id="1_c6jo6"]
-[ext_resource type="PackedScene" uid="uid://ce7ef7uabu7dn" path="res://scene/UI/backpack.tscn" id="2_htjcw"]
 [ext_resource type="PackedScene" uid="uid://dy07ciachl1ir" path="res://scene/UI/setting.tscn" id="4_elaoo"]
 
 [node name="Menu_Interface" type="CanvasLayer"]
 script = ExtResource("1_c6jo6")
 
-[node name="Skill_Tree" parent="." instance=ExtResource("1_1onwn")]
-
-[node name="Backpack" parent="." instance=ExtResource("2_htjcw")]
-
 [node name="Setting" parent="." instance=ExtResource("4_elaoo")]
+visible = false
+
+[node name="Navbar" type="Panel" parent="."]
+offset_right = 1599.0
+offset_bottom = 203.0
+
+[node name="MasteryButton" type="Button" parent="Navbar"]
+layout_mode = 0
+offset_left = 95.0
+offset_top = 64.0
+offset_right = 314.0
+offset_bottom = 158.0
+text = "Mastery"
+
+[node name="WeaponsSkillsButton" type="Button" parent="Navbar"]
+layout_mode = 0
+offset_left = 688.0
+offset_top = 64.0
+offset_right = 907.0
+offset_bottom = 158.0
+text = "Weapon Skill"
+
+[node name="SettingsButton" type="Button" parent="Navbar"]
+layout_mode = 0
+offset_left = 1253.0
+offset_top = 64.0
+offset_right = 1472.0
+offset_bottom = 158.0
+text = "Setting"
+
+[node name="SettingUI" type="Panel" parent="."]
+offset_top = 203.0
+offset_right = 1599.0
+offset_bottom = 900.0
+
+[node name="ControlsButton" type="Button" parent="SettingUI"]
+layout_mode = 0
+offset_left = 688.0
+offset_top = 85.0
+offset_right = 907.0
+offset_bottom = 179.0
+text = "Control"
+
+[node name="QuitToMenuButton" type="Button" parent="SettingUI"]
+layout_mode = 0
+offset_left = 688.0
+offset_top = 320.0
+offset_right = 907.0
+offset_bottom = 414.0
+text = "Quit to Main Menu"
+
+[node name="QuitToDesktopButton" type="Button" parent="SettingUI"]
+layout_mode = 0
+offset_left = 688.0
+offset_top = 528.0
+offset_right = 907.0
+offset_bottom = 622.0
+text = "Quit to Desktop"

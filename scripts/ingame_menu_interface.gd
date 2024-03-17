@@ -1,65 +1,92 @@
 extends CanvasLayer
 class_name Menu_Interface
 
-enum UIState {
+enum NavbarState {
 	CLOSE,
-	BAG,
-	SKILL_TREE,
+	MASTERY,
+	WEAPONS_SKILLS,
 	SETTING
 }
 
-var current_ui_state = UIState.CLOSE
+var current_ui_state = NavbarState.CLOSE
+
+var mastery_button
+var weapons_skills_button
+var settings_button
+var controls_button
+var quit_to_menu_button
+var quit_to_desktop_button
+
 
 func _ready():
-	hide_all(UIState.CLOSE)
-	current_ui_state = UIState.CLOSE
+	# Initialize the UI to be closed
+	hide_all()
+	mastery_button = $Navbar/MasteryButton
+	weapons_skills_button = $Navbar/WeaponsSkillsButton
+	settings_button = $Navbar/SettingsButton
+	controls_button = $SettingUI/ControlsButton
+	quit_to_menu_button = $SettingUI/QuitToMenuButton
+	quit_to_desktop_button = $SettingUI/QuitToDesktopButton
 
-func _process(_delta):
-	if !GameState.is_playing() && GameState.get_current_state() != GameState.State.PAUSED:
-		return
-	
-	if GameInputMapper.is_action_just_pressed("inventory"):
-		toggle_bag()
+	# Connect signals for buttons
+	mastery_button.connect("pressed", Callable(self, "_on_MasteryButton_pressed"))
+	weapons_skills_button.connect("pressed", Callable(self, "_on_WeaponsSkillsButton_pressed"))
+	settings_button.connect("pressed", Callable(self, "_on_SettingsButton_pressed"))
+	controls_button.connect("pressed", Callable(self, "_on_ControlsButton_pressed"))
+	quit_to_menu_button.connect("pressed", Callable(self, "_on_QuitToMenuButton_pressed"))
+	quit_to_desktop_button.connect("pressed", Callable(self, "_on_QuitToDesktopButton_pressed"))
 
-	if GameInputMapper.is_action_just_pressed("skill_tree"):
-		toggle_skill_tree()
-		
+func _process(delta):
+	# Here, we'll just handle the toggling of the pause menu itself.
+	# Assuming 'esc' is mapped to toggle the pause menu
 	if GameInputMapper.is_action_just_pressed("esc"):
-		toggle_setting()
+		toggle_pause()
 
-func hide_all(next_state):
-	$Skill_Tree.hide()
-	$Backpack.hide()
-	$Setting.hide()
-	if next_state == UIState.CLOSE && current_ui_state == UIState.CLOSE:
-		return
-	elif next_state == UIState.CLOSE || current_ui_state == UIState.CLOSE:
-		if next_state == UIState.CLOSE:
-			GameState.set_current_state(GameState.State.PLAYING)
-		if current_ui_state == UIState.CLOSE:
-			GameState.set_current_state(GameState.State.PAUSED)
-	current_ui_state = next_state
-		
+func toggle_pause():
+	if current_ui_state == NavbarState.CLOSE:
+		show_pause_menu()
+	else:
+		hide_all()
 
-func toggle_bag():
-	if current_ui_state == UIState.BAG:
-		print('case1')
-		hide_all(UIState.CLOSE)
-	else:
-		print('case2')
-		hide_all(UIState.BAG)
-		$Backpack.show()
+func show_pause_menu():
+	# Logic to show the pause menu
+	visible = true
+	current_ui_state = NavbarState.SETTING  # Set the initial state when the menu opens
+	GameState.set_current_state(GameState.State.PAUSED)
 
-func toggle_skill_tree():
-	if current_ui_state == UIState.SKILL_TREE:
-		hide_all(UIState.CLOSE)
-	else:
-		hide_all(UIState.SKILL_TREE)
-		$Skill_Tree.show()
-		
-func toggle_setting():
-	if current_ui_state != UIState.CLOSE:
-		hide_all(UIState.CLOSE)
-	else:
-		hide_all(UIState.SETTING)
-		$Setting.show()
+func hide_all():
+	# Logic to hide the pause menu and all its sub-menus
+	visible = false
+	current_ui_state = NavbarState.CLOSE
+	GameState.set_current_state(GameState.State.PLAYING)
+
+# Signal handlers for each button
+func _on_MasteryButton_pressed():
+	# Logic for showing mastery UI
+	print("Mastery button pressed")
+	pass
+
+func _on_WeaponsSkillsButton_pressed():
+	# Logic for showing weapons and skills UI
+	print("Weapons and skills button pressed")
+	pass
+
+func _on_SettingsButton_pressed():
+	# Logic for showing settings UI
+	print("Settings button pressed")
+	pass
+
+func _on_ControlsButton_pressed():
+	# Logic for controls UI or action
+	print("Controls button pressed")
+	pass
+
+func _on_QuitToMenuButton_pressed():
+	# Logic to quit to the game's main menu
+	print("Quit to menu button pressed")
+	pass
+
+func _on_QuitToDesktopButton_pressed():
+	# Logic to quit the game to desktop
+	print("Quit to desktop button pressed")
+	get_tree().quit()

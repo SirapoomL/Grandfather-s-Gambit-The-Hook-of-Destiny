@@ -18,6 +18,7 @@ func _on_player_hit():
 
 func game_over():
 	print("game over")
+	GameState.set_current_state(GameState.State.NOT_STARTED)
 	$Music.stop()
 	$DeathSound.play()
 	$ScoreTimer.stop()
