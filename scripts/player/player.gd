@@ -16,6 +16,10 @@ enum State {DEAD, NORMAL, JUST_HOOKED, HOOKING, HOLD_HOOK, SWING}
 @export var hook_speed = 1200
 @export var hook_quota = 2
 @export var hook_acc = 98*2
+var max_hp = 100
+var current_hp = 100
+var attack_power = 20
+var exp = 0
 var screen_size # Size of the game window.
 var jump_state = 3
 var jump_quota = 3

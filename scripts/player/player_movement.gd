@@ -18,10 +18,10 @@ func process_movement(player, delta):
 				player.jump_state = 0
 			if GameInputMapper.is_action_pressed("move_right"):
 				player.velocity.x = player.speed
-				player.set_deferred("rotation", 0)
+				#player.set_deferred("rotation", 0)
 			if GameInputMapper.is_action_pressed("move_left"):
 				player.velocity.x = -player.speed
-				player.set_deferred("rotation", -PI)
+				#player.set_deferred("rotation", -PI)
 		player.State.JUST_HOOKED:
 			player.change_state(player.State.HOOKING)
 		player.State.SWING:
