@@ -31,7 +31,7 @@ var hook_count = 0
 var hook_despawn_duration = 0.5
 var shoot_hold_duration = 0.0
 var hold_triggered = false
-var hold_threshold = 0.13
+var hold_threshold = 0.2
 var swing_hook: Hook
 
 # Combat
@@ -134,7 +134,14 @@ func _on_wall_swing(arg_position):
 	if state == State.DEAD: return
 	change_state(State.SWING)
 
-
+func _on_hook_break():
+	if state == State.SWING:
+		state = State.IDLE
+	if swing_hook:
+		swing_hook.queue_free()
+		swing_hook = null
+	else:
+		hook_count -= 1
 
 func _on_attack_box_body_entered(body):
 	if body is Enemy or body is GroundEnemy:

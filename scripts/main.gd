@@ -89,14 +89,18 @@ func _on_player_shoot(direction, is_holding):
 		sh.position = $Player.position
 		sh.speed = 2000
 		sh.direction = direction
+		sh.original_pos = $Player.position
 		$Player.set_swing_hook(sh)
 		sh.connect("wall_hit", Callable($Player, "_on_wall_swing"))
+		sh.connect("hook_break", Callable($Player, "_on_hook_break"))
 		add_child(sh)
 		return
 	
 	var h = hook.instantiate()
-	h.position = $Player.position
+	h.position = $Player.global_position
 	h.speed = 2000
 	h.direction = direction
+	h.original_pos = $Player.position
 	h.connect("wall_hit", Callable($Player, "_on_wall_hooked"))
+	h.connect("hook_break", Callable($Player, "_on_hook_break"))
 	add_child(h)
