@@ -13,3 +13,7 @@ offset_bottom = 116.0
 theme_override_font_sizes/font_size = 36
 text = "Hook Count:"
 vertical_alignment = 1
+
+[node name="PlayerPosition" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0

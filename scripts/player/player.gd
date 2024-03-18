@@ -6,37 +6,50 @@ signal kill(mob)
 signal finish_hook
 
 const PlayerMovement = preload("player_movement.gd")
-const PlayerAttack = preload("player_attack.gd")
+const PlayerCombat = preload("player_combat.gd")
 
-enum State {DEAD, NORMAL, JUST_HOOKED, HOOKING, HOLD_HOOK, SWING}
+# State
+enum State {DEAD, IDLE, RUN, LIGHT_ATTACK_1, LIGHT_ATTACK_2, HEAVY_ATTACK, JUMP, JUST_HOOKED, HOOKING, HOLD_HOOK, SWING}
+const NORMAL_STATE = [State.IDLE, State.RUN, State.JUMP]
+const ATTACK_STATE = [State.LIGHT_ATTACK_1, State.LIGHT_ATTACK_2, State.HEAVY_ATTACK]
+const HOOKING_STATE = [State.HOOKING, State.HOLD_HOOK, State.SWING]
+var state = State.DEAD
+var screen_size # Size of the game window.
+var state_lock_time = 0
+var action_queue = []
+var action_just_free = false
+var face_left = false
 
+# Movement
 @export var speed = 400
 @export var jump_force = -450 # Usually jump force should be negative
 @export var gravity = 980 # Adjust the gravity to your needs
 @export var hook_speed = 1200
 @export var hook_quota = 2
 @export var hook_acc = 98*2
-var max_hp = 100
-var current_hp = 100
-var attack_power = 20
-var exp = 0
-var screen_size # Size of the game window.
+var hang_time = 0.2
 var jump_state = 3
 var jump_quota = 3
 var hook_count = 0
 var hook_despawn_duration = 0.5
-var state = State.DEAD
 var shoot_hold_duration = 0.0
 var hold_triggered = false
 var hold_threshold = 0.13
 var swing_hook: Hook
 
-func _get_debug_hud():
+# Combat
+var max_hp = 100
+var current_hp = 100
+var attack_power = 20
+var air_attack_qouta = 3
+var exp = 0
+
+func get_debug_hud():
 	return get_tree().root.get_node("Main/DebugHud")
 
 func start(pos):
 	position = pos
-	state = State.NORMAL
+	state = State.IDLE
 	show()
 	$CollisionShape2D.disabled = false
 
@@ -47,15 +60,22 @@ func _ready():
 		
 func change_state(s: State):
 	if state == State.HOOKING:
-		if s == State.NORMAL || s == State.JUST_HOOKED || s == State.SWING:
+		if s in NORMAL_STATE || s == State.JUST_HOOKED || s == State.SWING:
 			hook_count -= 1
 	#elif state == State.SWING:
-		#if s == State.NORMAL || s == State.JUST_HOOKED :
+		#if s in NORMAL_STATE || s == State.JUST_HOOKED :
 			#hook_count -= 1
 	state = s
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	action_just_free = false
+	var new_state_lock_time =  state_lock_time - delta if state_lock_time - delta > 0 else 0
+	if new_state_lock_time < state_lock_time and new_state_lock_time == 0:
+		action_just_free = true
+		state = State.IDLE
+		face_left = velocity.x < 0
+	state_lock_time = new_state_lock_time
 	if !GameState.is_playing():
 		return
 
@@ -69,7 +89,7 @@ func _physics_process(delta):
 			swing_hook = null
 			
 		if state == State.SWING:
-			change_state(State.NORMAL)
+			change_state(State.IDLE)
 		elif shoot_hold_duration <= hold_threshold:
 			shoot_action(false)
 		shoot_hold_duration = 0
@@ -83,9 +103,10 @@ func _physics_process(delta):
 			print("hold triggered")
 		
 	# process_movement(delta)
-	PlayerAttack.new().process(self, delta)
+	PlayerCombat.new().process(self, delta)
 	PlayerMovement.new().process(self, delta)
-	_get_debug_hud().update_hook_count(hook_count)
+	get_debug_hud().update_hook_count(hook_count)
+	get_debug_hud().update_player_position(global_position)
 
 func shoot_action(is_holding):
 	# swing hook can't be duplicated
@@ -117,8 +138,6 @@ func _on_wall_swing(arg_position):
 
 
 func _on_attack_box_body_entered(body):
-	print("attack")
 	if body is Enemy or body is GroundEnemy:
-		print("hit")
 		kill.emit(body)
 		body.queue_free()
