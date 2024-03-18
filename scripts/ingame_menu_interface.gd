@@ -24,14 +24,11 @@ func _ready():
 	mastery_button = $Navbar/MasteryButton
 	weapons_skills_button = $Navbar/WeaponsSkillsButton
 	settings_button = $Navbar/SettingsButton
-	controls_button = $SettingUI/ControlsButton
-	quit_to_menu_button = $SettingUI/QuitToMenuButton
-	quit_to_desktop_button = $SettingUI/QuitToDesktopButton
+	controls_button = $Control/TabContainer/Setting/MarginContainer/VBoxContainer/ControlsButton
+	quit_to_menu_button = $Control/TabContainer/Setting/MarginContainer/VBoxContainer/QuitToMenuButton
+	quit_to_desktop_button = $Control/TabContainer/Setting/MarginContainer/VBoxContainer/QuitToDesktopButton
 
 	# Connect signals for buttons
-	mastery_button.connect("pressed", Callable(self, "_on_MasteryButton_pressed"))
-	weapons_skills_button.connect("pressed", Callable(self, "_on_WeaponsSkillsButton_pressed"))
-	settings_button.connect("pressed", Callable(self, "_on_SettingsButton_pressed"))
 	controls_button.connect("pressed", Callable(self, "_on_ControlsButton_pressed"))
 	quit_to_menu_button.connect("pressed", Callable(self, "_on_QuitToMenuButton_pressed"))
 	quit_to_desktop_button.connect("pressed", Callable(self, "_on_QuitToDesktopButton_pressed"))
