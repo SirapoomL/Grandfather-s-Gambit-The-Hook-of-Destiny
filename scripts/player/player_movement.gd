@@ -25,10 +25,12 @@ func process_movement(player, delta):
 		if GameInputMapper.is_action_pressed("move_right"):
 			player.state = player.State.RUN
 			player.velocity.x = player.speed
+			player.face_left = false
 			#player.set_deferred("rotation", 0)
 		if GameInputMapper.is_action_pressed("move_left"):
 			player.state = player.State.RUN
 			player.velocity.x = -player.speed
+			player.face_left = true
 	if player.state in player.ATTACK_STATE:
 		player.velocity.y += player.gravity * delta * 0.1
 		player.velocity.x = 0
@@ -39,7 +41,6 @@ func process_movement(player, delta):
 			player.jump_state = 0
 			if GameInputMapper.is_action_pressed("move_right"):
 				player.velocity.x = player.speed
-				#player.set_deferred("rotation", 0)
 			if GameInputMapper.is_action_pressed("move_left"):
 				player.velocity.x = -player.speed
 	match player.state:
@@ -90,6 +91,10 @@ func process_collision(player, _delta):
 			player.velocity.y = 0
 
 func process_animation(player,_delta):
+	if player.face_left:
+		player.get_node("Sprite2D").flip_h = true
+	else:
+		player.get_node("Sprite2D").flip_h = false
 	var state_machine = player.get_node("AnimationTree").get("parameters/playback")
 	#print(player.get_tree().root.get_node(player.get_node("AnimationTree")))
 	#player.get_node("AnimationTree").get_animation_player().set_deferred("speed_scale",100)

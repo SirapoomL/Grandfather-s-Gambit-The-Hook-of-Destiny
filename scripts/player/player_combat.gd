@@ -34,6 +34,11 @@ func try_change_state(player, next_state):
 
 func change_state(player, node_name, next_state, lock_time, hang_time, qouta_used):
 	player.get_node("AttackBox/"+node_name+"CollisionShape").set_deferred("disabled", false)
+	var player_pos = player.global_position.x
+	var attack_pos = player.get_node("AttackBox/"+node_name+"CollisionShape").global_position.x
+	var x_dist = player_pos - attack_pos if player_pos - attack_pos > 0 else attack_pos - player_pos
+	var new_attack_pos = player_pos - x_dist if player.face_left else player_pos + x_dist
+	player.get_node("AttackBox/"+node_name+"CollisionShape").global_position.x = new_attack_pos
 	player.state = next_state
 	player.state_lock_time = lock_time
 	
