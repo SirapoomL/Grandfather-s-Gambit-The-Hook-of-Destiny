@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bb7ln7ij1hrvk"]
+
+[ext_resource type="Script" path="res://scripts/level/hook_point.gd" id="1_e76tv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nk0r4"]
+radius = 17.0294
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j5gb4"]
+radius = 63.0079
+
+[node name="HookPoint" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_e76tv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_nk0r4")
+
+[node name="SnapRange" type="Area2D" parent="."]
+collision_layer = 16384
+collision_mask = 16384
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SnapRange"]
+shape = SubResource("CircleShape2D_j5gb4")
+
+[connection signal="mouse_entered" from="SnapRange" to="." method="_on_snap_range_mouse_entered"]
+[connection signal="mouse_exited" from="SnapRange" to="." method="_on_snap_range_mouse_exited"]

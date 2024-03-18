@@ -5,9 +5,6 @@ signal shoot(direction, hold)
 signal kill(mob)
 signal finish_hook
 
-const PlayerMovement = preload("player_movement.gd")
-const PlayerCombat = preload("player_combat.gd")
-
 # State
 enum State {DEAD, IDLE, RUN, LIGHT_ATTACK_1, LIGHT_ATTACK_2, HEAVY_ATTACK, JUMP, JUST_HOOKED, HOOKING, HOLD_HOOK, SWING}
 const NORMAL_STATE = [State.IDLE, State.RUN, State.JUMP]
@@ -103,8 +100,8 @@ func _physics_process(delta):
 			print("hold triggered")
 		
 	# process_movement(delta)
-	PlayerCombat.new().process(self, delta)
-	PlayerMovement.new().process(self, delta)
+	get_node("CombatHandler").process(self, delta)
+	get_node("MovementHandler").process(self, delta)
 	get_debug_hud().update_hook_count(hook_count)
 	get_debug_hud().update_player_position(global_position)
 
@@ -114,8 +111,11 @@ func shoot_action(is_holding):
 		return
 	if hook_count < hook_quota:
 		hook_count += 0 if is_holding else 1
-		var cliclPos = get_local_mouse_position()
-		var direction = cliclPos.normalized()
+		var hook_snap_pos = get_node("HookHandler").snap_pos
+		var clickPos = get_local_mouse_position()
+		if  hook_snap_pos != null :
+			clickPos = Vector2(hook_snap_pos.x - global_position.x, hook_snap_pos.y - global_position.y) 
+		var direction = clickPos.normalized()
 		shoot.emit(direction, is_holding)
 
 func _on_wall_hooked(arg_position):

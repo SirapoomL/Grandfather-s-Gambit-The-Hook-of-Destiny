@@ -1,12 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://bnycfvgjngbs1"]
+[gd_scene load_steps=21 format=3 uid="uid://bnycfvgjngbs1"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_dxhif"]
 [ext_resource type="PackedScene" uid="uid://si486osg7gro" path="res://scene/BG.tscn" id="2_ai2ce"]
-[ext_resource type="Script" path="res://scripts/level/static_terrain.gd" id="3_fd3kk"]
 [ext_resource type="Texture2D" uid="uid://dcjb5du7x0nuq" path="res://art/forest_fantasy/SET1_Mainlev_build.png" id="3_irxxh"]
 [ext_resource type="Texture2D" uid="uid://bj8eb36p60k6v" path="res://art/forest_fantasy/SET1_Main_bckgrdlev_build.png" id="4_mowv0"]
 [ext_resource type="Texture2D" uid="uid://3r2t6gisgke5" path="res://art/forest_fantasy/SET1_decorative_obj.png" id="5_c5gxy"]
 [ext_resource type="Script" path="res://scripts/level/hookable_static_terrain.gd" id="6_gut3w"]
+[ext_resource type="PackedScene" uid="uid://bb7ln7ij1hrvk" path="res://scene/obstacles/hook_point.tscn" id="7_2ahnc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ptre1"]
 texture = ExtResource("3_irxxh")
@@ -2449,7 +2449,7 @@ sources/1 = SubResource("TileSetAtlasSource_a1not")
 size = Vector2(1731, 57)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v73t0"]
-size = Vector2(1882.25, 204)
+size = Vector2(4194.25, 204)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ot24"]
 size = Vector2(117, 927)
@@ -2468,9 +2468,6 @@ size = Vector2(21, 426.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nnreq"]
 size = Vector2(21, 117)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h68j1"]
-size = Vector2(116, 882.5)
 
 [node name="Map" type="Node"]
 script = ExtResource("1_dxhif")
@@ -2500,7 +2497,7 @@ position = Vector2(789.5, -52.5)
 shape = SubResource("RectangleShape2D_i7yxy")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticHookableArea"]
-position = Vector2(695.875, 852)
+position = Vector2(1851.88, 852)
 shape = SubResource("RectangleShape2D_v73t0")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticHookableArea"]
@@ -2542,9 +2539,5 @@ shape = SubResource("CircleShape2D_rgu5n")
 position = Vector2(720.5, 76.5)
 shape = SubResource("RectangleShape2D_nnreq")
 
-[node name="NonHookableArea" type="StaticBody2D" parent="."]
-script = ExtResource("3_fd3kk")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="NonHookableArea"]
-position = Vector2(1659, 407)
-shape = SubResource("RectangleShape2D_h68j1")
+[node name="HookPoint" parent="." instance=ExtResource("7_2ahnc")]
+position = Vector2(599, 416)
