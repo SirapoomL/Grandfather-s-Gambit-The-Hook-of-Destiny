@@ -74,7 +74,6 @@ func _physics_process(delta):
 	if new_state_lock_time < state_lock_time and new_state_lock_time == 0:
 		action_just_free = true
 		state = State.IDLE
-		face_left = velocity.x < 0
 	state_lock_time = new_state_lock_time
 	if !GameState.is_playing():
 		return
