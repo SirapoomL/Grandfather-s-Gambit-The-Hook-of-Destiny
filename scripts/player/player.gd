@@ -12,6 +12,7 @@ const PlayerCombat = preload("player_combat.gd")
 enum State {DEAD, IDLE, RUN, LIGHT_ATTACK_1, LIGHT_ATTACK_2, HEAVY_ATTACK, JUMP, JUST_HOOKED, HOOKING, HOLD_HOOK, SWING}
 const NORMAL_STATE = [State.IDLE, State.RUN, State.JUMP]
 const ATTACK_STATE = [State.LIGHT_ATTACK_1, State.LIGHT_ATTACK_2, State.HEAVY_ATTACK]
+const HOOKING_STATE = [State.HOOKING, State.HOLD_HOOK, State.SWING]
 var state = State.DEAD
 var screen_size # Size of the game window.
 var state_lock_time = 0
@@ -42,7 +43,7 @@ var attack_power = 20
 var air_attack_qouta = 3
 var exp = 0
 
-func _get_debug_hud():
+func get_debug_hud():
 	return get_tree().root.get_node("Main/DebugHud")
 
 func start(pos):
@@ -102,7 +103,8 @@ func _physics_process(delta):
 	# process_movement(delta)
 	PlayerCombat.new().process(self, delta)
 	PlayerMovement.new().process(self, delta)
-	_get_debug_hud().update_hook_count(hook_count)
+	get_debug_hud().update_hook_count(hook_count)
+	get_debug_hud().update_player_position(global_position)
 
 func shoot_action(is_holding):
 	# swing hook can't be duplicated

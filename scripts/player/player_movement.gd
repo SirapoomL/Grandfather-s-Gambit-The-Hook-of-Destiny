@@ -13,7 +13,9 @@ func process_movement(player, delta):
 	if player.state in player.NORMAL_STATE:
 		if player.hang_time < 0:
 			player.velocity.y += player.gravity * delta
-		else: player.hang_time = player.hang_time - delta
+		else:
+			player.hang_time = player.hang_time - delta
+			player.velocity.y += player.gravity * delta * 0.1
 		if player.is_on_floor():
 			player.hang_time = 0.1
 			player.air_attack_qouta = 3
@@ -28,7 +30,7 @@ func process_movement(player, delta):
 			player.state = player.State.RUN
 			player.velocity.x = -player.speed
 	if player.state in player.ATTACK_STATE:
-		player.velocity.y = 0
+		player.velocity.y += player.gravity * delta * 0.1
 		player.velocity.x = 0
 		if player.is_on_floor():
 			player.hang_time = 0.1
@@ -89,6 +91,9 @@ func process_collision(player, _delta):
 
 func process_animation(player,_delta):
 	var state_machine = player.get_node("AnimationTree").get("parameters/playback")
+	#print(player.get_tree().root.get_node(player.get_node("AnimationTree")))
+	#player.get_node("AnimationTree").get_animation_player().set_deferred("speed_scale",100)
+	#player.get_tree().root.get_node(player.get_node("AnimationTree").get_animation_player()).speed_scale = 0.1 
 	match player.state:
 		player.State.IDLE:
 			state_machine.travel("idle")
@@ -102,7 +107,14 @@ func process_animation(player,_delta):
 			state_machine.travel("light_attack_2")
 		player.State.HEAVY_ATTACK:
 			state_machine.travel("heavy_attack")
+		player.State.HOOKING:
+			state_machine.travel("swing")
+		player.State.HOLD_HOOK:
+			state_machine.travel("swing")
+		player.State.SWING:
+			state_machine.travel("swing")
 	#var anim = player.get_node("AnimationPlayer")
+	#anim.set_speed_scale(200)
 	#match player.state:
 		#player.State.IDLE:
 			#anim.play("idle")

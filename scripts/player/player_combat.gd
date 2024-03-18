@@ -23,14 +23,14 @@ func try_change_state(player, next_state):
 			print('push action to queue')
 			player.action_queue.push_back(next_state)
 		return
+	if next_state == player.State.LIGHT_ATTACK_2:
+		change_state(player, "LightAttack2",player.State.LIGHT_ATTACK_2,0.2,0.04, 0)
 	if not player.is_on_floor() and player.air_attack_qouta < 1:
 		return
 	if next_state == player.State.LIGHT_ATTACK_1:
-		change_state(player, "LightAttack1",player.State.LIGHT_ATTACK_1,0.6,0.08,1)
-	if next_state == player.State.LIGHT_ATTACK_2:
-		change_state(player, "LightAttack2",player.State.LIGHT_ATTACK_2,0.2,0.08, 0)
+		change_state(player, "LightAttack1",player.State.LIGHT_ATTACK_1,0.6,0.04,1)
 	if next_state == player.State.HEAVY_ATTACK:
-		change_state(player, "HeavyAttack",player.State.HEAVY_ATTACK,0.8,0.15, 1)
+		change_state(player, "HeavyAttack",player.State.HEAVY_ATTACK,0.8,0.08, 1)
 
 func change_state(player, node_name, next_state, lock_time, hang_time, qouta_used):
 	player.get_node("AttackBox/"+node_name+"CollisionShape").set_deferred("disabled", false)
@@ -39,6 +39,7 @@ func change_state(player, node_name, next_state, lock_time, hang_time, qouta_use
 	
 	# Movement 
 	player.hang_time = hang_time
+	player.velocity.y  = 0
 	if not player.is_on_floor():
 		player.air_attack_qouta = player.air_attack_qouta - qouta_used
 		
