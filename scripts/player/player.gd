@@ -150,8 +150,13 @@ func _on_hook_break():
 
 func _on_attack_box_body_entered(body):
 	if body is Enemy or body is GroundEnemy:
-		kill.emit(body)
-		body.queue_free()
+		var x = body.hit(attack_power)
+		var damage_dealt = x[0]
+		var exp_gained = x[1]
+		if exp_gained != 0:
+			body.queue_free()
+		# do smth here
+		
 
 func _on_check_area_area_exited(area):
 	if state in HOOKING_STATE and area == normal_hook:
