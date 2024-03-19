@@ -227,7 +227,6 @@ script = ExtResource("1_88xg1")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visible = false
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_x5kb8")
 animation = &"jump"
@@ -289,4 +288,10 @@ script = ExtResource("7_5wpcc")
 [node name="MovementHandler" type="Node" parent="."]
 script = ExtResource("8_1yhd2")
 
+[node name="CheckArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckArea"]
+shape = SubResource("CapsuleShape2D_rru7u")
+
 [connection signal="body_entered" from="AttackBox" to="." method="_on_attack_box_body_entered"]
+[connection signal="area_exited" from="CheckArea" to="." method="_on_check_area_area_exited"]
