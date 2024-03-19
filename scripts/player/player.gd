@@ -33,6 +33,7 @@ var shoot_hold_duration = 0.0
 var hold_triggered = false
 var hold_threshold = 0.2
 var swing_hook: Hook
+var normal_hook: Hook
 
 # Combat
 var max_hp = 100
@@ -66,6 +67,7 @@ func change_state(s: State):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	print(state)
 	action_just_free = false
 	var new_state_lock_time =  state_lock_time - delta if state_lock_time - delta > 0 else 0
 	if new_state_lock_time < state_lock_time and new_state_lock_time == 0:
@@ -129,6 +131,9 @@ func _on_wall_hooked(arg_position):
 func set_swing_hook(sh: Hook):
 	swing_hook = sh
 	
+func set_normal_hook(h: Hook):
+	normal_hook = h
+	
 func _on_wall_swing(arg_position):
 	print("on wall swing", arg_position)
 	if state == State.DEAD: return
@@ -147,3 +152,9 @@ func _on_attack_box_body_entered(body):
 	if body is Enemy or body is GroundEnemy:
 		kill.emit(body)
 		body.queue_free()
+
+
+func _on_check_area_area_exited(area):
+	if state in HOOKING_STATE and area == normal_hook:
+		print("hook passed")
+		change_state(State.RUN)
