@@ -4,11 +4,16 @@ class_name GroundEnemy
 var speed = 60
 var player_chase = false
 var player = null
+var hp = 40
+var exp = 10
 
 
 func _physics_process(delta):
-	if player_chase:
-		position.x += (player.position.x - position.x) / speed
+	if player_chase && ((player.position.x - position.x) < -40 || (player.position.x - position.x) > 80):
+		if (player.position.x > position.x):
+			position.x += speed*delta
+		else:
+			position.x -= speed*delta
 		#position.y += (player.position.y - position.y) / speed # NOTE uncomment this to make spirit fly!
 		$AnimatedSprite2D.play("spirit_move")
 		
@@ -28,8 +33,9 @@ func _on_detection_area_body_entered(body):
 
 
 func _on_detection_area_body_exited(body):
-	player = null
-	player_chase = false
+	if (body.name == 'Player'):
+		player = null
+		player_chase = false
 	#$AnimatedSprite2D.play("spirit_idle")
 
 
@@ -37,6 +43,11 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
 	pass # Replace with function body.
 	
+func hit(damage):
+	hp -= damage
+	if hp <= 0:
+		return [damage, exp]
+	return [damage, 0]
 	
 func _self_kill():
 	queue_free()

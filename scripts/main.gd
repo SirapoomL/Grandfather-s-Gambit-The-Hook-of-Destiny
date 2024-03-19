@@ -65,21 +65,25 @@ func _on_mob_timer_timeout():
 	mob.linear_velocity = velocity.rotated(direction)
 
 	# Spawn the mob by adding it to the Main scene.
-	if (randi_range(0, 3) == 0):
-		add_child(mob)
+	#if (randi_range(0, 3) == 0):
+		#add_child(mob)
 	
 	# Spawn the ground mob by adding it to the Main scene.
-	if (ground_mob_count < 3) and (randi_range(0, 5) == 0):
-		ground_mob_count += 1
+	if get_tree().get_nodes_in_group("ground_mobs").size() < 3:
+		# ground_mob_count += 1
 		add_child(ground_mob)
-		print("Spawn ground mob:", ground_mob_count)
+		print("Spawn ground mob:", get_tree().get_nodes_in_group("ground_mobs").size())
+	# if (ground_mob_count < 3) and (randi_range(0, 5) == 0):
+	# 	ground_mob_count += 1
+	# 	add_child(ground_mob)
+	# 	print("Spawn ground mob:", ground_mob_count)
 	
 func _on_score_timer_timeout():
 	score += 1
 	$HUD.update_score(score)
 
 func _on_start_timer_timeout():
-	#$MobTimer.start()
+	$MobTimer.start()
 	$ScoreTimer.start()
 	print("timer start")
 

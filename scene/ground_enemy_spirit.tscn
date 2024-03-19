@@ -57,8 +57,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b4gtc"]
-radius = 34.0
-height = 68.0
+radius = 23.0
+height = 46.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_se1he"]
 radius = 431.227
@@ -70,21 +70,22 @@ gravity_scale = 0.0
 script = ExtResource("1_32077")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(20.5, -25)
-scale = Vector2(1.64063, 1.5625)
+position = Vector2(20.5, -8.28583)
+scale = Vector2(1.17187, 1.11607)
 sprite_frames = SubResource("SpriteFrames_eojy0")
 animation = &"spirit_attack"
 frame_progress = 0.092832
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(19, -13)
+position = Vector2(21, -1.28583)
 shape = SubResource("CapsuleShape2D_b4gtc")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(20, -14)
+position = Vector2(21, -8.28583)
 scale = Vector2(3.6, 3.05)
 
 [node name="detection_area" type="Area2D" parent="."]
+visible = false
 position = Vector2(27, -10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
