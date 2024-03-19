@@ -49,7 +49,7 @@ func process_movement(player, delta):
 		player.State.WALL_HOOK:
 			player.velocity.x = 0
 			player.velocity.y = 0
-			if GameInputMapper.is_action_pressed_in(["move_right", "move_left", "jump"]):
+			if GameInputMapper.is_action_just_released("hold_wall") ||GameInputMapper.is_action_pressed_in(["move_right", "move_left", "jump"]):
 				print("cancle wall hook")
 				player.change_state(player.State.IDLE)
 				process_movement(player, delta)
@@ -77,16 +77,19 @@ func process_movement(player, delta):
 			if player.velocity.dot(hook_direction) > 0:
 				player.velocity = player.velocity.project(hook_direction.orthogonal())
 
-	if GameInputMapper.is_action_just_pressed("jump") and player.jump_state < player.jump_quota:
+	if GameInputMapper.is_action_just_pressed("jump") and (player.jump_state < player.jump_quota || player.state == player.State.SWING || player.state == player.State.HOOKING):
 		player.hang_time = 0
 		player.change_state(player.State.JUMP)
-		player.jump_state += 1
+		if player.state != player.State.SWING && player.state != player.State.HOOKING:
+			player.jump_state += 1
 		player.velocity.y = player.jump_force
 
 func process_collision(player, _delta):
 	# Handle collision logic here
 	for i in player.get_slide_collision_count():
 		var collision = player.get_slide_collision(i)
+		if collision.get_collider() is Hook:
+			player.change_state(player.State.IDLE)
 		if collision.get_collider() is Enemy or collision.get_collider() is GroundEnemy:
 			if player.state == player.State.HOOKING:
 				print("hit")
@@ -98,9 +101,11 @@ func process_collision(player, _delta):
 			# 	player.change_state(player.State.DEAD)
 			# 	player.get_node("CollisionShape2D").set_deferred("disabled", true)
 		elif player.state == player.State.HOOKING:
-			player.change_state(player.State.WALL_HOOK)
+			if GameInputMapper.is_action_pressed("hold_wall"):
+				player.change_state(player.State.WALL_HOOK)
+			else:
+				player.change_state(player.State.IDLE)
 			player.velocity.y = 0
-
 func process_animation(player,_delta):
 	if player.face_left:
 		player.get_node("Sprite2D").flip_h = true

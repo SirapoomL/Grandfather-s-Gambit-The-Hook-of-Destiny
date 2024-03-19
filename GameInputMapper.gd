@@ -16,7 +16,8 @@ var keybinds = {
 	"esc": ["esc"],
 	"shoot": ["r"],
 	"light_attack": ["left_mouse_button"],
-	"heavy_attack": ["right_mouse_button"]
+	"heavy_attack": ["right_mouse_button"],
+	"hold_wall": ["shift"], 
 }
 
 func is_action_just_pressed(input):

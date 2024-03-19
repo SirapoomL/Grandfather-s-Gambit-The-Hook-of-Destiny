@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://hl4xtvdy2spj"]
+[gd_scene load_steps=43 format=3 uid="uid://hl4xtvdy2spj"]
 
 [ext_resource type="Texture2D" uid="uid://y7rkbse3ksc2" path="res://art/playerGrey_walk1.png" id="1_4smh8"]
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_88xg1"]
@@ -220,10 +220,14 @@ states/swing/position = Vector2(630, 51)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_30nxx"), "idle", "heavy_attack", SubResource("AnimationNodeStateMachineTransition_75i5w"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_cqm68"), "run", "heavy_attack", SubResource("AnimationNodeStateMachineTransition_77a1h"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_n2mj7"), "heavy_attack", "idle", SubResource("AnimationNodeStateMachineTransition_e4pfv"), "heavy_attack", "run", SubResource("AnimationNodeStateMachineTransition_aei4a"), "idle", "light_attack_1", SubResource("AnimationNodeStateMachineTransition_fy1x5"), "light_attack_1", "light_attack_2", SubResource("AnimationNodeStateMachineTransition_0kq4y"), "light_attack_2", "idle", SubResource("AnimationNodeStateMachineTransition_hk0fq"), "light_attack_1", "idle", SubResource("AnimationNodeStateMachineTransition_ghos6"), "idle", "swing", SubResource("AnimationNodeStateMachineTransition_1vpw8"), "swing", "idle", SubResource("AnimationNodeStateMachineTransition_sd4oe")]
 graph_offset = Vector2(10, -51)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_cxc4q"]
+radius = 400.0
+
 [node name="Player" type="CharacterBody2D"]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 35
+collision_mask = 35
 script = ExtResource("1_88xg1")
+hook_speed = 850
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -289,9 +293,20 @@ script = ExtResource("7_5wpcc")
 script = ExtResource("8_1yhd2")
 
 [node name="CheckArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CheckArea"]
 shape = SubResource("CapsuleShape2D_rru7u")
 
+[node name="HookRangeIndicator2" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CircleShape" type="CollisionShape2D" parent="HookRangeIndicator2"]
+shape = SubResource("CircleShape2D_cxc4q")
+debug_color = Color(0.635294, 0.592157, 0.290196, 0.278431)
+
 [connection signal="body_entered" from="AttackBox" to="." method="_on_attack_box_body_entered"]
+[connection signal="area_entered" from="CheckArea" to="." method="_on_check_area_area_entered"]
 [connection signal="area_exited" from="CheckArea" to="." method="_on_check_area_area_exited"]
