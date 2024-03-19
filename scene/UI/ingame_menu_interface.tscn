@@ -53,8 +53,10 @@ theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_ctvfl")
 theme_override_styles/tab_focus = SubResource("StyleBoxFlat_2w4lx")
 theme_override_styles/panel = SubResource("StyleBoxFlat_d7gmp")
 tab_alignment = 1
+current_tab = 2
 
 [node name="Mastery" type="TabBar" parent="Control/TabContainer"]
+visible = false
 layout_mode = 2
 tab_alignment = 1
 
@@ -91,7 +93,6 @@ theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
 [node name="Setting" type="TabBar" parent="Control/TabContainer"]
-visible = false
 layout_mode = 2
 tab_alignment = 1
 
