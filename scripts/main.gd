@@ -30,7 +30,7 @@ func new_game():
 	print("game start")
 	GameState.set_current_state(GameState.State.PLAYING)
 	get_tree().call_group("mobs", "queue_free")
-	#get_tree().call_group("GroundEnemy", "_self_kill") #TODO delete all ground enemy at the begining of the game
+	get_tree().call_group("ground_mobs", "queue_free")
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$HUD.update_score(score)
