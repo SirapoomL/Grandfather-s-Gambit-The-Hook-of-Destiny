@@ -159,7 +159,7 @@ func _on_attack_box_body_entered(body):
 		# do smth here
 		
 
-func _on_check_area_area_entered(area):
+func _on_check_area_area_exited(area):
 	if area.global_position == normal_hook.global_position:
 		print("hook passed")
 		change_state(State.IDLE)
