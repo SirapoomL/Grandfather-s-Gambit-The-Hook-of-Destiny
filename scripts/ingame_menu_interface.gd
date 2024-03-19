@@ -10,9 +10,7 @@ enum NavbarState {
 
 var current_ui_state = NavbarState.CLOSE
 
-var mastery_button
-var weapons_skills_button
-var settings_button
+
 var controls_button
 var quit_to_menu_button
 var quit_to_desktop_button
@@ -21,9 +19,6 @@ var quit_to_desktop_button
 func _ready():
 	# Initialize the UI to be closed
 	hide_all()
-	mastery_button = $Navbar/MasteryButton
-	weapons_skills_button = $Navbar/WeaponsSkillsButton
-	settings_button = $Navbar/SettingsButton
 	controls_button = $Control/TabContainer/Setting/MarginContainer/VBoxContainer/ControlsButton
 	quit_to_menu_button = $Control/TabContainer/Setting/MarginContainer/VBoxContainer/QuitToMenuButton
 	quit_to_desktop_button = $Control/TabContainer/Setting/MarginContainer/VBoxContainer/QuitToDesktopButton
