@@ -24,18 +24,12 @@ func process_movement(player, delta):
 			player.jump_state = 0
 		if GameInputMapper.is_action_pressed("move_right"):
 			player.state = player.State.RUN
-			if player.is_on_floor():
-				player.velocity.x = player.speed
-			else:
-				player.velocity.x += player.strafe_force
+			player.velocity.x = player.speed
 			player.face_left = false
 			#player.set_deferred("rotation", 0)
 		if GameInputMapper.is_action_pressed("move_left"):
 			player.state = player.State.RUN
-			if player.is_on_floor():
-				player.velocity.x = -player.speed
-			else:
-				player.velocity.x -= player.strafe_force
+			player.velocity.x = -player.speed
 			player.face_left = true
 	if player.state in player.ATTACK_STATE:
 		player.velocity.y += player.gravity * delta * 0.1
