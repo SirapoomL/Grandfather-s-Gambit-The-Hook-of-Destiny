@@ -6,10 +6,10 @@ signal kill(mob)
 signal finish_hook
 
 # State
-enum State {DEAD, IDLE, RUN, LIGHT_ATTACK_1, LIGHT_ATTACK_2, HEAVY_ATTACK, JUMP, JUST_HOOKED, HOOKING, HOLD_HOOK, SWING}
+enum State {DEAD, IDLE, RUN, LIGHT_ATTACK_1, LIGHT_ATTACK_2, HEAVY_ATTACK, JUMP, JUST_HOOKED, HOOKING, HOLD_HOOK, SWING, WALL_HOOK}
 const NORMAL_STATE = [State.IDLE, State.RUN, State.JUMP]
 const ATTACK_STATE = [State.LIGHT_ATTACK_1, State.LIGHT_ATTACK_2, State.HEAVY_ATTACK]
-const HOOKING_STATE = [State.HOOKING, State.HOLD_HOOK, State.SWING]
+const HOOKING_STATE = [State.HOOKING, State.HOLD_HOOK, State.SWING, State.WALL_HOOK]
 var state = State.DEAD
 var screen_size # Size of the game window.
 var state_lock_time = 0
@@ -58,7 +58,7 @@ func _ready():
 		
 func change_state(s: State):
 	if state == State.HOOKING:
-		if s in NORMAL_STATE || s == State.JUST_HOOKED || s == State.SWING:
+		if s in NORMAL_STATE || s == State.JUST_HOOKED || s == State.SWING || s == State.WALL_HOOK:
 			hook_count -= 1
 	#elif state == State.SWING:
 		#if s in NORMAL_STATE || s == State.JUST_HOOKED :
@@ -67,6 +67,7 @@ func change_state(s: State):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	#print(state)
 	action_just_free = false
 	var new_state_lock_time =  state_lock_time - delta if state_lock_time - delta > 0 else 0
 	if new_state_lock_time < state_lock_time and new_state_lock_time == 0:
@@ -152,8 +153,7 @@ func _on_attack_box_body_entered(body):
 		kill.emit(body)
 		body.queue_free()
 
-
 func _on_check_area_area_exited(area):
 	if state in HOOKING_STATE and area == normal_hook:
 		print("hook passed")
-		change_state(State.RUN)
+		change_state(State.IDLE)

@@ -46,6 +46,14 @@ func process_movement(player, delta):
 	match player.state:
 		player.State.JUST_HOOKED:
 			player.change_state(player.State.HOOKING)
+		player.State.WALL_HOOK:
+			player.velocity.x = 0
+			player.velocity.y = 0
+			if GameInputMapper.is_action_pressed_in(["move_right", "move_left", "jump"]):
+				print("cancle wall hook")
+				player.change_state(player.State.IDLE)
+				process_movement(player, delta)
+				return
 		player.State.SWING:
 			if player.is_on_floor():
 				player.velocity.x = 0
@@ -90,7 +98,7 @@ func process_collision(player, _delta):
 			# 	player.change_state(player.State.DEAD)
 			# 	player.get_node("CollisionShape2D").set_deferred("disabled", true)
 		elif player.state == player.State.HOOKING:
-			player.change_state(player.State.IDLE)
+			player.change_state(player.State.WALL_HOOK)
 			player.velocity.y = 0
 
 func process_animation(player,_delta):
