@@ -14,9 +14,9 @@ var keybinds = {
 	"move_right": ["d", "right_arrow"],
 	"jump": ["spacebar"],
 	"esc": ["esc"],
-	"shoot": ["left_mouse_button"],
-	"light_attack": ["q"],
-	"heavy_attack": ["e"]
+	"shoot": ["r"],
+	"light_attack": ["left_mouse_button"],
+	"heavy_attack": ["right_mouse_button"]
 }
 
 func is_action_just_pressed(input):
@@ -24,7 +24,14 @@ func is_action_just_pressed(input):
 		if Input.is_action_just_pressed(key):
 			return true
 	return false
-	
+
+func is_action_just_pressed_in(inputs: Array[String]):
+	for input in inputs:
+		for key in keybinds[input]:
+			if Input.is_action_just_pressed(key):
+				return true
+	return false
+
 func is_action_just_released(input):
 	for key in keybinds[input]:
 		if Input.is_action_just_released(key):
@@ -37,6 +44,13 @@ func is_action_pressed(input):
 			return true
 	return false
 	
+func is_action_pressed_in(inputs: Array[String]):
+	for input in inputs:
+		for key in keybinds[input]:
+			if Input.is_action_pressed(key):
+				return true
+	return false
+
 func get_actions_just_pressed():
 	var action_list = []
 	for action in actions:

@@ -8,44 +8,78 @@ func process(player, delta):
 	process_animation(player, delta)
 	
 func process_movement(player, delta):
+	#print(player.state)
 	# Handle movement logic here
-	match player.state:
-		player.State.NORMAL:
+	if player.state in player.NORMAL_STATE:
+		if player.hang_time < 0:
 			player.velocity.y += player.gravity * delta
-			if player.is_on_floor():
-				player.velocity.x = 0
-				player.change_state(player.State.NORMAL)
-				player.jump_state = 0
+		else:
+			player.hang_time = player.hang_time - delta
+			player.velocity.y += player.gravity * delta * 0.1
+		if player.is_on_floor():
+			player.hang_time = 0.1
+			player.air_attack_qouta = 3
+			player.velocity.x = 0
+			player.change_state(player.State.IDLE)
+			player.jump_state = 0
+		if GameInputMapper.is_action_pressed("move_right"):
+			player.state = player.State.RUN
+			player.velocity.x = player.speed
+			player.face_left = false
+			#player.set_deferred("rotation", 0)
+		if GameInputMapper.is_action_pressed("move_left"):
+			player.state = player.State.RUN
+			player.velocity.x = -player.speed
+			player.face_left = true
+	if player.state in player.ATTACK_STATE:
+		player.velocity.y += player.gravity * delta * 0.1
+		player.velocity.x = 0
+		if player.is_on_floor():
+			player.hang_time = 0.1
+			player.air_attack_qouta = 3
+			player.velocity.x = 0
+			player.jump_state = 0
 			if GameInputMapper.is_action_pressed("move_right"):
 				player.velocity.x = player.speed
-				player.set_deferred("rotation", 0)
 			if GameInputMapper.is_action_pressed("move_left"):
 				player.velocity.x = -player.speed
-				player.set_deferred("rotation", -PI)
+	match player.state:
 		player.State.JUST_HOOKED:
 			player.change_state(player.State.HOOKING)
+		player.State.WALL_HOOK:
+			player.velocity.x = 0
+			player.velocity.y = 0
+			if GameInputMapper.is_action_pressed_in(["move_right", "move_left", "jump"]):
+				print("cancle wall hook")
+				player.change_state(player.State.IDLE)
+				process_movement(player, delta)
+				return
 		player.State.SWING:
 			if player.is_on_floor():
 				player.velocity.x = 0
-				player.change_state(player.State.NORMAL)
+				player.change_state(player.State.IDLE)
 				player.jump_state = 0
 				return
-			var radius = player.position - player.swing_hook.position
-			if player.velocity.length() != 0.0:
-				player.velocity = player.velocity.project(player.velocity - player.velocity.project(radius))
-			var g = Vector2(0, player.gravity)
-			var cent_acc = -(radius.normalized() * (player.velocity.dot(player.velocity) /  pow(radius.length(), 1))) * 0.50
-			var player_acc: Vector2 = Vector2(0,0)
+				
+			# apply gravity
+			player.velocity.y += player.gravity * delta
+			
+			# left/right strafe
 			if GameInputMapper.is_action_pressed("move_right"):
-				player_acc.x = player.hook_acc
+				if player.velocity.x < player.speed:
+					player.velocity.x = move_toward(player.velocity.x, player.speed, player.speed * delta)
 			if GameInputMapper.is_action_pressed("move_left"):
-				player_acc.x = -player.hook_acc
-			var tangent_player_acc = player_acc - player_acc.project(radius) 
-			var acc = g - g.project(radius) + cent_acc + tangent_player_acc
-			player.velocity += acc * delta
+				if player.velocity.x > -player.speed:
+					player.velocity.x = move_toward(player.velocity.x, -player.speed, player.speed * delta)
+					
+			# project velocity
+			var hook_direction = (player.position - player.swing_hook.position).normalized()
+			if player.velocity.dot(hook_direction) > 0:
+				player.velocity = player.velocity.project(hook_direction.orthogonal())
 
 	if GameInputMapper.is_action_just_pressed("jump") and player.jump_state < player.jump_quota:
-		player.change_state(player.State.NORMAL)
+		player.hang_time = 0
+		player.change_state(player.State.JUMP)
 		player.jump_state += 1
 		player.velocity.y = player.jump_force
 
@@ -58,24 +92,55 @@ func process_collision(player, _delta):
 				print("hit")
 				player.kill.emit(collision.get_collider())
 				collision.get_collider().queue_free()
-			else:
-				player.hide()
-				player.hit.emit()
-				player.change_state(player.State.DEAD)
-				player.get_node("CollisionShape2D").set_deferred("disabled", true)
+			# else:
+			# 	player.hide()
+			# 	player.hit.emit()
+			# 	player.change_state(player.State.DEAD)
+			# 	player.get_node("CollisionShape2D").set_deferred("disabled", true)
 		elif player.state == player.State.HOOKING:
-			player.change_state(player.State.NORMAL)
+			player.change_state(player.State.WALL_HOOK)
 			player.velocity.y = 0
 
 func process_animation(player,_delta):
-	if player.velocity.x != 0 and player.velocity.y != 0:
-		player.get_node("AnimatedSprite2D").play()
+	if player.face_left:
+		player.get_node("Sprite2D").flip_h = true
 	else:
-		player.get_node("AnimatedSprite2D").stop()
-	if player.velocity.x != 0:
-		player.get_node("AnimatedSprite2D").animation = "walk"
-		player.get_node("AnimatedSprite2D").flip_v = false
-		player.get_node("AnimatedSprite2D").flip_h = player.velocity.x < 0
-	elif player.velocity.y != 0:
-		player.get_node("AnimatedSprite2D").animation = "jump"
-		player.get_node("AnimatedSprite2D").flip_v = player.velocity.y > 0
+		player.get_node("Sprite2D").flip_h = false
+	var state_machine = player.get_node("AnimationTree").get("parameters/playback")
+	#print(player.get_tree().root.get_node(player.get_node("AnimationTree")))
+	#player.get_node("AnimationTree").get_animation_player().set_deferred("speed_scale",100)
+	#player.get_tree().root.get_node(player.get_node("AnimationTree").get_animation_player()).speed_scale = 0.1 
+	match player.state:
+		player.State.IDLE:
+			state_machine.travel("idle")
+		player.State.RUN:
+			state_machine.travel("run")
+		player.State.JUMP:
+			state_machine.travel("run")
+		player.State.LIGHT_ATTACK_1:
+			state_machine.travel("light_attack_1")
+		player.State.LIGHT_ATTACK_2:
+			state_machine.travel("light_attack_2")
+		player.State.HEAVY_ATTACK:
+			state_machine.travel("heavy_attack")
+		player.State.HOOKING:
+			state_machine.travel("swing")
+		player.State.HOLD_HOOK:
+			state_machine.travel("swing")
+		player.State.SWING:
+			state_machine.travel("swing")
+	#var anim = player.get_node("AnimationPlayer")
+	#anim.set_speed_scale(200)
+	#match player.state:
+		#player.State.IDLE:
+			#anim.play("idle")
+		#player.State.RUN:
+			#anim.play("run")
+		#player.State.JUMP:
+			#anim.play("run")
+		#player.State.LIGHT_ATTACK_1:
+			#anim.play("run")
+		#player.State.LIGHT_ATTACK_2:
+			#anim.play("run")
+		#player.State.HEAVY_ATTACK:
+			#anim.play("heavy_attack")

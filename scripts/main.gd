@@ -13,7 +13,7 @@ func _process(_delta):
 
 
 func _on_player_hit():
-	game_over()
+	#game_over()
 	pass # Replace with function body.
 
 func game_over():
@@ -31,7 +31,7 @@ func new_game():
 	print("game start")
 	GameState.set_current_state(GameState.State.PLAYING)
 	get_tree().call_group("mobs", "queue_free")
-	#get_tree().call_group("GroundEnemy", "_self_kill") #TODO delete all ground enemy at the begining of the game
+	get_tree().call_group("ground_mobs", "queue_free")
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$HUD.update_score(score)
@@ -80,7 +80,7 @@ func _on_score_timer_timeout():
 	$HUD.update_score(score)
 
 func _on_start_timer_timeout():
-	$MobTimer.start()
+	#$MobTimer.start()
 	$ScoreTimer.start()
 	print("timer start")
 
@@ -90,14 +90,19 @@ func _on_player_shoot(direction, is_holding):
 		sh.position = $Player.position
 		sh.speed = 2000
 		sh.direction = direction
+		sh.original_pos = $Player.position
 		$Player.set_swing_hook(sh)
 		sh.connect("wall_hit", Callable($Player, "_on_wall_swing"))
+		sh.connect("hook_break", Callable($Player, "_on_hook_break"))
 		add_child(sh)
 		return
 	
 	var h = hook.instantiate()
-	h.position = $Player.position
+	h.position = $Player.global_position
 	h.speed = 2000
 	h.direction = direction
+	h.original_pos = $Player.position
+	$Player.set_normal_hook(h)
 	h.connect("wall_hit", Callable($Player, "_on_wall_hooked"))
+	h.connect("hook_break", Callable($Player, "_on_hook_break"))
 	add_child(h)
