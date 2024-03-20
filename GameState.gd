@@ -6,7 +6,7 @@ enum State {
 	PAUSED
 }
 
-var _current_state = State.NOT_STARTED
+var _current_state  = State.NOT_STARTED
 
 func set_current_state(value):
 	if value in State.values():
@@ -16,6 +16,9 @@ func set_current_state(value):
 
 func get_current_state():
 	return _current_state
+
+func get_current_state_str():
+	return State.find_key(_current_state)
 
 func is_playing():
 	return _current_state == State.PLAYING

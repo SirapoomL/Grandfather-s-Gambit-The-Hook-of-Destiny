@@ -61,3 +61,9 @@ func get_actions_just_pressed():
 	
 func set_input(target,input):
 	keybinds[target][0] = input
+
+func get_key_pressed():
+	for action in actions:
+		if Input.is_action_just_pressed(action):
+			return action
+	return null

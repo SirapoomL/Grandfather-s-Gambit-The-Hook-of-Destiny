@@ -1,0 +1,531 @@
+[gd_scene load_steps=14 format=3 uid="uid://dgou2ctgr645i"]
+
+[ext_resource type="Script" path="res://scripts/pause_menu/pause_menu.gd" id="1_0fbji"]
+[ext_resource type="Script" path="res://scripts/pause_menu/setting.gd" id="2_pc57k"]
+[ext_resource type="Script" path="res://scripts/pause_menu/control.gd" id="3_tenqp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_podnf"]
+content_margin_left = 25.0
+content_margin_right = 25.0
+bg_color = Color(0.294118, 0.25098, 0.247059, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+anti_aliasing_size = 0.947
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3mjrk"]
+content_margin_left = 25.0
+content_margin_right = 25.0
+bg_color = Color(0.423529, 0.368627, 0.360784, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ctvfl"]
+content_margin_left = 25.0
+content_margin_right = 25.0
+bg_color = Color(0.223529, 0.188235, 0.184314, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2w4lx"]
+bg_color = Color(0.431373, 0.372549, 0.368627, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d7gmp"]
+bg_color = Color(0.294118, 0.25098, 0.247059, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_maa68"]
+bg_color = Color(0.215686, 0.180392, 0.180392, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udfks"]
+bg_color = Color(0.215686, 0.180392, 0.180392, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_26ee2"]
+bg_color = Color(0.227451, 0.192157, 0.192157, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jn3p"]
+bg_color = Color(0.215686, 0.180392, 0.180392, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iupb4"]
+bg_color = Color(0.454902, 0.396078, 0.396078, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.219608, 0.219608, 0.219608, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_size = 3
+
+[node name="Menu_Interface" type="CanvasLayer"]
+script = ExtResource("1_0fbji")
+
+[node name="Control" type="Control" parent="."]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="Control"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = 100.0
+offset_right = -150.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 45
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_podnf")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_3mjrk")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_ctvfl")
+theme_override_styles/tab_focus = SubResource("StyleBoxFlat_2w4lx")
+theme_override_styles/panel = SubResource("StyleBoxFlat_d7gmp")
+tab_alignment = 1
+current_tab = 2
+
+[node name="Mastery" type="TabBar" parent="Control/TabContainer"]
+visible = false
+layout_mode = 2
+tab_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/TabContainer/Mastery"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Skill" type="TabBar" parent="Control/TabContainer"]
+visible = false
+layout_mode = 2
+tab_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/TabContainer/Skill"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 16.0
+offset_right = 1600.0
+offset_bottom = 845.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Setting" type="TabBar" parent="Control/TabContainer"]
+layout_mode = 2
+tab_alignment = 1
+
+[node name="SettingContainer" type="MarginContainer" parent="Control/TabContainer/Setting"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+script = ExtResource("2_pc57k")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Setting/SettingContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 55
+alignment = 1
+
+[node name="ControlsButton" type="Button" parent="Control/TabContainer/Setting/SettingContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+action_mode = 0
+text = "Control"
+
+[node name="QuitToMenuButton" type="Button" parent="Control/TabContainer/Setting/SettingContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+action_mode = 0
+text = "Quit to Main Menu"
+
+[node name="QuitToDesktopButton" type="Button" parent="Control/TabContainer/Setting/SettingContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+action_mode = 0
+text = "Quit To Desktop"
+
+[node name="ControlContainer" type="MarginContainer" parent="Control/TabContainer/Setting"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = 12.0
+offset_right = -24.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("3_tenqp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Setting/ControlContainer"]
+layout_mode = 2
+theme_override_constants/separation = 55
+
+[node name="BackContainer" type="BoxContainer" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/BackContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+action_mode = 0
+text = "Back"
+
+[node name="KeyBindContainer" type="BoxContainer" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 450)
+layout_mode = 2
+alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer"]
+custom_minimum_size = Vector2(0, 350)
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer"]
+custom_minimum_size = Vector2(1200, 0)
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="ActionContainer" type="VBoxContainer" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="MoveLeft" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+disabled = true
+action_mode = 0
+text = "move left"
+
+[node name="MoveRight" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+disabled = true
+action_mode = 0
+text = "move right"
+
+[node name="Jump" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+disabled = true
+action_mode = 0
+text = "jump"
+
+[node name="Shoot" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+disabled = true
+action_mode = 0
+text = "grapple hook"
+
+[node name="Inventory" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+disabled = true
+action_mode = 0
+text = "inventory"
+
+[node name="SkillTree" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+disabled = true
+action_mode = 0
+text = "skill tree"
+
+[node name="LightAttack" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+disabled = true
+action_mode = 0
+text = "light attack"
+
+[node name="HeavyAttack" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+disabled = true
+action_mode = 0
+text = "heavy attack"
+
+[node name="HoldWall" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+disabled = true
+action_mode = 0
+text = "hold on the wall"
+
+[node name="AssignerContainer" type="VBoxContainer" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="MoveLeftValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
+custom_minimum_size = Vector2(350, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+
+[node name="MoveRightValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
+custom_minimum_size = Vector2(350, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+
+[node name="JumpValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
+custom_minimum_size = Vector2(350, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+
+[node name="ShootValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
+custom_minimum_size = Vector2(350, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+
+[node name="InventoryValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
+custom_minimum_size = Vector2(350, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+
+[node name="SkillTreeValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
+custom_minimum_size = Vector2(350, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+
+[node name="LightAttackValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
+custom_minimum_size = Vector2(350, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+
+[node name="HeavyAttackValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
+custom_minimum_size = Vector2(350, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+
+[node name="HoldWallValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
+custom_minimum_size = Vector2(350, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
