@@ -231,8 +231,8 @@ graph_offset = Vector2(10, -51)
 radius = 400.0
 
 [node name="Player" type="CharacterBody2D"]
-collision_layer = 35
-collision_mask = 35
+collision_layer = 32803
+collision_mask = 32803
 script = ExtResource("1_88xg1")
 hook_speed = 850
 metadata/_edit_group_ = true
@@ -271,7 +271,7 @@ texture = ExtResource("6_4ign3")
 offset = Vector2(0, -15)
 hframes = 8
 vframes = 18
-frame = 2
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -296,8 +296,8 @@ script = ExtResource("7_5wpcc")
 script = ExtResource("8_1yhd2")
 
 [node name="CheckArea" type="Area2D" parent="."]
-collision_layer = 8
-collision_mask = 8
+collision_layer = 32776
+collision_mask = 32776
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CheckArea"]
 shape = SubResource("CapsuleShape2D_rru7u")

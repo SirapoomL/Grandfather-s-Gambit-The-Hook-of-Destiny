@@ -21,9 +21,11 @@ var face_left = false
 # Movement
 @export var speed = 400
 @export var jump_force = -450 # Usually jump force should be negative
+@export var strafe_force =10
+@export var air_terminal_velocity = 400
 @export var gravity = 980 # Adjust the gravity to your needs
 @export var hook_speed = 1200
-@export var hook_quota = 200
+@export var hook_quota = 2
 @export var hook_acc = 98*2
 var hang_time = 0.2
 var jump_state = 3
@@ -48,7 +50,7 @@ func get_debug_hud():
 	return get_tree().root.get_node("Main/DebugHud")
 
 func start(pos):
-	position = pos
+	#position = pos
 	state = State.IDLE
 	show()
 	$CollisionShape2D.disabled = false
@@ -167,7 +169,18 @@ func _on_attack_box_body_entered(body):
 		# do smth here
 		
 
+func _on_check_area_area_exited(area):
+	if area.has_meta("oneway_platform"):
+		emerge_oneway_platform()
+	if is_instance_valid(area) && is_instance_valid(normal_hook):
+		if area.global_position == normal_hook.global_position:
+			print("hook passed")
+			change_state(State.IDLE)
+		
+func emerge_oneway_platform():
+	velocity.y = 0.6 * velocity.y
+
+
 func _on_check_area_area_entered(area):
-	if area.global_position == normal_hook.global_position:
-		print("hook passed")
-		change_state(State.IDLE)
+	if area is EventTriggerArea:
+		pass
