@@ -64,7 +64,7 @@ height = 46.0
 radius = 431.227
 
 [node name="Ground_Enemy_Spirit" type="RigidBody2D" groups=["ground_mobs"]]
-collision_mask = 0
+position = Vector2(0, -40)
 gravity_scale = 0.0
 script = ExtResource("1_32077")
 
@@ -76,7 +76,7 @@ animation = &"spirit_attack"
 frame_progress = 0.092832
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(21, -1.28583)
+position = Vector2(21, 20)
 shape = SubResource("CapsuleShape2D_b4gtc")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

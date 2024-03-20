@@ -7,12 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://3r2t6gisgke5" path="res://art/forest_fantasy/SET1_decorative_obj.png" id="5_c5gxy"]
 [ext_resource type="Script" path="res://scripts/level/hookable_static_terrain.gd" id="6_gut3w"]
 [ext_resource type="PackedScene" uid="uid://bb7ln7ij1hrvk" path="res://scene/obstacles/hook_point.tscn" id="7_2ahnc"]
-[ext_resource type="PackedScene" uid="uid://hl4xtvdy2spj" path="res://scene/player.tscn" id="7_h0kr6"]
+[ext_resource type="PackedScene" uid="uid://hl4xtvdy2spj" path="res://scene/player/player.tscn" id="7_h0kr6"]
 [ext_resource type="Script" path="res://scripts/level/hazard.gd" id="10_ijuwo"]
 [ext_resource type="PackedScene" uid="uid://chgxtfgdtjswn" path="res://scene/obstacles/oneway_platform.tscn" id="10_x04jg"]
 [ext_resource type="Script" path="res://scripts/level/static_terrain.gd" id="11_xt3qs"]
 [ext_resource type="Script" path="res://scripts/events/event_trigger_area.gd" id="12_8m3ur"]
-[ext_resource type="PackedScene" uid="uid://dfwlcctlb3wde" path="res://scene/ground_enemy_spirit.tscn" id="13_symc6"]
+[ext_resource type="PackedScene" uid="uid://dfwlcctlb3wde" path="res://scene/enemy/ground_enemy_spirit.tscn" id="13_symc6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rgj3o"]
 texture = ExtResource("4_mowv0")

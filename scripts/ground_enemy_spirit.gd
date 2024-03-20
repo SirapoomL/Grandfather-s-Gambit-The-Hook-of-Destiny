@@ -11,6 +11,7 @@ var exp = 10
 
 
 func _physics_process(delta):
+	global_position.y += 980 *delta
 	if player_chase && ((player.position.x - position.x) < -40 || (player.position.x - position.x) > 80):
 		if (player.position.x > position.x):
 			position.x += speed*delta

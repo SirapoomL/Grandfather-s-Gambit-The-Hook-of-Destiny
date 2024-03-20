@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/debug_hud.gd" id="1_1cmec"]
 
 [node name="DebugHud" type="CanvasLayer"]
+visible = false
 script = ExtResource("1_1cmec")
 
 [node name="HookCountLabel" type="Label" parent="."]
