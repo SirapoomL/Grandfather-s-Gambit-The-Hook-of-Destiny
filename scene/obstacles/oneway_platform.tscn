@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://chgxtfgdtjswn"]
+
+[ext_resource type="Script" path="res://scripts/level/oneway_platform.gd" id="1_ipco4"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_brlvc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3uden"]
+size = Vector2(70.7376, 14.4028)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sokyt"]
+size = Vector2(267, 9)
+
+[node name="OnewayPlatform" type="StaticBody2D"]
+modulate = Color(1, 0.74902, 0.25098, 1)
+collision_layer = 9
+collision_mask = 9
+script = ExtResource("1_ipco4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+material = SubResource("CanvasItemMaterial_brlvc")
+rotation = 3.14159
+scale = Vector2(3.83192, -1.25218)
+shape = SubResource("RectangleShape2D_3uden")
+one_way_collision = true
+
+[node name="EmergingArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+metadata/oneway_platform = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EmergingArea"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_sokyt")

@@ -3,12 +3,13 @@ class_name Hook
 
 @export var speed = 2000
 @export var direction = Vector2(0,0)
-@export var max_length = 680
+@export var max_length = 400
 
 var original_pos = Vector2(0, 0)
 
 signal hook_break()
 signal wall_hit(position)
+signal hook_player_reached()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -38,6 +39,8 @@ func _on_body_entered(body):
 		else:
 			hook_break.emit()
 			queue_free()
+	if body is Player:
+		hook_player_reached.emit()
 
 
 func _on_timer_timeout():
