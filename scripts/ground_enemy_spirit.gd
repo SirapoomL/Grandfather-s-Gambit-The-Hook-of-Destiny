@@ -4,7 +4,7 @@ class_name GroundEnemy
 var floating_text = preload("res://scene/utils/floating_text.tscn")
 var player_chase = false
 var player = null
-var velocity = Vector2.ZERO
+var offset = 5
 
 # You can adjust monster's config here 
 var speed = 60
@@ -40,9 +40,9 @@ func _physics_process(delta):
 				position.y -= speed * delta
 			
 			# Flip spirit face direction
-			if (player.position.x - position.x) < 5:
+			if (player.position.x - position.x) < offset:
 				$AnimatedSprite2D.flip_h = true
-			elif (player.position.x - position.x) > 5:
+			elif (player.position.x - position.x) > offset:
 				$AnimatedSprite2D.flip_h = false
 
 		# Player is in spirit's attack range (stop spirit movement)
@@ -78,9 +78,6 @@ func _check_in_attack_range(left_dir_range, right_dir_range):
 
 
 func hit(damage, knockback=30):
-	velocity = (player.position - position).normalized() * speed
-	print(velocity)
-
 	# Add knockback when getting hit
 	if (player.position.x > position.x):
 		position.x -= knockback
