@@ -20,39 +20,35 @@ func _physics_process(delta):
 	if GRAVITY:
 		global_position.y += 980 * delta
 	if player_chase:
-		if (player.position.x > position.x):
-			position.x += speed * delta
-		else:
-			position.x -= speed * delta
+		if not _check_in_attack_range(left_dir_range, right_dir_range):
+			if (player.position.x > position.x):
+				position.x += speed * delta
+			else:
+				position.x -= speed * delta
+				
+			# Make spirit fly towards player
+			if not GRAVITY && (player.position.y > position.y):
+				position.y += speed * delta
+			elif not GRAVITY && (player.position.y < position.y):
+				position.y -= speed * delta
 			
-		# Make spirit fly towards player
-		if not GRAVITY && (player.position.y > position.y):
-			position.y += speed * delta
-		elif not GRAVITY && (player.position.y < position.y):
-			position.y -= speed * delta
-		
-		$AnimatedSprite2D.play("spirit_move")
-		
-		# Flip spirit face direction
-		if (player.position.x - position.x) < 0:
-			$AnimatedSprite2D.flip_h = true
-		elif (player.position.x - position.x) > 0:
-			$AnimatedSprite2D.flip_h = false
+			$AnimatedSprite2D.play("spirit_move")
+			
+			# Flip spirit face direction
+			if (player.position.x - position.x) < 0:
+				$AnimatedSprite2D.flip_h = true
+			elif (player.position.x - position.x) > 0:
+				$AnimatedSprite2D.flip_h = false
 
-	# Spirit in attack range
-	elif _check_in_attack_range(left_dir_range, right_dir_range):
-		# Stop spirit movement
-		if (player.position.x > position.x):
-			position.x += speed * delta
+		# Spirit in attack range (stop spirit movement)
 		else:
-			position.x -= speed * delta
-			
-		# TODO attack player function
-		$AnimatedSprite2D.play("spirit_attack")
+			## TODO attack player function
+			$AnimatedSprite2D.play("spirit_attack")
 	else:
 		$AnimatedSprite2D.play("spirit_idle")
 
 
+# TODO make it cant see people when the path is blocked
 func _on_detection_area_body_entered(body):
 	if (body.name == 'Player'):
 		player = body
