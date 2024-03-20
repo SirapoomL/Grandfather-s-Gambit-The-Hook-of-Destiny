@@ -6,9 +6,10 @@ signal kill(mob)
 signal finish_hook
 
 # State
-enum State {DEAD, IDLE, RUN, LIGHT_ATTACK_1, LIGHT_ATTACK_2, HEAVY_ATTACK, JUMP, JUST_HOOKED, HOOKING, HOLD_HOOK, SWING, WALL_HOOK}
+enum State {DEAD, IDLE, RUN, LIGHT_ATTACK_1, LIGHT_ATTACK_2, HEAVY_ATTACK, 
+JUMP, JUST_HOOKED, HOOKING, HOLD_HOOK, SWING, WALL_HOOK, HOOK_ATTACK}
 const NORMAL_STATE = [State.IDLE, State.RUN, State.JUMP]
-const ATTACK_STATE = [State.LIGHT_ATTACK_1, State.LIGHT_ATTACK_2, State.HEAVY_ATTACK]
+const ATTACK_STATE = [State.LIGHT_ATTACK_1, State.LIGHT_ATTACK_2, State.HEAVY_ATTACK, State.HOOK_ATTACK]
 const HOOKING_STATE = [State.HOOKING, State.HOLD_HOOK, State.SWING, State.WALL_HOOK]
 var state = State.DEAD
 var screen_size # Size of the game window.
@@ -22,7 +23,7 @@ var face_left = false
 @export var jump_force = -450 # Usually jump force should be negative
 @export var gravity = 980 # Adjust the gravity to your needs
 @export var hook_speed = 1200
-@export var hook_quota = 2
+@export var hook_quota = 200
 @export var hook_acc = 98*2
 var hang_time = 0.2
 var jump_state = 3
@@ -40,6 +41,7 @@ var max_hp = 100
 var current_hp = 100
 var attack_power = 20
 var air_attack_qouta = 3
+var hook_attack_qouta = 1
 var exp = 0
 
 func get_debug_hud():
@@ -58,12 +60,17 @@ func _ready():
 		
 func change_state(s: State):
 	if state == State.HOOKING:
-		if s in NORMAL_STATE || s == State.JUST_HOOKED || s == State.SWING || s == State.WALL_HOOK:
+		if s in NORMAL_STATE || s in ATTACK_STATE || s == State.JUST_HOOKED || s == State.SWING || s == State.WALL_HOOK:
 			hook_count -= 1
 	#elif state == State.SWING:
 		#if s in NORMAL_STATE || s == State.JUST_HOOKED :
 			#hook_count -= 1
+	if state == State.JUST_HOOKED and s in ATTACK_STATE:
+		hook_count -= 1
+	if state_lock_time > 0:
+		return false
 	state = s
+	return true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -126,8 +133,9 @@ func _on_wall_hooked(arg_position):
 	
 	var direction = (arg_position - self.position).normalized()
 	#print(direction)
-	change_state(State.JUST_HOOKED)
-	set_velocity(direction * hook_speed)
+	if change_state(State.JUST_HOOKED):
+		set_velocity(direction * hook_speed)
+	else: hook_count -= 1
 	
 func set_swing_hook(sh: Hook):
 	swing_hook = sh
@@ -151,7 +159,7 @@ func _on_hook_break():
 
 func _on_attack_box_body_entered(body):
 	if body is Enemy or body is GroundEnemy:
-		var x = body.hit(attack_power)
+		var x = body.hit(get_node("CombatHandler").get_attack_damage(attack_power, state, State))
 		var damage_dealt = x[0]
 		var exp_gained = x[1]
 		if exp_gained != 0:

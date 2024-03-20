@@ -34,15 +34,15 @@ func process_movement(player, delta):
 	if player.state in player.ATTACK_STATE:
 		player.velocity.y += player.gravity * delta * 0.1
 		player.velocity.x = 0
-		if player.is_on_floor():
-			player.hang_time = 0.1
-			player.air_attack_qouta = 3
-			player.velocity.x = 0
-			player.jump_state = 0
-			if GameInputMapper.is_action_pressed("move_right"):
-				player.velocity.x = player.speed
-			if GameInputMapper.is_action_pressed("move_left"):
-				player.velocity.x = -player.speed
+		#if player.is_on_floor():
+			#player.hang_time = 0.1
+			#player.air_attack_qouta = 3
+			#player.velocity.x = 0
+			#player.jump_state = 0
+			#if GameInputMapper.is_action_pressed("move_right"):
+				#player.velocity.x = player.speed
+			#if GameInputMapper.is_action_pressed("move_left"):
+				#player.velocity.x = -player.speed
 	match player.state:
 		player.State.JUST_HOOKED:
 			player.change_state(player.State.HOOKING)
@@ -134,6 +134,8 @@ func process_animation(player,_delta):
 			state_machine.travel("swing")
 		player.State.SWING:
 			state_machine.travel("swing")
+		player.State.HOOK_ATTACK:
+			state_machine.travel("light_attack_1")
 	#var anim = player.get_node("AnimationPlayer")
 	#anim.set_speed_scale(200)
 	#match player.state:

@@ -1,10 +1,12 @@
 extends RigidBody2D
 class_name GroundEnemy
 
+var floating_text = preload("res://scene/utils/floating_text.tscn")
+
 var speed = 60
 var player_chase = false
 var player = null
-var hp = 40
+var hp = 50
 var exp = 10
 
 
@@ -45,6 +47,10 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 	
 func hit(damage):
 	hp -= damage
+	var text = floating_text.instantiate()
+	text.amount = damage
+	add_child(text)
+	#get_tree().root.add_child(text)
 	if hp <= 0:
 		return [damage, exp]
 	return [damage, 0]

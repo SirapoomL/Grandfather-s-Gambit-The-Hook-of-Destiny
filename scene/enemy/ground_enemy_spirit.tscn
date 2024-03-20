@@ -1,0 +1,97 @@
+[gd_scene load_steps=14 format=3 uid="uid://dfwlcctlb3wde"]
+
+[ext_resource type="Script" path="res://scripts/ground_enemy_spirit.gd" id="1_32077"]
+[ext_resource type="Texture2D" uid="uid://b8fwdingn465k" path="res://art/ground_monster/spirit/attack/0.png" id="2_baswo"]
+[ext_resource type="Texture2D" uid="uid://2xewicamhtmn" path="res://art/ground_monster/spirit/idle/0.png" id="3_gm82u"]
+[ext_resource type="Texture2D" uid="uid://dgpe3qdyjyj5n" path="res://art/ground_monster/spirit/idle/1.png" id="4_2w837"]
+[ext_resource type="Texture2D" uid="uid://b8u1s6bsrcoen" path="res://art/ground_monster/spirit/idle/2.png" id="5_sdlaf"]
+[ext_resource type="Texture2D" uid="uid://di3umfcodcvp1" path="res://art/ground_monster/spirit/idle/3.png" id="6_qoi1f"]
+[ext_resource type="Texture2D" uid="uid://7jahlrhit4on" path="res://art/ground_monster/spirit/move/0.png" id="7_i5ym7"]
+[ext_resource type="Texture2D" uid="uid://c0cqi5ny3o7g0" path="res://art/ground_monster/spirit/move/1.png" id="8_xbv74"]
+[ext_resource type="Texture2D" uid="uid://ctvd5gx01b2ea" path="res://art/ground_monster/spirit/move/2.png" id="9_45pmm"]
+[ext_resource type="Texture2D" uid="uid://b3fjj0t4y5ko7" path="res://art/ground_monster/spirit/move/3.png" id="10_j7bl3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eojy0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_baswo")
+}],
+"loop": true,
+"name": &"spirit_attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_gm82u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2w837")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_sdlaf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_qoi1f")
+}],
+"loop": true,
+"name": &"spirit_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_i5ym7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_xbv74")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_45pmm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_j7bl3")
+}],
+"loop": true,
+"name": &"spirit_move",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b4gtc"]
+radius = 23.0
+height = 46.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_se1he"]
+radius = 431.227
+
+[node name="Ground_Enemy_Spirit" type="RigidBody2D" groups=["ground_mobs"]]
+position = Vector2(1000, 750)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_32077")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(20.5, -8.28583)
+scale = Vector2(1.17187, 1.11607)
+sprite_frames = SubResource("SpriteFrames_eojy0")
+animation = &"spirit_attack"
+frame_progress = 0.092832
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(21, -1.28583)
+shape = SubResource("CapsuleShape2D_b4gtc")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(21, -8.28583)
+scale = Vector2(3.6, 3.05)
+
+[node name="detection_area" type="Area2D" parent="."]
+visible = false
+position = Vector2(27, -10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+position = Vector2(23, -13)
+shape = SubResource("CircleShape2D_se1he")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
