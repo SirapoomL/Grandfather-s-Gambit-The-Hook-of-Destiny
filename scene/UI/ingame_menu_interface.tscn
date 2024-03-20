@@ -1,30 +1,129 @@
-[gd_scene load_steps=7 format=3 uid="uid://dgou2ctgr645i"]
+[gd_scene load_steps=12 format=3 uid="uid://dgou2ctgr645i"]
 
 [ext_resource type="Script" path="res://scripts/ingame_menu_interface.gd" id="1_c6jo6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_podnf"]
 content_margin_left = 25.0
 content_margin_right = 25.0
-bg_color = Color(0.262745, 0.262745, 0.262745, 1)
+bg_color = Color(0.294118, 0.25098, 0.247059, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
 anti_aliasing_size = 0.947
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3mjrk"]
 content_margin_left = 25.0
 content_margin_right = 25.0
-bg_color = Color(0.419608, 0.415686, 0.435294, 1)
+bg_color = Color(0.423529, 0.368627, 0.360784, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ctvfl"]
 content_margin_left = 25.0
 content_margin_right = 25.0
-bg_color = Color(0.168627, 0.168627, 0.168627, 1)
+bg_color = Color(0.223529, 0.188235, 0.184314, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2w4lx"]
-bg_color = Color(0.262745, 0.262745, 0.262745, 1)
+bg_color = Color(0.431373, 0.372549, 0.368627, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d7gmp"]
-bg_color = Color(0.262745, 0.262745, 0.262745, 1)
+bg_color = Color(0.294118, 0.25098, 0.247059, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
 corner_radius_top_left = 15
 corner_radius_top_right = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_maa68"]
+bg_color = Color(0.215686, 0.180392, 0.180392, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udfks"]
+bg_color = Color(0.309804, 0.266667, 0.266667, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_26ee2"]
+bg_color = Color(0.227451, 0.192157, 0.192157, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jn3p"]
+bg_color = Color(0.160784, 0.133333, 0.133333, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.329412, 0.329412, 0.329412, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iupb4"]
+bg_color = Color(0.454902, 0.396078, 0.396078, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.219608, 0.219608, 0.219608, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_size = 3
 
 [node name="Menu_Interface" type="CanvasLayer"]
 script = ExtResource("1_c6jo6")
@@ -44,6 +143,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = 100.0
+offset_right = -150.0
+offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 45
@@ -98,15 +201,18 @@ tab_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/TabContainer/Setting"]
 layout_mode = 1
-offset_top = 16.0
-offset_right = 1600.0
-offset_bottom = 845.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/TabContainer/Setting/MarginContainer"]
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -116,14 +222,32 @@ alignment = 1
 [node name="ControlsButton" type="Button" parent="Control/TabContainer/Setting/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+action_mode = 0
 text = "Control"
 
 [node name="QuitToMenuButton" type="Button" parent="Control/TabContainer/Setting/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+action_mode = 0
 text = "Quit to Main Menu"
 
 [node name="QuitToDesktopButton" type="Button" parent="Control/TabContainer/Setting/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 55
-text = "Quit to Desktop"
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+action_mode = 0
+text = "Quit To Desktop"
