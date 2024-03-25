@@ -289,6 +289,9 @@ anim_player = NodePath("../AnimationPlayer")
 [node name="HookHandler" type="Node" parent="."]
 script = ExtResource("7_3efig")
 
+[node name="HookRegenerate" type="Timer" parent="HookHandler"]
+one_shot = true
+
 [node name="CombatHandler" type="Node" parent="."]
 script = ExtResource("7_5wpcc")
 
@@ -312,5 +315,7 @@ shape = SubResource("CircleShape2D_cxc4q")
 debug_color = Color(0.635294, 0.592157, 0.290196, 0.278431)
 
 [connection signal="body_entered" from="AttackBox" to="." method="_on_attack_box_body_entered"]
+[connection signal="hook_regenerated" from="HookHandler" to="." method="_on_hook_handler_hook_regenerated"]
+[connection signal="timeout" from="HookHandler/HookRegenerate" to="HookHandler" method="_on_hook_regenerate_timeout"]
 [connection signal="area_entered" from="CheckArea" to="." method="_on_check_area_area_entered"]
 [connection signal="area_exited" from="CheckArea" to="." method="_on_check_area_area_exited"]
