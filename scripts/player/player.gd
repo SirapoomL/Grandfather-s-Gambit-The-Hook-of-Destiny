@@ -25,12 +25,13 @@ var face_left = false
 @export var air_terminal_velocity = 400
 @export var gravity = 980 # Adjust the gravity to your needs
 @export var hook_speed = 1200
-@export var hook_quota = 20000
+@export var hook_quota = 2
 @export var hook_acc = 98*2
+@export var hook_cooldown = 2
 var hang_time = 0.2
 var jump_state = 3
 var jump_quota = 3
-var hook_count = 0
+var hook_count = hook_quota
 var hook_despawn_duration = 0.5
 var shoot_hold_duration = 0.0
 var hold_triggered = false
@@ -64,14 +65,6 @@ func _ready():
 	hide()
 		
 func change_state(s: State):
-	if state == State.HOOKING:
-		if s in NORMAL_STATE || s in ATTACK_STATE || s == State.JUST_HOOKED || s == State.SWING || s == State.WALL_HOOK:
-			hook_count -= 1
-	#elif state == State.SWING:
-		#if s in NORMAL_STATE || s == State.JUST_HOOKED :
-			#hook_count -= 1
-	if state == State.JUST_HOOKED and s in ATTACK_STATE:
-		hook_count -= 1
 	if state_lock_time > 0:
 		return false
 	state = s
@@ -112,11 +105,17 @@ func _physics_process(delta):
 			hold_triggered = true
 			shoot_action(true)
 			print("hold triggered")
+			
+	if hook_count < hook_quota:
+		$HookHandler.timer_on(hook_cooldown)
+	else:
+		$HookHandler.timer_off()
 		
 	# process_movement(delta)
 	get_node("CombatHandler").process(self, delta)
 	get_node("MovementHandler").process(self, delta)
 	get_debug_hud().update_hook_count(hook_count)
+	get_debug_hud().update_hook_cooldown($HookHandler.get_time_left())
 	get_debug_hud().update_player_position(global_position)
 	get_debug_hud().get_node("PlayerState").text = "State: " + State.keys()[state]
 
@@ -124,8 +123,8 @@ func shoot_action(is_holding):
 	# swing hook can't be duplicated
 	if swing_hook && is_holding:
 		return
-	if hook_count < hook_quota:
-		hook_count += 0 if is_holding else 1
+	if hook_count:
+		hook_count -= 1 # (for separate by hook type) 0 if is_holding else 1
 		var hook_snap_pos = get_node("HookHandler").snap_pos
 		var clickPos = get_local_mouse_position()
 		if  hook_snap_pos != null :
@@ -141,7 +140,6 @@ func _on_wall_hooked(arg_position):
 	#print(direction)
 	if change_state(State.JUST_HOOKED):
 		set_velocity(direction * hook_speed)
-	else: hook_count -= 1
 	
 func set_swing_hook(sh: Hook):
 	swing_hook = sh
@@ -160,8 +158,6 @@ func _on_hook_break():
 	if swing_hook:
 		swing_hook.queue_free()
 		swing_hook = null
-	else:
-		hook_count -= 1
 
 func _on_attack_box_body_entered(body):
 	if body is Enemy or body is GroundEnemy:
@@ -194,3 +190,8 @@ func die():
 	dead.emit()
 	change_state(State.DEAD)
 	get_node("CollisionShape2D").set_deferred("disabled", true)
+
+
+func _on_hook_handler_hook_regenerated():
+	if hook_count < hook_quota:
+		hook_count += 1
