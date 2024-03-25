@@ -1,6 +1,6 @@
 extends CharacterBody2D
 class_name Player
-signal hit
+signal dead
 signal shoot(direction, hold)
 signal kill(mob)
 signal finish_hook
@@ -45,12 +45,15 @@ var attack_power = 20
 var air_attack_qouta = 3
 var hook_attack_qouta = 1
 var exp = 0
+var i_frame = 0
+var max_i_frame = 0.5
 
 func get_debug_hud():
 	return get_tree().root.get_node("Main/DebugHud")
 
 func start(pos):
-	#position = pos
+	current_hp = max_hp
+	position = pos
 	state = State.IDLE
 	show()
 	$CollisionShape2D.disabled = false
@@ -77,6 +80,7 @@ func change_state(s: State):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	#print(state)
+	
 	action_just_free = false
 	var new_state_lock_time =  state_lock_time - delta if state_lock_time - delta > 0 else 0
 	if new_state_lock_time < state_lock_time and new_state_lock_time == 0:
@@ -184,3 +188,9 @@ func emerge_oneway_platform():
 func _on_check_area_area_entered(area):
 	if area is EventTriggerArea:
 		pass
+		
+func die():
+	hide()
+	dead.emit()
+	change_state(State.DEAD)
+	get_node("CollisionShape2D").set_deferred("disabled", true)

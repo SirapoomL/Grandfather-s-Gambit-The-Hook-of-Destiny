@@ -2,6 +2,8 @@ extends Node
 class_name player_attack
 
 func process(player, delta):
+	player.i_frame = player.i_frame-delta if player.i_frame-delta > 0 else 0 
+	
 	var light_attack = GameInputMapper.is_action_just_pressed("light_attack")
 	var heavy_attack = GameInputMapper.is_action_just_pressed("heavy_attack")
 	var left = GameInputMapper.is_action_pressed("move_left")
@@ -84,3 +86,13 @@ func possible(player, new_state):
 	if new_state == player.State.HEAVY_ATTACK:
 		return true
 	return false
+
+func take_damage(player, damage):
+	if player.i_frame > 0:
+		return 0
+	player.current_hp = player.current_hp-damage if player.current_hp-damage > 0 else 0
+	if player.current_hp == 0:
+		player.die()
+	print(player.current_hp)
+	player.i_frame = player.max_i_frame
+	return damage

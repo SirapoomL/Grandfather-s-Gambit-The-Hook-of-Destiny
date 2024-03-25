@@ -95,11 +95,9 @@ func process_collision(player, _delta):
 				print("hit")
 				player.kill.emit(collision.get_collider())
 				collision.get_collider().queue_free()
-			# else:
-			# 	player.hide()
-			# 	player.hit.emit()
-			# 	player.change_state(player.State.DEAD)
-			# 	player.get_node("CollisionShape2D").set_deferred("disabled", true)
+			else:
+				if player.get_node("CombatHandler").take_damage(player, 40) > 0:
+					pass # todo: implement bounce on take damage
 		elif player.state == player.State.HOOKING:
 			if GameInputMapper.is_action_pressed("hold_wall"):
 				player.change_state(player.State.WALL_HOOK)

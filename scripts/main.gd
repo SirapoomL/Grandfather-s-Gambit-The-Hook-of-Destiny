@@ -12,8 +12,8 @@ func _process(_delta):
 	pass
 
 
-func _on_player_hit():
-	#game_over()
+func _on_player_dead():
+	game_over()
 	pass # Replace with function body.
 
 func game_over():
