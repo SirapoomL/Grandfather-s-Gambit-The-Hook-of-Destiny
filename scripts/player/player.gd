@@ -21,7 +21,7 @@ var face_left = false
 # Movement
 @export var speed = 400
 @export var jump_force = -450 # Usually jump force should be negative
-@export var strafe_force =10
+@export var strafe_force = 10
 @export var air_terminal_velocity = 400
 @export var gravity = 980 # Adjust the gravity to your needs
 @export var hook_speed = 1200

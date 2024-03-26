@@ -3,7 +3,7 @@ class_name Hook
 
 @export var speed = 2000
 @export var direction = Vector2(0,0)
-@export var max_length = 400
+@export var max_length = 600
 
 var original_pos = Vector2(0, 0)
 var hook_owner: Player
@@ -19,11 +19,11 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	var hook_length = get_node("CollisionShape2D").global_position.distance_to(original_pos)
+	render_chain()
 	if hook_length > max_length:
 		print("hook break: ori: ", original_pos, " this: ", get_node("CollisionShape2D").global_position, " len ", hook_length)
 		hook_break.emit()
 		queue_free()
-	render_chain()
 
 func render_chain():
 	rotation = position.angle_to_point(hook_owner.position)

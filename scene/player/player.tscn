@@ -228,7 +228,7 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(10, -51)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cxc4q"]
-radius = 400.0
+radius = 650.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 32803
@@ -271,7 +271,6 @@ texture = ExtResource("6_4ign3")
 offset = Vector2(0, -15)
 hframes = 8
 vframes = 18
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -306,7 +305,6 @@ collision_mask = 32776
 shape = SubResource("CapsuleShape2D_rru7u")
 
 [node name="HookRangeIndicator2" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 0
 

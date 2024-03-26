@@ -24,12 +24,18 @@ func process_movement(player, delta):
 			player.jump_state = 0
 		if GameInputMapper.is_action_pressed("move_right"):
 			player.state = player.State.RUN
-			player.velocity.x = player.speed
+			if player.is_on_floor():
+				player.velocity.x = player.speed
+			else:
+				player.velocity.x = max(move_toward(player.velocity.x, player.speed, player.speed * 5.5 * delta), player.velocity.x)
 			player.face_left = false
 			#player.set_deferred("rotation", 0)
 		if GameInputMapper.is_action_pressed("move_left"):
 			player.state = player.State.RUN
-			player.velocity.x = -player.speed
+			if player.is_on_floor():
+				player.velocity.x = -player.speed
+			else:
+				player.velocity.x = min(move_toward(player.velocity.x, -player.speed, player.speed * 5.5 * delta), player.velocity.x)
 			player.face_left = true
 	if player.state in player.ATTACK_STATE:
 		player.velocity.y += player.gravity * delta * 0.1
@@ -44,6 +50,9 @@ func process_movement(player, delta):
 			#if GameInputMapper.is_action_pressed("move_left"):
 				#player.velocity.x = -player.speed
 	match player.state:
+		player.State.HOOKING:
+			if (player.position - player.normal_hook.position).dot(player.velocity) > 0:
+				player.change_state(player.State.IDLE)
 		player.State.JUST_HOOKED:
 			player.change_state(player.State.HOOKING)
 		player.State.WALL_HOOK:
