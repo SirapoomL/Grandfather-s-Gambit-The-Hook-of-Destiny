@@ -91,8 +91,8 @@ func _on_start_timer_timeout():
 func _on_player_shoot(direction, is_holding):
 	if is_holding:
 		var sh = swing_hook.instantiate()
-		sh.position = $Player.position
 		sh.speed = 2000
+		sh.position = $Player.position
 		sh.direction = direction
 		sh.original_pos = $Player.position
 		sh.hook_owner = $Player

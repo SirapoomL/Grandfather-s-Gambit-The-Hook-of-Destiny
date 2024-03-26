@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://hl4xtvdy2spj"]
+[gd_scene load_steps=39 format=3 uid="uid://hl4xtvdy2spj"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_88xg1"]
 [ext_resource type="Texture2D" uid="uid://cue6n6ustabi6" path="res://art/player/combined_char_red.png" id="6_4ign3"]
@@ -227,6 +227,10 @@ states/swing/position = Vector2(630, 51)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_30nxx"), "idle", "heavy_attack", SubResource("AnimationNodeStateMachineTransition_75i5w"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_cqm68"), "run", "heavy_attack", SubResource("AnimationNodeStateMachineTransition_77a1h"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_n2mj7"), "heavy_attack", "idle", SubResource("AnimationNodeStateMachineTransition_e4pfv"), "heavy_attack", "run", SubResource("AnimationNodeStateMachineTransition_aei4a"), "idle", "light_attack_1", SubResource("AnimationNodeStateMachineTransition_fy1x5"), "light_attack_1", "light_attack_2", SubResource("AnimationNodeStateMachineTransition_0kq4y"), "light_attack_2", "idle", SubResource("AnimationNodeStateMachineTransition_hk0fq"), "light_attack_1", "idle", SubResource("AnimationNodeStateMachineTransition_ghos6"), "idle", "swing", SubResource("AnimationNodeStateMachineTransition_1vpw8"), "swing", "idle", SubResource("AnimationNodeStateMachineTransition_sd4oe")]
 graph_offset = Vector2(10, -51)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_74ae3"]
+radius = 8.0
+height = 32.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_cxc4q"]
 radius = 650.0
 
@@ -235,6 +239,7 @@ collision_layer = 32803
 collision_mask = 32803
 script = ExtResource("1_88xg1")
 hook_speed = 891
+hook_quota = 6947
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -302,7 +307,8 @@ collision_layer = 32776
 collision_mask = 32776
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CheckArea"]
-shape = SubResource("CapsuleShape2D_rru7u")
+shape = SubResource("CapsuleShape2D_74ae3")
+debug_color = Color(0.956863, 0.027451, 0.0352941, 0.227451)
 
 [node name="HookRangeIndicator2" type="Area2D" parent="."]
 collision_layer = 0

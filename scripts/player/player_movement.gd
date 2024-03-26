@@ -118,9 +118,9 @@ func process_collision(player, _delta):
 		elif player.state == player.State.HOOKING:
 			if GameInputMapper.is_action_pressed("hold_wall"):
 				player.change_state(player.State.WALL_HOOK)
-			else:
-				#player.change_state(player.State.IDLE)
+			elif player.velocity == Vector2.ZERO:
 				pass
+				#player.change_state(player.State.WALL_HOOK)
 			player.velocity.y = 0
 func process_animation(player,_delta):
 	if player.face_left:

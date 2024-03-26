@@ -61,6 +61,7 @@ func start(pos):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	hook_count = hook_quota
 	screen_size = get_viewport_rect().size
 	hide()
 		
@@ -147,9 +148,13 @@ func _on_wall_hooked(arg_position):
 		#set_velocity(direction * hook_speed)
 	
 func set_swing_hook(sh: Hook):
+	if is_instance_valid(swing_hook):
+		swing_hook.dehook()
 	swing_hook = sh
 	
 func set_normal_hook(h: Hook):
+	if is_instance_valid(normal_hook):
+		normal_hook.dehook()
 	normal_hook = h
 	
 func _on_wall_swing(arg_position):
