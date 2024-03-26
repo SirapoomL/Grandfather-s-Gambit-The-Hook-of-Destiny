@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dfwlcctlb3wde"]
+[gd_scene load_steps=24 format=3 uid="uid://dfwlcctlb3wde"]
 
 [ext_resource type="Script" path="res://scripts/ground_enemy_spirit.gd" id="1_32077"]
 [ext_resource type="Texture2D" uid="uid://b8fwdingn465k" path="res://art/ground_monster/spirit/attack/0.png" id="2_baswo"]
@@ -10,12 +10,29 @@
 [ext_resource type="Texture2D" uid="uid://c0cqi5ny3o7g0" path="res://art/ground_monster/spirit/move/1.png" id="8_xbv74"]
 [ext_resource type="Texture2D" uid="uid://ctvd5gx01b2ea" path="res://art/ground_monster/spirit/move/2.png" id="9_45pmm"]
 [ext_resource type="Texture2D" uid="uid://b3fjj0t4y5ko7" path="res://art/ground_monster/spirit/move/3.png" id="10_j7bl3"]
+[ext_resource type="Texture2D" uid="uid://dwvebo4ketx8f" path="res://art/particles/thunder/0.png" id="11_esxu3"]
+[ext_resource type="Texture2D" uid="uid://6ov2noc62iuy" path="res://art/particles/thunder/1.png" id="12_kj54t"]
+[ext_resource type="Texture2D" uid="uid://ddql4rpj8lwc1" path="res://art/particles/thunder/2.png" id="13_h0vu4"]
+[ext_resource type="Texture2D" uid="uid://c8bptsvchmcu2" path="res://art/particles/thunder/3.png" id="14_5s2em"]
+[ext_resource type="Texture2D" uid="uid://bpxcj8gigemad" path="res://art/particles/thunder/4.png" id="15_mx283"]
+[ext_resource type="Texture2D" uid="uid://bdtq40awklert" path="res://art/particles/thunder/5.png" id="16_rx343"]
+[ext_resource type="Texture2D" uid="uid://dnem3khqs5ydt" path="res://art/particles/thunder/6.png" id="17_doj6p"]
+[ext_resource type="Texture2D" uid="uid://b4tbodx866dan" path="res://art/particles/thunder/7.png" id="18_bf761"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eojy0"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_baswo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_xbv74")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_45pmm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_j7bl3")
 }],
 "loop": true,
 "name": &"spirit_attack",
@@ -63,6 +80,42 @@ height = 46.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r57yi"]
 size = Vector2(443, 145)
 
+[sub_resource type="Curve" id="Curve_pxwi2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4xojl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_esxu3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_kj54t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_h0vu4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_5s2em")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_mx283")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_rx343")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_doj6p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_bf761")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
 [node name="Ground_Enemy_Spirit" type="RigidBody2D" groups=["ground_mobs"]]
 position = Vector2(0, -40)
 gravity_scale = 0.0
@@ -89,6 +142,27 @@ position = Vector2(27, -10)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
 position = Vector2(-3.5, -39.5)
 shape = SubResource("RectangleShape2D_r57yi")
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="explode" type="CPUParticles2D" parent="Particles"]
+position = Vector2(18, -1)
+amount = 60
+lifetime = 0.75
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+scale_amount_curve = SubResource("Curve_pxwi2")
+
+[node name="thunder" type="AnimatedSprite2D" parent="Particles"]
+position = Vector2(19, -8)
+scale = Vector2(0.650098, 0.889512)
+sprite_frames = SubResource("SpriteFrames_4xojl")
+frame_progress = 0.264223
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]

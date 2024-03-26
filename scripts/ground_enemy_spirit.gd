@@ -20,12 +20,15 @@ var right_dir_range = 80
 
 
 func _physics_process(delta):
+	$Particles/thunder.visible = false
+
 	global_rotation = 0
 	if GRAVITY:
 		global_position.y += 980 * delta
 	if player_chase:
 		if not _check_in_attack_range(left_dir_range, right_dir_range):
 			$AnimatedSprite2D.play("spirit_move")
+			$Particles/thunder.global_position.y = player.position.y
 			
 			# Move spirit in x-axis
 			if (player.position.x > position.x):
@@ -39,18 +42,26 @@ func _physics_process(delta):
 			elif not GRAVITY && (player.position.y < position.y):
 				position.y -= speed * delta
 			
-			# Flip spirit face direction
+			# Flip spirit and thunder face direction
 			if (player.position.x - position.x) < offset:
 				$AnimatedSprite2D.flip_h = true
+				$Particles/thunder.flip_h = true
+				$Particles/thunder.global_position.x = player.position.x - offset
 			elif (player.position.x - position.x) > offset:
 				$AnimatedSprite2D.flip_h = false
+				$Particles/thunder.flip_h = false
+				$Particles/thunder.global_position.x = player.position.x + offset
 
 		# Player is in spirit's attack range (stop spirit movement)
 		else:
+			$Particles/explode.emitting = true
+			$Particles/thunder.visible = true
+			$Particles/thunder.play("default")
 			$AnimatedSprite2D.play("spirit_attack")
 			attack_player(player, 5)
 	else:
 		$AnimatedSprite2D.play("spirit_idle")
+		$Particles/explode.emitting = false
 
 
 func _on_detection_area_body_entered(body):
@@ -99,7 +110,12 @@ func hit(damage, knockback=30):
 	add_child(text)
 
 	if hp <= 0:
+		# TODO play death particles
+		#$Particles/die.visible = true
+		#$Particles/die.play("default")
+		#$Particles/die.visible = false
 		return [damage, exp]
+	
 	return [damage, 0]
 	
 	
