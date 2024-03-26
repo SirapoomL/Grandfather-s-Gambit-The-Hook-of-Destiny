@@ -50,11 +50,23 @@ func process_movement(player, delta):
 			#if GameInputMapper.is_action_pressed("move_left"):
 				#player.velocity.x = -player.speed
 	match player.state:
+		#player.State.JUST_HOOKED:
+			#player.change_state(player.State.HOOKING)
 		player.State.HOOKING:
-			if (player.position - player.normal_hook.position).dot(player.velocity) > 0:
-				player.change_state(player.State.IDLE)
-		player.State.JUST_HOOKED:
-			player.change_state(player.State.HOOKING)
+			if is_instance_valid(player.normal_hook):
+				# calculate velocity towards hook (like pulling to it)
+				var direction = (player.normal_hook.position - player.position).normalized()
+				player.set_velocity(direction * player.hook_speed) 
+				# TODO: discuss about the IF below later.
+				if (player.position - player.normal_hook.position).dot(player.velocity) > 0:
+					player.change_state(player.State.IDLE)
+			
+		# player.State.HOOKING:
+		# 	if (player.position - player.normal_hook.position).dot(player.velocity) > 0:
+		#		player.change_state(player.State.IDLE)
+		# player.State.JUST_HOOKED:
+		#	player.change_state(player.State.HOOKING)
+		
 		player.State.WALL_HOOK:
 			player.velocity.x = 0
 			player.velocity.y = 0
@@ -110,8 +122,9 @@ func process_collision(player, _delta):
 		elif player.state == player.State.HOOKING:
 			if GameInputMapper.is_action_pressed("hold_wall"):
 				player.change_state(player.State.WALL_HOOK)
-			else:
-				player.change_state(player.State.IDLE)
+			elif player.velocity == Vector2.ZERO:
+				pass
+				#player.change_state(player.State.WALL_HOOK)
 			player.velocity.y = 0
 func process_animation(player,_delta):
 	if player.face_left:

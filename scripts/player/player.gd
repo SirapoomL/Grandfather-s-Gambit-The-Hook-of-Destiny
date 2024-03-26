@@ -31,7 +31,7 @@ var face_left = false
 var hang_time = 0.2
 var jump_state = 3
 var jump_quota = 3
-var hook_count = hook_quota
+var hook_count
 var hook_despawn_duration = 0.5
 var shoot_hold_duration = 0.0
 var hold_triggered = false
@@ -61,6 +61,7 @@ func start(pos):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	hook_count = hook_quota
 	screen_size = get_viewport_rect().size
 	hide()
 		
@@ -97,9 +98,8 @@ func _physics_process(delta):
 			swing_hook.queue_free()
 			swing_hook = null
 			
-		if state == State.SWING:
-			change_state(State.IDLE)
-		elif shoot_hold_duration <= hold_threshold:
+		change_state(State.IDLE)
+		if shoot_hold_duration <= hold_threshold:
 			shoot_action(false)
 		shoot_hold_duration = 0
 		hold_triggered = false
@@ -107,6 +107,7 @@ func _physics_process(delta):
 	if GameInputMapper.is_action_pressed("shoot"):
 		shoot_hold_duration += delta
 		if not hold_triggered && shoot_hold_duration > hold_threshold:
+			change_state(State.IDLE)
 			hold_triggered = true
 			shoot_action(true)
 			print("hold triggered")
@@ -141,15 +142,19 @@ func _on_wall_hooked(arg_position):
 	print("on wall hooked", arg_position)
 	if state == State.DEAD: return
 	
-	var direction = (arg_position - self.position).normalized()
+	#var direction = (arg_position - self.position).normalized()
 	#print(direction)
-	if change_state(State.JUST_HOOKED):
-		set_velocity(direction * hook_speed)
+	change_state(State.HOOKING)
+		#set_velocity(direction * hook_speed)
 	
 func set_swing_hook(sh: Hook):
+	if is_instance_valid(swing_hook):
+		swing_hook.dehook()
 	swing_hook = sh
 	
 func set_normal_hook(h: Hook):
+	if is_instance_valid(normal_hook):
+		normal_hook.dehook()
 	normal_hook = h
 	
 func _on_wall_swing(arg_position):
@@ -175,20 +180,27 @@ func _on_attack_box_body_entered(body):
 		
 
 func _on_check_area_area_exited(area):
-	if area.has_meta("oneway_platform"):
-		emerge_oneway_platform()
-	if is_instance_valid(area) && is_instance_valid(normal_hook):
-		if area.global_position == normal_hook.global_position:
-			print("hook passed")
-			change_state(State.IDLE)
+	#if area.has_meta("oneway_platform"):
+		#emerge_oneway_platform()
+	#if is_instance_valid(area) && is_instance_valid(normal_hook):
+		#if area.global_position == normal_hook.global_position:
+			#print("hook passed")
+			#change_state(State.IDLE)
+	pass
 		
 func emerge_oneway_platform():
 	velocity.y = 0.6 * velocity.y
 
 
 func _on_check_area_area_entered(area):
-	if area is EventTriggerArea:
-		pass
+	#if area is EventTriggerArea:
+		#pass
+	if area.has_meta("oneway_platform"):
+		emerge_oneway_platform()
+	if is_instance_valid(area) && is_instance_valid(normal_hook):
+		if area.global_position == normal_hook.global_position:
+			print("hook passed")
+			change_state(State.IDLE)
 		
 func die():
 	hide()
