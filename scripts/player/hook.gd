@@ -27,8 +27,9 @@ func _process(_delta):
 
 func _physics_process(delta):
 	#position += direction * speed * delta
-	for i in get_colliding_bodies():
-		print(i)
+	#for i in get_colliding_bodies():
+		#print(i)
+		#print("hook collide")
 	move_and_collide(direction * speed * delta)
 	#print(get_contact_count())
 
@@ -37,6 +38,7 @@ func _physics_process(delta):
 
 func _on_body_entered(body):
 	if body is StaticTerrain:
+		speed = 0
 		if body is StaticHookTerrain:
 			wall_hit.emit(position)
 			set_freeze_enabled(true)
@@ -52,6 +54,7 @@ func _on_timer_timeout():
 
 
 func _on_area_2d_body_entered(body):
+	_on_body_entered(body)
 	print("just entered")
 	#if body is StaticTerrain:
 		#if body is StaticHookTerrain:

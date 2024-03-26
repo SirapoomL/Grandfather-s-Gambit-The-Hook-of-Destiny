@@ -5,7 +5,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_k7bys"]
 
 [node name="Hook" type="RigidBody2D"]
-collision_layer = 8
+collision_layer = 0
 collision_mask = 8
 gravity_scale = 0.0
 lock_rotation = true
@@ -14,6 +14,8 @@ contact_monitor = true
 script = ExtResource("1_pao0m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 0
+visibility_layer = 0
 shape = SubResource("CircleShape2D_k7bys")
 debug_color = Color(0.921569, 0.282353, 0, 0.419608)
 
@@ -47,10 +49,12 @@ one_shot = true
 autostart = true
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 40
-collision_mask = 40
+collision_layer = 0
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+light_mask = 0
+visibility_layer = 0
 shape = SubResource("CircleShape2D_k7bys")
 debug_color = Color(0.921569, 0.282353, 0, 0.419608)
 
