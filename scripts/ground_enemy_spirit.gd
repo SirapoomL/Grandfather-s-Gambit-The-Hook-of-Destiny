@@ -57,6 +57,13 @@ func _on_detection_area_body_entered(body):
 	if (body.name == 'Player'):
 		player = body
 		player_chase = true
+		
+		# NOTE prevent rigidbody being affected by colliding with Player
+		add_collision_exception_with(body)
+	
+	# prevent rigidbody being affected by colliding with ground monster
+	elif (body.name.begins_with('Ground_Enemy_Spirit')):
+		add_collision_exception_with(body)
 
 
 func _on_detection_area_body_exited(body):
