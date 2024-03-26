@@ -1,4 +1,4 @@
-extends Area2D
+extends RigidBody2D
 class_name Hook
 
 @export var speed = 2000
@@ -26,7 +26,11 @@ func _process(_delta):
 
 
 func _physics_process(delta):
-	position += direction * speed * delta
+	#position += direction * speed * delta
+	for i in get_colliding_bodies():
+		print(i)
+	move_and_collide(direction * speed * delta)
+	#print(get_contact_count())
 
 
 
@@ -35,7 +39,7 @@ func _on_body_entered(body):
 	if body is StaticTerrain:
 		if body is StaticHookTerrain:
 			wall_hit.emit(position)
-			speed = 0
+			set_freeze_enabled(true)
 		else:
 			hook_break.emit()
 			queue_free()
@@ -45,3 +49,16 @@ func _on_body_entered(body):
 
 func _on_timer_timeout():
 	queue_free()
+
+
+func _on_area_2d_body_entered(body):
+	print("just entered")
+	#if body is StaticTerrain:
+		#if body is StaticHookTerrain:
+			#wall_hit.emit(position)
+			#speed = 0
+		#else:
+			#hook_break.emit()
+			#queue_free()
+	#if body is Player:
+		#hook_player_reached.emit()
