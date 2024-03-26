@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://bdvr0awlagv0t"]
+
+[ext_resource type="Script" path="res://scene/enemy/enemy_explosion.gd" id="1_r0mq4"]
+[ext_resource type="Texture2D" uid="uid://bpqd5uuavdige" path="res://art/particles/smoke/0.png" id="2_dfjpk"]
+[ext_resource type="Texture2D" uid="uid://3qfw77o3lt4v" path="res://art/particles/smoke/1.png" id="3_qlif1"]
+[ext_resource type="Texture2D" uid="uid://dqvs25puw8b3p" path="res://art/particles/smoke/2.png" id="4_nhu3u"]
+[ext_resource type="Texture2D" uid="uid://dha8ydkadu2ty" path="res://art/particles/smoke/3.png" id="5_5dtia"]
+[ext_resource type="Texture2D" uid="uid://btrd00e76imal" path="res://art/particles/smoke/4.png" id="6_igosw"]
+[ext_resource type="Texture2D" uid="uid://ddnc2fx4odq0b" path="res://art/particles/smoke/5.png" id="7_077qg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hokk0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dfjpk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qlif1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_nhu3u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_5dtia")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_igosw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_077qg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="EnemyExplosion" type="CPUParticles2D"]
+emitting = false
+amount = 50
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 2.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+color = Color(0.721569, 0.545098, 0.0352941, 1)
+script = ExtResource("1_r0mq4")
+
+[node name="Smoke" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, 0)
+scale = Vector2(1.49219, 1.49219)
+sprite_frames = SubResource("SpriteFrames_hokk0")
+frame_progress = 0.361394

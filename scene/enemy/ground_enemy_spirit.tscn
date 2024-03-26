@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dfwlcctlb3wde"]
+[gd_scene load_steps=31 format=3 uid="uid://dfwlcctlb3wde"]
 
 [ext_resource type="Script" path="res://scripts/ground_enemy_spirit.gd" id="1_32077"]
 [ext_resource type="Texture2D" uid="uid://b8fwdingn465k" path="res://art/ground_monster/spirit/attack/0.png" id="2_baswo"]
@@ -18,6 +18,12 @@
 [ext_resource type="Texture2D" uid="uid://bdtq40awklert" path="res://art/particles/thunder/5.png" id="16_rx343"]
 [ext_resource type="Texture2D" uid="uid://dnem3khqs5ydt" path="res://art/particles/thunder/6.png" id="17_doj6p"]
 [ext_resource type="Texture2D" uid="uid://b4tbodx866dan" path="res://art/particles/thunder/7.png" id="18_bf761"]
+[ext_resource type="Texture2D" uid="uid://bpqd5uuavdige" path="res://art/particles/smoke/0.png" id="19_7ldsr"]
+[ext_resource type="Texture2D" uid="uid://3qfw77o3lt4v" path="res://art/particles/smoke/1.png" id="20_u8ias"]
+[ext_resource type="Texture2D" uid="uid://dqvs25puw8b3p" path="res://art/particles/smoke/2.png" id="21_saed6"]
+[ext_resource type="Texture2D" uid="uid://dha8ydkadu2ty" path="res://art/particles/smoke/3.png" id="22_hbt23"]
+[ext_resource type="Texture2D" uid="uid://btrd00e76imal" path="res://art/particles/smoke/4.png" id="23_31awc"]
+[ext_resource type="Texture2D" uid="uid://ddnc2fx4odq0b" path="res://art/particles/smoke/5.png" id="24_4m5vt"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eojy0"]
 animations = [{
@@ -116,6 +122,32 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_gwk7r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_7ldsr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_u8ias")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_saed6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_hbt23")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_31awc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_4m5vt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Ground_Enemy_Spirit" type="RigidBody2D" groups=["ground_mobs"]]
 position = Vector2(0, -40)
 gravity_scale = 0.0
@@ -162,7 +194,15 @@ scale_amount_curve = SubResource("Curve_pxwi2")
 position = Vector2(19, -8)
 scale = Vector2(0.650098, 0.889512)
 sprite_frames = SubResource("SpriteFrames_4xojl")
-frame_progress = 0.264223
+frame_progress = 0.41435
+
+[node name="smoke" type="AnimatedSprite2D" parent="Particles"]
+show_behind_parent = true
+position = Vector2(22, 0)
+scale = Vector2(1.34375, 1.34375)
+sprite_frames = SubResource("SpriteFrames_gwk7r")
+frame = 5
+frame_progress = 0.816786
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]

@@ -175,7 +175,7 @@ func _on_attack_box_body_entered(body):
 		var damage_dealt = x[0]
 		var exp_gained = x[1]
 		if exp_gained != 0:
-			body.queue_free()
+			body._self_kill()
 		# do smth here
 		
 

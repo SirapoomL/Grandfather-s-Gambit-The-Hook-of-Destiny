@@ -2,6 +2,7 @@ extends RigidBody2D
 class_name GroundEnemySpirit
 
 var floating_text = preload("res://scene/utils/floating_text.tscn")
+var enemy_explosion_particle = preload("res://scene/enemy/enemy_explosion.tscn")
 var player_chase = false
 var player = null
 var offset = 5
@@ -21,6 +22,7 @@ var right_dir_range = 80
 
 func _physics_process(delta):
 	$Particles/thunder.visible = false
+	$Particles/smoke.visible = false
 
 	global_rotation = 0
 	if GRAVITY:
@@ -28,7 +30,7 @@ func _physics_process(delta):
 	if player_chase:
 		if not _check_in_attack_range(left_dir_range, right_dir_range):
 			$AnimatedSprite2D.play("spirit_move")
-			$Particles/thunder.global_position.y = player.position.y
+			$Particles/thunder.global_position = player.position
 			
 			# Move spirit in x-axis
 			if (player.position.x > position.x):
@@ -42,21 +44,18 @@ func _physics_process(delta):
 			elif not GRAVITY && (player.position.y < position.y):
 				position.y -= speed * delta
 			
-			# Flip spirit and thunder face direction
+			# Flip spirit face direction
 			if (player.position.x - position.x) < offset:
 				$AnimatedSprite2D.flip_h = true
 				$Particles/thunder.flip_h = true
-				$Particles/thunder.global_position.x = player.position.x - offset
+				$Particles/thunder.position.x += offset
 			elif (player.position.x - position.x) > offset:
 				$AnimatedSprite2D.flip_h = false
 				$Particles/thunder.flip_h = false
-				$Particles/thunder.global_position.x = player.position.x + offset
+				$Particles/thunder.position.x -= offset
 
 		# Player is in spirit's attack range (stop spirit movement)
 		else:
-			$Particles/explode.emitting = true
-			$Particles/thunder.visible = true
-			$Particles/thunder.play("default")
 			$AnimatedSprite2D.play("spirit_attack")
 			attack_player(player, 5)
 	else:
@@ -86,7 +85,6 @@ func _on_detection_area_body_exited(body):
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
-	#queue_free()
 	pass # Replace with function body.
 	
 	
@@ -110,10 +108,6 @@ func hit(damage, knockback=30):
 	add_child(text)
 
 	if hp <= 0:
-		# TODO play death particles
-		#$Particles/die.visible = true
-		#$Particles/die.play("default")
-		#$Particles/die.visible = false
 		return [damage, exp]
 	
 	return [damage, 0]
@@ -121,9 +115,14 @@ func hit(damage, knockback=30):
 	
 func attack_player(body, damage=5):
 	if (body.name == 'Player'):
+		$Particles/explode.emitting = true
+		$Particles/thunder.visible = true
+		$Particles/thunder.play("default")
 		player.get_node("CombatHandler").take_damage(player, damage)
 	
 
 func _self_kill():
+	var effect = enemy_explosion_particle.instantiate()
+	effect.global_position = global_position
+	get_tree().current_scene.add_child(effect)
 	queue_free()
-	pass
