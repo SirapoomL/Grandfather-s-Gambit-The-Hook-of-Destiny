@@ -136,10 +136,10 @@ func _on_wall_hooked(arg_position):
 	print("on wall hooked", arg_position)
 	if state == State.DEAD: return
 	
-	var direction = (arg_position - self.position).normalized()
+	#var direction = (arg_position - self.position).normalized()
 	#print(direction)
-	if change_state(State.JUST_HOOKED):
-		set_velocity(direction * hook_speed)
+	change_state(State.HOOKING)
+		#set_velocity(direction * hook_speed)
 	
 func set_swing_hook(sh: Hook):
 	swing_hook = sh
@@ -170,20 +170,27 @@ func _on_attack_box_body_entered(body):
 		
 
 func _on_check_area_area_exited(area):
-	if area.has_meta("oneway_platform"):
-		emerge_oneway_platform()
-	if is_instance_valid(area) && is_instance_valid(normal_hook):
-		if area.global_position == normal_hook.global_position:
-			print("hook passed")
-			change_state(State.IDLE)
+	#if area.has_meta("oneway_platform"):
+		#emerge_oneway_platform()
+	#if is_instance_valid(area) && is_instance_valid(normal_hook):
+		#if area.global_position == normal_hook.global_position:
+			#print("hook passed")
+			#change_state(State.IDLE)
+	pass
 		
 func emerge_oneway_platform():
 	velocity.y = 0.6 * velocity.y
 
 
 func _on_check_area_area_entered(area):
-	if area is EventTriggerArea:
-		pass
+	#if area is EventTriggerArea:
+		#pass
+	if area.has_meta("oneway_platform"):
+		emerge_oneway_platform()
+	if is_instance_valid(area) && is_instance_valid(normal_hook):
+		if area.global_position == normal_hook.global_position:
+			print("hook passed")
+			change_state(State.IDLE)
 		
 func die():
 	hide()
