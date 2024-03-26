@@ -31,7 +31,7 @@ var face_left = false
 var hang_time = 0.2
 var jump_state = 3
 var jump_quota = 3
-var hook_count = hook_quota
+var hook_count
 var hook_despawn_duration = 0.5
 var shoot_hold_duration = 0.0
 var hold_triggered = false
@@ -98,9 +98,8 @@ func _physics_process(delta):
 			swing_hook.queue_free()
 			swing_hook = null
 			
-		if state == State.SWING:
-			change_state(State.IDLE)
-		elif shoot_hold_duration <= hold_threshold:
+		change_state(State.IDLE)
+		if shoot_hold_duration <= hold_threshold:
 			shoot_action(false)
 		shoot_hold_duration = 0
 		hold_triggered = false
@@ -108,6 +107,7 @@ func _physics_process(delta):
 	if GameInputMapper.is_action_pressed("shoot"):
 		shoot_hold_duration += delta
 		if not hold_triggered && shoot_hold_duration > hold_threshold:
+			change_state(State.IDLE)
 			hold_triggered = true
 			shoot_action(true)
 			print("hold triggered")
