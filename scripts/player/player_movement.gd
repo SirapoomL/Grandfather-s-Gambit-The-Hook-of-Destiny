@@ -54,15 +54,19 @@ func process_movement(player, delta):
 			#player.change_state(player.State.HOOKING)
 		player.State.HOOKING:
 			if is_instance_valid(player.normal_hook):
+				# calculate velocity towards hook (like pulling to it)
 				var direction = (player.normal_hook.position - player.position).normalized()
 				player.set_velocity(direction * player.hook_speed) 
+				# TODO: discuss about the IF below later.
+				if (player.position - player.normal_hook.position).dot(player.velocity) > 0:
+					player.change_state(player.State.IDLE)
 			
 		# player.State.HOOKING:
 		# 	if (player.position - player.normal_hook.position).dot(player.velocity) > 0:
 		#		player.change_state(player.State.IDLE)
 		# player.State.JUST_HOOKED:
 		#	player.change_state(player.State.HOOKING)
-        
+		
 		player.State.WALL_HOOK:
 			player.velocity.x = 0
 			player.velocity.y = 0
