@@ -60,8 +60,8 @@ animations = [{
 radius = 23.0
 height = 46.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_se1he"]
-radius = 431.227
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r57yi"]
+size = Vector2(443, 145)
 
 [node name="Ground_Enemy_Spirit" type="RigidBody2D" groups=["ground_mobs"]]
 position = Vector2(0, -40)
@@ -76,7 +76,7 @@ animation = &"spirit_attack"
 frame_progress = 0.092832
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(21, 20)
+position = Vector2(20, 0)
 shape = SubResource("CapsuleShape2D_b4gtc")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
@@ -84,12 +84,11 @@ position = Vector2(21, -8.28583)
 scale = Vector2(3.6, 3.05)
 
 [node name="detection_area" type="Area2D" parent="."]
-visible = false
 position = Vector2(27, -10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
-position = Vector2(23, -13)
-shape = SubResource("CircleShape2D_se1he")
+position = Vector2(-3.5, -39.5)
+shape = SubResource("RectangleShape2D_r57yi")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]

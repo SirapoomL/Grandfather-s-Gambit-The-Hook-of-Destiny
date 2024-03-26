@@ -53,7 +53,6 @@ func _physics_process(delta):
 		$AnimatedSprite2D.play("spirit_idle")
 
 
-# TODO make it cant see people when the path is blocked
 func _on_detection_area_body_entered(body):
 	if (body.name == 'Player'):
 		player = body
