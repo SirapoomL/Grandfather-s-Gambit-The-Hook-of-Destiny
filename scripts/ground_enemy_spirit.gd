@@ -47,8 +47,8 @@ func _physics_process(delta):
 
 		# Player is in spirit's attack range (stop spirit movement)
 		else:
-			# TODO attack player function
 			$AnimatedSprite2D.play("spirit_attack")
+			attack_player(player, 5)
 	else:
 		$AnimatedSprite2D.play("spirit_idle")
 
@@ -75,7 +75,7 @@ func _on_detection_area_body_exited(body):
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
-	queue_free()
+	#queue_free()
 	pass # Replace with function body.
 	
 	
@@ -103,6 +103,11 @@ func hit(damage, knockback=30):
 	return [damage, 0]
 	
 	
+func attack_player(body, damage=5):
+	if (body.name == 'Player'):
+		player.get_node("CombatHandler").take_damage(player, damage)
+	
+
 func _self_kill():
 	queue_free()
 	pass
