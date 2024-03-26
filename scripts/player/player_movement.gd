@@ -90,7 +90,7 @@ func process_collision(player, _delta):
 		var collision = player.get_slide_collision(i)
 		if collision.get_collider() is Hook:
 			player.change_state(player.State.IDLE)
-		if collision.get_collider() is Enemy or collision.get_collider() is GroundEnemy:
+		if collision.get_collider() is Enemy or collision.get_collider() is GroundEnemySpirit:
 			if player.state == player.State.HOOKING:
 				print("hit")
 				player.kill.emit(collision.get_collider())

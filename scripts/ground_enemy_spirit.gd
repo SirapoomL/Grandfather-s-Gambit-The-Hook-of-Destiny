@@ -1,5 +1,5 @@
 extends RigidBody2D
-class_name GroundEnemy
+class_name GroundEnemySpirit
 
 var floating_text = preload("res://scene/utils/floating_text.tscn")
 var player_chase = false
@@ -58,12 +58,14 @@ func _on_detection_area_body_entered(body):
 		player = body
 		player_chase = true
 		
-		# NOTE prevent rigidbody being affected by colliding with Player
+		# prevent rigidbody being affected by colliding with Player
 		add_collision_exception_with(body)
 	
 	# prevent rigidbody being affected by colliding with ground monster
 	elif (body.name.begins_with('Ground_Enemy_Spirit')):
 		add_collision_exception_with(body)
+	else:
+		print("detect", body.name)
 
 
 func _on_detection_area_body_exited(body):
