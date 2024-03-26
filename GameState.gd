@@ -3,10 +3,11 @@ extends Node
 enum State {
 	NOT_STARTED,
 	PLAYING,
+	GAME_OVER,
 	PAUSED
 }
 
-var _current_state  = State.NOT_STARTED
+@onready var _current_state  = State.NOT_STARTED
 
 func set_current_state(value):
 	if value in State.values():
@@ -22,3 +23,6 @@ func get_current_state_str():
 
 func is_playing():
 	return _current_state == State.PLAYING
+
+func is_paused():
+	return _current_state == State.PAUSED

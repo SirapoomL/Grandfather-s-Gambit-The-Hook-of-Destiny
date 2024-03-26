@@ -1,5 +1,5 @@
 extends MarginContainer
-
+var main
 var pause_menu
 var controls_button
 var quit_to_menu_button
@@ -7,6 +7,8 @@ var quit_to_desktop_button
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Get main file
+	main = get_node("/root/Main")
 	# Get the pause menu
 	pause_menu = get_node("/root/Main/Menu_Interface")
 	# Get the buttons
@@ -34,9 +36,13 @@ func _on_ControlsButton_pressed():
 func _on_QuitToMenuButton_pressed():
 	# Logic to quit to the game's main menu
 	# TODO: add a confirmation dialog
-	# TODO: add a main menu scence
 	print("Quit to menu button pressed")
-	pass
+	pause_menu.current_ui_state = pause_menu.NavbarState.CLOSE
+	# wait 1 second before going back to the main menu
+	await get_tree().create_timer(0.05).timeout  
+	main.main_menu()
+	
+
 
 func _on_QuitToDesktopButton_pressed():
 	# Logic to quit the game to desktop

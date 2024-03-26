@@ -18,12 +18,32 @@ func _on_player_dead():
 
 func game_over():
 	print("game over")
-	GameState.set_current_state(GameState.State.NOT_STARTED)
+	GameState.set_current_state(GameState.State.GAME_OVER)
 	$Music.stop()
 	$DeathSound.play()
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 	$HUD.show_game_over()
+
+func main_menu():
+	GameState.set_current_state(GameState.State.NOT_STARTED)
+	$Player.start($StartPosition.position)
+	$ScoreTimer.stop()
+	$MobTimer.stop()
+	$HUD.show_main_menu()
+	$Music.stop()
+
+func toggle_pause():
+	if GameState.is_playing():
+		GameState.set_current_state(GameState.State.PAUSED)
+		$Music.stop()
+		$ScoreTimer.stop()
+		# $MobTimer.stop()
+	else:
+		GameState.set_current_state(GameState.State.PLAYING)
+		$Music.play()
+		$ScoreTimer.start()
+		# $MobTimer.start()
 
 func new_game():
 	score = 0
@@ -35,7 +55,6 @@ func new_game():
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$HUD.update_score(score)
-	$HUD.show_message("Get Ready")
 	$Music.play()
 	
 func _on_mob_timer_timeout():

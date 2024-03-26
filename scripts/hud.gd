@@ -2,42 +2,64 @@ extends CanvasLayer
 
 signal start_game
 
+var panel
+var score_label
+var game_title
+var start_button 
+var quit_to_desktop_button
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-# for the sake of development
-# TODO: remove this
 	#get_tree().change_scene_to_file("res://scene/DemoComponents/demo.tscn")
-	pass # Replace with function body.
+	
+	panel = $Panel
+	game_title = $Panel/GameTitle
+	start_button = $Panel/VBoxContainer/StartButton
+	quit_to_desktop_button = $Panel/VBoxContainer/QuitToDesktopButton
+	score_label = $ScoreLabel
 
+	# Connect the button's "pressed" signal to this script.
+	start_button.connect("pressed",Callable(self, "_on_start_button_pressed"))
+	quit_to_desktop_button.connect("pressed",Callable(self, "_on_quit_to_desktop_button_pressed"))
+
+	# hide score label
+	score_label.hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
 
 func show_message(text):
-	$Message.text = text
-	$Message.show()
+	game_title.text = text
 	$MessageTimer.start()
 	
 func show_game_over():
-	show_message("Game Over")
-	# Wait until the MessageTimer has counted down.
-	await $MessageTimer.timeout
+	show_message("Game Over!")
+	panel.show()
+	# change the word "Start" to "Restart"
+	start_button.text = "Restart"
 
-	$Message.text = "Dodge the Creeps!"
-	$Message.show()
-	# Make a one-shot timer and wait for it to finish.
-	await get_tree().create_timer(1.0).timeout
-	$StartButton.show()
+func show_main_menu():
+	panel.show()
+	# change the word "Restart" to "Start"
+	start_button.text = "Start"
+	score_label.hide()
 	
 func update_score(score):
-	$ScoreLabel.text = str(score)
+	score_label.text = str(score)
 	
 func _on_start_button_pressed():
-	$StartButton.hide()
+	panel.hide()
+	score_label.show()
+	# Emit the signal when the button is pressed.
 	start_game.emit()
 
 func _on_message_timer_timeout():
-	$Message.hide()
+	pass
+
+func _on_quit_to_desktop_button_pressed():
+	get_tree().quit()
+
+
 
 

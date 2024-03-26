@@ -42,10 +42,10 @@ func _process(delta):
 			pass
 		keybindState.PROCESSING:
 			# sleep for a frame
-			await get_tree().create_timer(1)
+			await get_tree().create_timer(0.05).timeout
 			state = keybindState.CHANGING
 		keybindState.KEY_IN_USED:
-			await get_tree().create_timer(1)
+			await get_tree().create_timer(0.05).timeout
 			state = keybindState.CHANGING
 
 # Called when the back button is pressed

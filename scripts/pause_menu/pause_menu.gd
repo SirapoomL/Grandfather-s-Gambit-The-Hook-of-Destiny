@@ -13,6 +13,7 @@ enum SettingTabState {
 	IN_CONTROL,
 }
 
+var main
 var current_ui_state = NavbarState.CLOSE
 var current_setting_tab_state = SettingTabState.MAIN
 
@@ -26,8 +27,9 @@ var control_container
 
 
 func _ready():
+	main = get_node("/root/Main")
 	# Initialize the UI to be closed
-	hide_pause_menu()
+	current_ui_state = NavbarState.CLOSE
 	tab_container = $Control/TabContainer
 	mastery_tab = $Control/TabContainer/Mastery
 	weapons_skills_tab = $Control/TabContainer/Skill
@@ -38,7 +40,10 @@ func _ready():
 	tab_container.connect("tab_changed",Callable(self, "_on_Tab_Changed"))
 
 func _process(delta):
+	if GameState.get_current_state() == GameState.State.NOT_STARTED:
+		return
 	if GameInputMapper.is_action_just_pressed("esc"):
+		main.toggle_pause()
 		prepare_pause_menu()
 		toggle_pause()
 
