@@ -6,6 +6,7 @@ class_name Hook
 @export var max_length = 400
 
 var original_pos = Vector2(0, 0)
+var hook_owner: Player
 
 signal hook_break()
 signal wall_hit(position)
@@ -22,8 +23,14 @@ func _process(_delta):
 		print("hook break: ori: ", original_pos, " this: ", get_node("CollisionShape2D").global_position, " len ", hook_length)
 		hook_break.emit()
 		queue_free()
+	render_chain()
 
-
+func render_chain():
+	rotation = position.angle_to_point(hook_owner.position)
+	$Chain.region_rect.size.x = position.distance_to(hook_owner.position) / $Chain.scale.x
+	
+func dehook():
+	visible = false
 
 func _physics_process(delta):
 	position += direction * speed * delta
