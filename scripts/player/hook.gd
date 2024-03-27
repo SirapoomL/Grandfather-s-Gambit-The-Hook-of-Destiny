@@ -8,7 +8,7 @@ class_name Hook
 var original_pos = Vector2(0, 0)
 var hook_owner: Player
 
-signal hook_break()
+signal hook_break(hook:Hook)
 signal wall_hit(position)
 signal hook_player_reached()
 # Called when the node enters the scene tree for the first time.
@@ -22,7 +22,7 @@ func _process(_delta):
 	render_chain()
 	if hook_length > max_length:
 		print("hook break: ori: ", original_pos, " this: ", get_node("CollisionShape2D").global_position, " len ", hook_length)
-		hook_break.emit()
+		hook_break.emit(self)
 
 func render_chain():
 	rotation = position.angle_to_point(hook_owner.position)
@@ -43,7 +43,7 @@ func _on_body_entered(body):
 			wall_hit.emit(position)
 			speed = 0
 		else:
-			hook_break.emit()
+			hook_break.emit(self)
 			queue_free()
 	if body is Player:
 		hook_player_reached.emit()

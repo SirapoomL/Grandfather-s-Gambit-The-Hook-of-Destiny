@@ -172,14 +172,16 @@ func _on_wall_swing(arg_position):
 	if state == State.DEAD: return
 	change_state(State.SWING)
 
-func _on_hook_break():
+func _on_hook_break(h:Hook):
 	if state == State.SWING:
 		state = State.IDLE
-	if state != State.HOOKING && normal_hook:
-		normal_hook.queue_free()
-	if swing_hook:
-		swing_hook.queue_free()
-		swing_hook = null
+	h.queue_free()
+	#if state != State.HOOKING && normal_hook:
+		#print("player hook queue free", normal_hook)
+		#normal_hook.queue_free()
+	#if swing_hook:
+		#swing_hook.queue_free()
+		#swing_hook = null
 
 func _on_attack_box_body_entered(body):
 	if body is Enemy or body is GroundEnemySpirit:
