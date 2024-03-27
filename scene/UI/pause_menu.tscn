@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dgou2ctgr645i"]
+[gd_scene load_steps=18 format=3 uid="uid://dgou2ctgr645i"]
 
 [ext_resource type="Script" path="res://scripts/pause_menu/pause_menu.gd" id="1_0fbji"]
 [ext_resource type="Script" path="res://scripts/pause_menu/setting.gd" id="2_pc57k"]
@@ -60,10 +60,10 @@ corner_radius_top_right = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_maa68"]
 bg_color = Color(0.215686, 0.180392, 0.180392, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
 border_color = Color(0, 0, 0, 1)
 border_blend = true
 corner_radius_top_left = 15
@@ -87,18 +87,18 @@ corner_radius_bottom_left = 15
 shadow_size = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_26ee2"]
-bg_color = Color(0.227451, 0.192157, 0.192157, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+bg_color = Color(0.215686, 0.180392, 0.180392, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
 border_color = Color(0, 0, 0, 1)
 border_blend = true
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
-shadow_size = 4
+shadow_size = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jn3p"]
 bg_color = Color(0.215686, 0.180392, 0.180392, 1)
@@ -115,17 +115,74 @@ corner_radius_bottom_left = 15
 shadow_size = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iupb4"]
-bg_color = Color(0.454902, 0.396078, 0.396078, 1)
+bg_color = Color(0.215686, 0.180392, 0.180392, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.219608, 0.219608, 0.219608, 1)
+border_color = Color(0, 0, 0, 1)
+border_blend = true
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
-shadow_size = 3
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_touwy"]
+bg_color = Color(0.337255, 0.286275, 0.286275, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nf5wt"]
+bg_color = Color(0.266667, 0.227451, 0.227451, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h54g0"]
+bg_color = Color(0.258824, 0.219608, 0.219608, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dy6pt"]
+bg_color = Color(0.305882, 0.262745, 0.262745, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_size = 4
 
 [node name="Menu_Interface" type="CanvasLayer"]
 script = ExtResource("1_0fbji")
@@ -326,6 +383,8 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+keep_pressed_outside = true
 text = "move left"
 
 [node name="MoveRight" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -339,6 +398,8 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+keep_pressed_outside = true
 text = "move right"
 
 [node name="Jump" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -352,6 +413,8 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+keep_pressed_outside = true
 text = "jump"
 
 [node name="Shoot" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -365,6 +428,8 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+keep_pressed_outside = true
 text = "grapple hook"
 
 [node name="Inventory" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -378,6 +443,8 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+keep_pressed_outside = true
 text = "inventory"
 
 [node name="SkillTree" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -391,6 +458,8 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+keep_pressed_outside = true
 text = "skill tree"
 
 [node name="LightAttack" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -404,6 +473,8 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+keep_pressed_outside = true
 text = "light attack"
 
 [node name="HeavyAttack" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -417,6 +488,8 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+keep_pressed_outside = true
 text = "heavy attack"
 
 [node name="HoldWall" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -430,6 +503,8 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+keep_pressed_outside = true
 text = "hold on the wall"
 
 [node name="AssignerContainer" type="VBoxContainer" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer"]
@@ -443,89 +518,98 @@ alignment = 1
 [node name="MoveLeftValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
 custom_minimum_size = Vector2(350, 80)
 layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0.882353, 0.882353, 0.882353, 1)
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
-theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
-theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_touwy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nf5wt")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_h54g0")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dy6pt")
 
 [node name="MoveRightValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
 custom_minimum_size = Vector2(350, 80)
 layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0.882353, 0.882353, 0.882353, 1)
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
-theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
-theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_touwy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nf5wt")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_h54g0")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dy6pt")
 
 [node name="JumpValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
 custom_minimum_size = Vector2(350, 80)
 layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0.882353, 0.882353, 0.882353, 1)
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
-theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
-theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_touwy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nf5wt")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_h54g0")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dy6pt")
 
 [node name="ShootValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
 custom_minimum_size = Vector2(350, 80)
 layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0.882353, 0.882353, 0.882353, 1)
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
-theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
-theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_touwy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nf5wt")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_h54g0")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dy6pt")
 
 [node name="InventoryValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
 custom_minimum_size = Vector2(350, 80)
 layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0.882353, 0.882353, 0.882353, 1)
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
-theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
-theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_touwy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nf5wt")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_h54g0")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dy6pt")
 
 [node name="SkillTreeValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
 custom_minimum_size = Vector2(350, 80)
 layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0.882353, 0.882353, 0.882353, 1)
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
-theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
-theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_touwy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nf5wt")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_h54g0")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dy6pt")
 
 [node name="LightAttackValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
 custom_minimum_size = Vector2(350, 80)
 layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0.882353, 0.882353, 0.882353, 1)
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
-theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
-theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_touwy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nf5wt")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_h54g0")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dy6pt")
 
 [node name="HeavyAttackValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
 custom_minimum_size = Vector2(350, 80)
 layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0.882353, 0.882353, 0.882353, 1)
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
-theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
-theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_touwy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nf5wt")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_h54g0")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dy6pt")
 
 [node name="HoldWallValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
 custom_minimum_size = Vector2(350, 80)
 layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0.882353, 0.882353, 0.882353, 1)
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
-theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
-theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_touwy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nf5wt")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_h54g0")
+theme_override_styles/focus = SubResource("StyleBoxFlat_dy6pt")

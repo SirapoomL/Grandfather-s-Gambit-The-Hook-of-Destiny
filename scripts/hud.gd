@@ -41,6 +41,7 @@ func show_game_over():
 
 func show_main_menu():
 	panel.show()
+	show_message("Grandfather's Gambit\nThe Hook of Destiny")
 	# change the word "Restart" to "Start"
 	start_button.text = "Start"
 	score_label.hide()

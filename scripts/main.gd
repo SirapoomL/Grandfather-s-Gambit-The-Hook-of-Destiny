@@ -36,14 +36,12 @@ func main_menu():
 func toggle_pause():
 	if GameState.is_playing():
 		GameState.set_current_state(GameState.State.PAUSED)
-		$Music.stop()
-		$ScoreTimer.stop()
-		# $MobTimer.stop()
+		$Music.stream_paused = true
+		$ScoreTimer.paused = true
 	else:
 		GameState.set_current_state(GameState.State.PLAYING)
-		$Music.play()
-		$ScoreTimer.start()
-		# $MobTimer.start()
+		$Music.stream_paused = false
+		$ScoreTimer.paused = false
 
 func new_game():
 	score = 0
