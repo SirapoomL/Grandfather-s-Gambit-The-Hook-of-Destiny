@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bdvr0awlagv0t"]
+[gd_scene load_steps=11 format=3 uid="uid://bdvr0awlagv0t"]
 
 [ext_resource type="Script" path="res://scripts/enemy_explosion.gd" id="1_u5hsk"]
 [ext_resource type="Texture2D" uid="uid://bpqd5uuavdige" path="res://art/particles/smoke/0.png" id="2_dfjpk"]
@@ -8,6 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://btrd00e76imal" path="res://art/particles/smoke/4.png" id="6_igosw"]
 [ext_resource type="Texture2D" uid="uid://ddnc2fx4odq0b" path="res://art/particles/smoke/5.png" id="7_077qg"]
 [ext_resource type="AudioStream" uid="uid://dmmhx4v7w1l7v" path="res://art/ground_monster/death.wav" id="8_5puij"]
+
+[sub_resource type="Curve" id="Curve_upfed"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.28125, 0.783814), 0.0, 0.0, 0, 0, Vector2(0.883523, 0.351441), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hokk0"]
 animations = [{
@@ -47,9 +51,9 @@ spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 20.0
 initial_velocity_max = 150.0
-scale_amount_min = 2.0
-scale_amount_max = 8.0
-color = Color(1, 1, 0.784314, 1)
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_upfed")
 script = ExtResource("1_u5hsk")
 
 [node name="Smoke" type="AnimatedSprite2D" parent="."]
