@@ -97,9 +97,14 @@ func _check_in_attack_range(left_dir_range, right_dir_range):
 func hit(damage, knockback=30):
 	# Add knockback when getting hit
 	if (player.position.x > position.x):
-		position.x -= knockback
+		position.x -= knockback + damage / 2
 	else:
-		position.x += knockback
+		position.x += knockback + damage / 2
+		
+	# Flash color for a fraction of a second when getting hit
+	modulate = Color(60.0, 60.0, 60.0, 255.0)
+	await get_tree().create_timer(0.1).timeout
+	modulate = Color.WHITE
 	
 	# Decrease hitpoint and popping text
 	hp -= damage
