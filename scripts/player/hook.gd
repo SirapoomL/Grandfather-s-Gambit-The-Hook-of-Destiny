@@ -23,7 +23,6 @@ func _process(_delta):
 	if hook_length > max_length:
 		print("hook break: ori: ", original_pos, " this: ", get_node("CollisionShape2D").global_position, " len ", hook_length)
 		hook_break.emit()
-		queue_free()
 
 func render_chain():
 	rotation = position.angle_to_point(hook_owner.position)
