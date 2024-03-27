@@ -7,10 +7,15 @@ signal finish_hook
 
 # State
 enum State {DEAD, IDLE, RUN, LIGHT_ATTACK_1, LIGHT_ATTACK_2, HEAVY_ATTACK, 
-JUMP, JUST_HOOKED, HOOKING, HOLD_HOOK, SWING, WALL_HOOK, HOOK_ATTACK}
+JUMP, JUST_HOOKED, HOOKING, HOLD_HOOK, SWING, WALL_HOOK, HOOK_ATTACK,
+BOUNCE}
 const NORMAL_STATE = [State.IDLE, State.RUN, State.JUMP]
 const ATTACK_STATE = [State.LIGHT_ATTACK_1, State.LIGHT_ATTACK_2, State.HEAVY_ATTACK, State.HOOK_ATTACK]
 const HOOKING_STATE = [State.HOOKING, State.HOLD_HOOK, State.SWING, State.WALL_HOOK]
+const UNAFFECTED_BY_INPUT = [ State.DEAD,
+	State.LIGHT_ATTACK_1,State.LIGHT_ATTACK_2, State.HEAVY_ATTACK,
+	State.BOUNCE
+]
 var state = State.DEAD
 var screen_size # Size of the game window.
 var state_lock_time = 0
@@ -48,6 +53,7 @@ var hook_attack_qouta = 1
 var exp = 0
 var i_frame = 0
 var max_i_frame = 0.5
+var just_take_damage = 0
 
 func get_debug_hud():
 	return get_tree().root.get_node("Main/DebugHud")
@@ -73,6 +79,10 @@ func change_state(s: State):
 			normal_hook.dehook()
 		if is_instance_valid(swing_hook):
 			swing_hook.dehook()
+	if state in ATTACK_STATE:
+		get_node("AttackBox/"+"LightAttack1"+"CollisionShape").set_deferred("disabled", false)
+		get_node("AttackBox/"+"LightAttack2"+"CollisionShape").set_deferred("disabled", false)
+		get_node("AttackBox/"+"HeavyAttack"+"CollisionShape").set_deferred("disabled", false)
 	state = s
 	return true
 

@@ -40,15 +40,6 @@ func process_movement(player, delta):
 	if player.state in player.ATTACK_STATE:
 		player.velocity.y += player.gravity * delta * 0.1
 		player.velocity.x = 0
-		#if player.is_on_floor():
-			#player.hang_time = 0.1
-			#player.air_attack_qouta = 3
-			#player.velocity.x = 0
-			#player.jump_state = 0
-			#if GameInputMapper.is_action_pressed("move_right"):
-				#player.velocity.x = player.speed
-			#if GameInputMapper.is_action_pressed("move_left"):
-				#player.velocity.x = -player.speed
 	match player.state:
 		#player.State.JUST_HOOKED:
 			#player.change_state(player.State.HOOKING)
@@ -97,7 +88,12 @@ func process_movement(player, delta):
 			var hook_direction = (player.position - player.swing_hook.position).normalized()
 			if player.velocity.dot(hook_direction) > 0:
 				player.velocity = player.velocity.project(hook_direction.orthogonal())
-
+	if player.state in player.UNAFFECTED_BY_INPUT:
+		if player.state == player.State.BOUNCE:
+			player.velocity.y += player.gravity * delta
+			if player.is_on_floor():
+				player.change_state(player.State.IDLE)
+			return
 	if GameInputMapper.is_action_just_pressed("jump") and (player.jump_state < player.jump_quota || player.state == player.State.SWING || player.state == player.State.HOOKING):
 		player.hang_time = 0
 		player.change_state(player.State.JUMP)
@@ -117,8 +113,7 @@ func process_collision(player, _delta):
 				player.kill.emit(collision.get_collider())
 				collision.get_collider().queue_free()
 			else:
-				if player.get_node("CombatHandler").take_damage(player, 40) > 0:
-					pass # todo: implement bounce on take damage
+				pass
 		elif player.state == player.State.HOOKING:
 			if GameInputMapper.is_action_pressed("hold_wall"):
 				player.change_state(player.State.WALL_HOOK)
@@ -127,6 +122,12 @@ func process_collision(player, _delta):
 				#player.change_state(player.State.WALL_HOOK)
 			player.velocity.y = 0
 func process_animation(player,_delta):
+	if player.just_take_damage < 0:
+		#print("hiding")
+		player.hide()
+	else:
+		#print("not hiding")
+		player.show()
 	if player.face_left:
 		player.get_node("Sprite2D").flip_h = true
 	else:

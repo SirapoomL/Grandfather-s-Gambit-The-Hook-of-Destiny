@@ -2,8 +2,14 @@ extends Node
 class_name player_attack
 
 func process(player, delta):
-	player.i_frame = player.i_frame-delta if player.i_frame-delta > 0 else 0 
+	player.i_frame = player.i_frame-delta if player.i_frame-delta > 0 else 0
+	if player.just_take_damage > 0:
+		player.just_take_damage = delta-player.just_take_damage if player.just_take_damage-delta > 0 else 0
+	elif player.just_take_damage < 0:
+		player.just_take_damage = abs(player.just_take_damage)-delta if player.just_take_damage+delta < 0 else 0 
 	
+	if player.state in player.UNAFFECTED_BY_INPUT:
+		return
 	var light_attack = GameInputMapper.is_action_just_pressed("light_attack")
 	var heavy_attack = GameInputMapper.is_action_just_pressed("heavy_attack")
 	var left = GameInputMapper.is_action_pressed("move_left")
@@ -87,12 +93,18 @@ func possible(player, new_state):
 		return true
 	return false
 
-func take_damage(player, damage):
+func take_damage(player, damage, damage_source_pos_x= -99999):
 	if player.i_frame > 0:
 		return 0
 	player.current_hp = player.current_hp-damage if player.current_hp-damage > 0 else 0
 	if player.current_hp == 0:
 		player.die()
-	print(player.current_hp)
+	print("Player just take damage, remaining hp is ",player.current_hp)
 	player.i_frame = player.max_i_frame
+	player.just_take_damage = player.max_i_frame * 0.8
+	if damage_source_pos_x != -99999:
+		player.change_state(player.State.BOUNCE)
+		player.velocity.y = -150
+		player.velocity.x = -150 if player.position.x < damage_source_pos_x else 150
+		player.position.y -= 1
 	return damage

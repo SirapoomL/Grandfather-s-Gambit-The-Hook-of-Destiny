@@ -123,7 +123,7 @@ func attack_player(body, damage=5):
 		$Particles/explode.emitting = true
 		$Particles/thunder.visible = true
 		$Particles/thunder.play("default")
-		player.get_node("CombatHandler").take_damage(player, damage)
+		player.get_node("CombatHandler").take_damage(player, damage, position.x)
 	
 
 func _self_kill():
