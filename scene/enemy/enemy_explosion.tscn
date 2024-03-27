@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bdvr0awlagv0t"]
+[gd_scene load_steps=10 format=3 uid="uid://bdvr0awlagv0t"]
 
 [ext_resource type="Script" path="res://scripts/enemy_explosion.gd" id="1_u5hsk"]
 [ext_resource type="Texture2D" uid="uid://bpqd5uuavdige" path="res://art/particles/smoke/0.png" id="2_dfjpk"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dha8ydkadu2ty" path="res://art/particles/smoke/3.png" id="5_5dtia"]
 [ext_resource type="Texture2D" uid="uid://btrd00e76imal" path="res://art/particles/smoke/4.png" id="6_igosw"]
 [ext_resource type="Texture2D" uid="uid://ddnc2fx4odq0b" path="res://art/particles/smoke/5.png" id="7_077qg"]
+[ext_resource type="AudioStream" uid="uid://dmmhx4v7w1l7v" path="res://art/ground_monster/death.wav" id="8_5puij"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hokk0"]
 animations = [{
@@ -56,3 +57,7 @@ position = Vector2(9.53674e-07, -0.999998)
 scale = Vector2(1.79297, 1.79297)
 sprite_frames = SubResource("SpriteFrames_hokk0")
 frame_progress = 0.361394
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_5puij")
+volume_db = -25.0

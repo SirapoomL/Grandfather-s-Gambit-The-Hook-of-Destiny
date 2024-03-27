@@ -1,10 +1,16 @@
 extends CPUParticles2D
 
+var smoke = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$DeathSound.play()
 	emitting = true
-	$Smoke.play("default")
+	if smoke == true:
+		$Smoke.play("default")
+	else:
+		$Smoke.visible = false
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

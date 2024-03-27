@@ -120,6 +120,7 @@ func hit(damage, knockback=30):
 	
 func attack_player(body, damage=5):
 	if (body.name == 'Player'):
+		$AttackSound.play()
 		$Particles/explode.emitting = true
 		$Particles/thunder.visible = true
 		$Particles/thunder.play("default")
@@ -129,5 +130,8 @@ func attack_player(body, damage=5):
 func _self_kill():
 	var effect = enemy_explosion_particle.instantiate()
 	effect.global_position = global_position
+	
+	# NOTE set explosion smoke
+	effect.smoke = true
 	get_tree().current_scene.add_child(effect)
 	queue_free()

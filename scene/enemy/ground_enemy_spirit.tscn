@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dfwlcctlb3wde"]
+[gd_scene load_steps=32 format=3 uid="uid://dfwlcctlb3wde"]
 
 [ext_resource type="Script" path="res://scripts/ground_enemy_spirit.gd" id="1_32077"]
 [ext_resource type="Texture2D" uid="uid://b8fwdingn465k" path="res://art/ground_monster/spirit/attack/0.png" id="2_baswo"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://dha8ydkadu2ty" path="res://art/particles/smoke/3.png" id="22_hbt23"]
 [ext_resource type="Texture2D" uid="uid://btrd00e76imal" path="res://art/particles/smoke/4.png" id="23_31awc"]
 [ext_resource type="Texture2D" uid="uid://ddnc2fx4odq0b" path="res://art/particles/smoke/5.png" id="24_4m5vt"]
+[ext_resource type="AudioStream" uid="uid://du7fgli2t1hba" path="res://art/ground_monster/spirit/thunder.wav" id="25_iis0f"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eojy0"]
 animations = [{
@@ -80,8 +81,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b4gtc"]
-radius = 23.0
-height = 46.0
+radius = 24.0
+height = 48.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r57yi"]
 size = Vector2(443, 145)
@@ -161,21 +162,24 @@ animation = &"spirit_attack"
 frame_progress = 0.092832
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(20, 0)
+position = Vector2(21, -5)
 shape = SubResource("CapsuleShape2D_b4gtc")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
 position = Vector2(21, -8.28583)
 scale = Vector2(3.6, 3.05)
 
 [node name="detection_area" type="Area2D" parent="."]
+visible = false
 position = Vector2(27, -10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
-position = Vector2(-3.5, -39.5)
+position = Vector2(-4, -41)
 shape = SubResource("RectangleShape2D_r57yi")
 
 [node name="Particles" type="Node2D" parent="."]
+visible = false
 
 [node name="explode" type="CPUParticles2D" parent="Particles"]
 position = Vector2(18, -1)
@@ -203,6 +207,10 @@ scale = Vector2(1.34375, 1.34375)
 sprite_frames = SubResource("SpriteFrames_gwk7r")
 frame = 5
 frame_progress = 0.816786
+
+[node name="AttackSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("25_iis0f")
+volume_db = -30.0
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
