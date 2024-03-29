@@ -184,7 +184,8 @@ func _on_hook_break(h:Hook):
 		#swing_hook = null
 
 func _on_attack_box_body_entered(body):
-	if body is Enemy or body is GroundEnemySpirit:
+	print("Player trying to hit:", body.name.capitalize())
+	if body is Enemy or body.name.to_lower().begins_with('ground_enemy'):
 		var x = await body.hit(get_node("CombatHandler").get_attack_damage(attack_power, state, State))
 		var damage_dealt = x[0]
 		var exp_gained = x[1]

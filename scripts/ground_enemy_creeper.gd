@@ -1,5 +1,5 @@
 extends RigidBody2D
-class_name GroundEnemySpirit
+class_name GroundEnemyCreeper
 
 var floating_text = preload("res://scene/utils/floating_text.tscn")
 var enemy_explosion_particle = preload("res://scene/enemy/enemy_explosion.tscn")
@@ -8,59 +8,62 @@ var player = null
 var offset = 5
 
 # You can adjust monster's config here 
-var speed = 60
-var hp = 50
-var exp = 10
+var speed = 50
+var hp = 70
+var exp = 25
 
-# NOTE Set GRAVITY to false to make spirit levitate toward player
+# NOTE Set GRAVITY to false to make creeper levitate toward player
 var GRAVITY = true
 
 # Distance between player and mob for attack range
-var left_dir_range = -40
-var right_dir_range = 80
+var left_dir_range = -35
+var right_dir_range = 75
 
+
+# TODO: add particles effect
+# TODO: Creeper go KA-BOOM
 
 func _physics_process(delta):
-	$Particles/thunder.visible = false
-	$Particles/smoke.visible = false
+	#$Particles/thunder.visible = false
+	#$Particles/smoke.visible = false
 
 	global_rotation = 0
 	if GRAVITY:
 		global_position.y += 980 * delta
 	if player_chase:
 		if not _check_in_attack_range(left_dir_range, right_dir_range):
-			$AnimatedSprite2D.play("spirit_move")
-			$Particles/thunder.global_position = player.position
+			$AnimatedSprite2D.play("creeper_move")
+			#$Particles/thunder.global_position = player.position
 			
-			# Move spirit in x-axis
+			# Move creeper in x-axis
 			if (player.position.x > position.x):
 				position.x += speed * delta
 			else:
 				position.x -= speed * delta
 				
-			# Make spirit levitating towards player
+			# Make creeper levitating towards player
 			if not GRAVITY && (player.position.y > position.y):
 				position.y += speed * delta
 			elif not GRAVITY && (player.position.y < position.y):
 				position.y -= speed * delta
 			
-			# Flip spirit face direction
+			# Flip creeper face direction
 			if (player.position.x - position.x) < offset:
 				$AnimatedSprite2D.flip_h = true
-				$Particles/thunder.flip_h = true
-				$Particles/thunder.position.x += offset
+				#$Particles/thunder.flip_h = true
+				#$Particles/thunder.position.x += offset
 			elif (player.position.x - position.x) > offset:
 				$AnimatedSprite2D.flip_h = false
-				$Particles/thunder.flip_h = false
-				$Particles/thunder.position.x -= offset
+				#$Particles/thunder.flip_h = false
+				#$Particles/thunder.position.x -= offset
 
-		# Player is in spirit's attack range (stop spirit movement)
+		# Player is in creeper's attack range (stop creeper movement)
 		else:
-			$AnimatedSprite2D.play("spirit_attack")
-			attack_player(player, 5)
+			$AnimatedSprite2D.play("creeper_attack")
+			attack_player(player, 3)
 	else:
-		$AnimatedSprite2D.play("spirit_idle")
-		$Particles/explode.emitting = false
+		$AnimatedSprite2D.play("creeper_idle")
+		#$Particles/explode.emitting = false
 
 
 func _on_detection_area_body_entered(body):
@@ -82,10 +85,6 @@ func _on_detection_area_body_exited(body):
 	if (body.name == 'Player'):
 		player = null
 		player_chase = false
-
-
-func _on_visible_on_screen_notifier_2d_screen_exited():
-	pass # Replace with function body.
 	
 	
 func _check_in_attack_range(left_dir_range, right_dir_range):
@@ -121,9 +120,9 @@ func hit(damage, knockback=30):
 func attack_player(body, damage=5):
 	if (body.name == 'Player'):
 		$AttackSound.play()
-		$Particles/explode.emitting = true
-		$Particles/thunder.visible = true
-		$Particles/thunder.play("default")
+		#$Particles/explode.emitting = true
+		#$Particles/thunder.visible = true
+		#$Particles/thunder.play("default")
 		player.get_node("CombatHandler").take_damage(player, damage, position.x)
 	
 
