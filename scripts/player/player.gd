@@ -8,8 +8,8 @@ signal finish_hook
 # State
 enum State {DEAD, IDLE, RUN, LIGHT_ATTACK_1, LIGHT_ATTACK_2, HEAVY_ATTACK, 
 JUMP, JUST_HOOKED, HOOKING, HOLD_HOOK, SWING, WALL_HOOK, HOOK_ATTACK,
-BOUNCE}
-const NORMAL_STATE = [State.IDLE, State.RUN, State.JUMP]
+BOUNCE, GLIDE}
+const NORMAL_STATE = [State.IDLE, State.RUN, State.JUMP, State.GLIDE]
 const ATTACK_STATE = [State.LIGHT_ATTACK_1, State.LIGHT_ATTACK_2, State.HEAVY_ATTACK, State.HOOK_ATTACK]
 const HOOKING_STATE = [State.HOOKING, State.HOLD_HOOK, State.SWING, State.WALL_HOOK]
 const UNAFFECTED_BY_INPUT = [ State.DEAD,
@@ -33,6 +33,7 @@ var face_left = false
 @export var hook_quota = 2
 @export var hook_acc = 98*2
 @export var hook_cooldown = 2
+@export var hook_power = 2000
 var hang_time = 0.2
 var jump_state = 3
 var jump_quota = 3
@@ -43,6 +44,7 @@ var hold_triggered = false
 var hold_threshold = 0.2
 var swing_hook: Hook
 var normal_hook: Hook
+var oneway_platform_threshold = -300
 
 # Combat
 var max_hp = 100
@@ -79,6 +81,9 @@ func change_state(s: State):
 			normal_hook.dehook()
 		if is_instance_valid(swing_hook):
 			swing_hook.dehook()
+	#if s == State.HOOKING:
+		#velocity.x *= 0.6
+		#velocity.y = 0
 	if state in ATTACK_STATE:
 		get_node("AttackBox/"+"LightAttack1"+"CollisionShape").set_deferred("disabled", false)
 		get_node("AttackBox/"+"LightAttack2"+"CollisionShape").set_deferred("disabled", false)
@@ -134,6 +139,7 @@ func _physics_process(delta):
 	get_debug_hud().update_hook_cooldown($HookHandler.get_time_left())
 	get_debug_hud().update_player_position(global_position)
 	get_debug_hud().get_node("PlayerState").text = "State: " + State.keys()[state]
+	get_debug_hud().get_node("PlayerVelocity").text =  "Velocity: " + str(velocity)
 
 func shoot_action(is_holding):
 	# swing hook can't be duplicated
@@ -180,12 +186,9 @@ func _on_hook_break(h:Hook):
 	if normal_hook:
 		normal_hook = null
 	h.queue_free()
-	#if state != State.HOOKING && normal_hook:
-		#print("player hook queue free", normal_hook)
-		#normal_hook.queue_free()
-	#if swing_hook:
-		#swing_hook.queue_free()
-		#swing_hook = null
+	if state in HOOKING_STATE:
+		change_state(State.IDLE)
+
 
 func _on_attack_box_body_entered(body):
 	print("Player trying to hit:", body.name.capitalize())
@@ -208,7 +211,10 @@ func _on_check_area_area_exited(area):
 	pass
 		
 func emerge_oneway_platform():
-	velocity.y = 0.6 * velocity.y
+	if state in HOOKING_STATE or state == State.GLIDE:
+		print("hooking over oneway platform")
+		velocity.y = 0.6 * velocity.y
+		velocity.y = min(velocity.y, oneway_platform_threshold)
 
 
 func _on_check_area_area_entered(area):
@@ -219,7 +225,7 @@ func _on_check_area_area_entered(area):
 	if is_instance_valid(area) && is_instance_valid(normal_hook):
 		if area.global_position == normal_hook.global_position:
 			print("hook passed")
-			change_state(State.IDLE)
+			change_state(State.GLIDE)
 		
 func die():
 	hide()

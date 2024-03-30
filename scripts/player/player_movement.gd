@@ -7,6 +7,14 @@ func process(player, delta):
 	process_collision(player, delta)
 	process_animation(player, delta)
 	
+func strafe(player, delta, direction, factor):
+	# direction 1 = right, -1 = left
+	var new_v_x = move_toward(player.velocity.x, direction * player.speed, player.speed * factor * delta)
+	if direction > 0:
+		player.velocity.x = max(new_v_x, player.velocity.x)
+	else:
+		player.velocity.x = min(new_v_x, player.velocity.x)
+	
 func process_movement(player, delta):
 	#print(player.state)
 	# Handle movement logic here
@@ -19,23 +27,35 @@ func process_movement(player, delta):
 		if player.is_on_floor():
 			player.hang_time = 0.1
 			player.air_attack_qouta = 3
-			player.velocity.x = 0
-			player.change_state(player.State.IDLE)
+			# slide if gliding
+			if player.state == player.State.GLIDE && player.velocity.x != 0:
+				player.velocity.x = move_toward(player.velocity.x, 0, 1000 * delta)
+			else:
+				player.velocity.x = 0
+				player.change_state(player.State.IDLE)
 			player.jump_state = 0
 		if GameInputMapper.is_action_pressed("move_right"):
-			player.state = player.State.RUN
+			if player.state != player.State.GLIDE:
+				player.state = player.State.RUN
 			if player.is_on_floor():
-				player.velocity.x = player.speed
+				# if sliding, do nothing
+				if player.state != player.State.GLIDE:
+					player.velocity.x = player.speed
 			else:
-				player.velocity.x = max(move_toward(player.velocity.x, player.speed, player.speed * 5.5 * delta), player.velocity.x)
+				var strafe_factor = 5 if player.state == player.State.GLIDE else 7.5
+				strafe(player, delta, 1, strafe_factor)
 			player.face_left = false
 			#player.set_deferred("rotation", 0)
 		if GameInputMapper.is_action_pressed("move_left"):
-			player.state = player.State.RUN
+			if player.state != player.State.GLIDE:
+				player.state = player.State.RUN
 			if player.is_on_floor():
-				player.velocity.x = -player.speed
+				# if sliding, do nothing
+				if player.state != player.State.GLIDE:
+					player.velocity.x = -player.speed
 			else:
-				player.velocity.x = min(move_toward(player.velocity.x, -player.speed, player.speed * 5.5 * delta), player.velocity.x)
+				var strafe_factor = 5 if player.state == player.State.GLIDE else 7.5
+				strafe(player, delta, -1, strafe_factor)
 			player.face_left = true
 	if player.state in player.ATTACK_STATE:
 		player.velocity.y += player.gravity * delta * 0.1
@@ -47,7 +67,8 @@ func process_movement(player, delta):
 			if is_instance_valid(player.normal_hook):
 				# calculate velocity towards hook (like pulling to it)
 				var direction = (player.normal_hook.position - player.position).normalized()
-				player.set_velocity(direction * player.hook_speed) 
+				player.set_velocity(direction * player.hook_speed)
+				#player.velocity += (direction * player.hook_power * delta)
 				# TODO: discuss about the IF below later.
 				if (player.position - player.normal_hook.position).dot(player.velocity) > 0:
 					player.change_state(player.State.IDLE)
@@ -157,6 +178,8 @@ func process_animation(player,_delta):
 			state_machine.travel("swing")
 		player.State.HOOK_ATTACK:
 			state_machine.travel("light_attack_1")
+		player.State.GLIDE:
+			state_machine.travel("swing")
 	#var anim = player.get_node("AnimationPlayer")
 	#anim.set_speed_scale(200)
 	#match player.state:
