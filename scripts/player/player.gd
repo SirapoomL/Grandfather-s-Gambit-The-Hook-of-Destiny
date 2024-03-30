@@ -175,6 +175,10 @@ func _on_wall_swing(arg_position):
 func _on_hook_break(h:Hook):
 	if state == State.SWING:
 		state = State.IDLE
+	if swing_hook:
+		swing_hook = null
+	if normal_hook:
+		normal_hook = null
 	h.queue_free()
 	#if state != State.HOOKING && normal_hook:
 		#print("player hook queue free", normal_hook)
