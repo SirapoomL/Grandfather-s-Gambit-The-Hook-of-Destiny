@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bmgoaqjdyaht"]
+[gd_scene load_steps=20 format=3 uid="uid://bmgoaqjdyaht"]
 
 [ext_resource type="Script" path="res://scripts/ground_enemy_creeper.gd" id="1_8ccfn"]
 [ext_resource type="Texture2D" uid="uid://b7e52qbh2wn64" path="res://art/ground_monster/bamboo/move/0.png" id="2_w1cy0"]
@@ -9,7 +9,12 @@
 [ext_resource type="Texture2D" uid="uid://cxohqp5g6wkaq" path="res://art/ground_monster/bamboo/idle/1.png" id="7_kosmu"]
 [ext_resource type="Texture2D" uid="uid://cd7eotsfync7r" path="res://art/ground_monster/bamboo/idle/2.png" id="8_mca3c"]
 [ext_resource type="Texture2D" uid="uid://tg1mnime1o0i" path="res://art/ground_monster/bamboo/idle/3.png" id="9_q1itp"]
+[ext_resource type="Texture2D" uid="uid://cwvnbrj3mqg0y" path="res://art/particles/sparkle/0.png" id="10_bbj3l"]
 [ext_resource type="AudioStream" uid="uid://q8rcm3uch8gd" path="res://art/ground_monster/bamboo/slash.wav" id="10_frepc"]
+[ext_resource type="Texture2D" uid="uid://c8vni3746uam5" path="res://art/particles/sparkle/1.png" id="11_ljkxw"]
+[ext_resource type="Texture2D" uid="uid://cyarxqiyylday" path="res://art/particles/sparkle/2.png" id="12_wqdjo"]
+[ext_resource type="Texture2D" uid="uid://oj5u7dul05d1" path="res://art/particles/sparkle/3.png" id="13_cf0f2"]
+[ext_resource type="Texture2D" uid="uid://cjbxth0jsoe5j" path="res://art/particles/sparkle/4.png" id="14_310nr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5xt7l"]
 animations = [{
@@ -72,6 +77,29 @@ height = 68.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u584i"]
 size = Vector2(365, 109)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_l877t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_bbj3l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ljkxw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_wqdjo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_cf0f2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_310nr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Ground_Enemy_Creeper" type="RigidBody2D"]
 position = Vector2(1, -37)
 script = ExtResource("1_8ccfn")
@@ -83,16 +111,24 @@ animation = &"creeper_move"
 frame_progress = 0.996309
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(2, -1)
 shape = SubResource("CapsuleShape2D_q4ckc")
 
 [node name="DetectionArea" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 position = Vector2(-2, -19)
 shape = SubResource("RectangleShape2D_u584i")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="sparkle" type="AnimatedSprite2D" parent="Particles"]
+position = Vector2(-1, 1)
+scale = Vector2(1.14063, 1.14063)
+sprite_frames = SubResource("SpriteFrames_l877t")
+frame_progress = 0.176597
 
 [node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_frepc")

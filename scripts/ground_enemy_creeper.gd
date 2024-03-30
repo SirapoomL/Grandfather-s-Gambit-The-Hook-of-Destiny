@@ -11,6 +11,7 @@ var offset = 5
 var speed = 50
 var hp = 70
 var exp = 25
+var kaboom_state = false
 
 # NOTE Set GRAVITY to false to make creeper levitate toward player
 var GRAVITY = true
@@ -20,18 +21,15 @@ var left_dir_range = -35
 var right_dir_range = 75
 
 
-# TODO: add particles effect
 # TODO: Creeper go KA-BOOM
-
 func _physics_process(delta):
-	#$Particles/thunder.visible = false
-	#$Particles/smoke.visible = false
+	$Particles/sparkle.visible = false
 
 	global_rotation = 0
 	if player_chase:
 		if not _check_in_attack_range(left_dir_range, right_dir_range):
 			$AnimatedSprite2D.play("creeper_move")
-			#$Particles/thunder.global_position = player.position
+			$Particles/sparkle.global_position = player.position
 			
 			# Move creeper in x-axis
 			if (player.position.x > position.x):
@@ -48,12 +46,12 @@ func _physics_process(delta):
 			# Flip creeper face direction
 			if (player.position.x - position.x) < offset:
 				$AnimatedSprite2D.flip_h = true
-				#$Particles/thunder.flip_h = true
-				#$Particles/thunder.position.x += offset
+				$Particles/sparkle.flip_h = true
+				$Particles/sparkle.position.x += offset
 			elif (player.position.x - position.x) > offset:
 				$AnimatedSprite2D.flip_h = false
-				#$Particles/thunder.flip_h = false
-				#$Particles/thunder.position.x -= offset
+				$Particles/sparkle.flip_h = false
+				$Particles/sparkle.position.x -= offset
 
 		# Player is in creeper's attack range (stop creeper movement)
 		else:
@@ -61,7 +59,6 @@ func _physics_process(delta):
 			attack_player(player, 3)
 	else:
 		$AnimatedSprite2D.play("creeper_idle")
-		#$Particles/explode.emitting = false
 
 
 func _on_detection_area_body_entered(body):
@@ -117,12 +114,25 @@ func hit(damage, knockback=30):
 	
 func attack_player(body, damage=5):
 	if (body.name == 'Player'):
-		$AttackSound.play()
-		#$Particles/explode.emitting = true
-		#$Particles/thunder.visible = true
-		#$Particles/thunder.play("default")
-		player.get_node("CombatHandler").take_damage(player, damage, position.x)
-	
+		
+		if hp >= 35:
+			$AttackSound.play()
+			$Particles/sparkle.visible = true
+			$Particles/sparkle.play("default")
+			player.get_node("CombatHandler").take_damage(player, damage, position.x)
+		else:
+			kaboom_state = true
+			
+			# TODO make it blinking
+			for i in range(10):
+				modulate = Color(60.0, 60.0, 60.0, 255.0)
+				await get_tree().create_timer(0.2).timeout
+				modulate = Color.WHITE
+			
+			# KA-BOOM!!
+			player.get_node("CombatHandler").take_damage(player, 25, position.x)
+			_self_kill()
+
 
 func _self_kill():
 	var effect = enemy_explosion_particle.instantiate()
