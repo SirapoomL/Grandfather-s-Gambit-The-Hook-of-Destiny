@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bmgoaqjdyaht"]
+[gd_scene load_steps=21 format=3 uid="uid://bmgoaqjdyaht"]
 
 [ext_resource type="Script" path="res://scripts/ground_enemy_creeper.gd" id="1_8ccfn"]
 [ext_resource type="Texture2D" uid="uid://b7e52qbh2wn64" path="res://art/ground_monster/bamboo/move/0.png" id="2_w1cy0"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://cyarxqiyylday" path="res://art/particles/sparkle/2.png" id="12_wqdjo"]
 [ext_resource type="Texture2D" uid="uid://oj5u7dul05d1" path="res://art/particles/sparkle/3.png" id="13_cf0f2"]
 [ext_resource type="Texture2D" uid="uid://cjbxth0jsoe5j" path="res://art/particles/sparkle/4.png" id="14_310nr"]
+[ext_resource type="AudioStream" uid="uid://bu7377xd00ooo" path="res://art/ground_monster/bamboo/explosion.mp3" id="16_posr2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5xt7l"]
 animations = [{
@@ -133,6 +134,10 @@ frame_progress = 0.176597
 [node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_frepc")
 volume_db = -15.0
+
+[node name="ExplodeSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_posr2")
+volume_db = -10.0
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

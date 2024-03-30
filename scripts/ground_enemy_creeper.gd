@@ -11,7 +11,12 @@ var offset = 5
 var speed = 50
 var hp = 70
 var exp = 25
+
+# Explosion config
 var kaboom_state = false
+var kaboom_damage = 45
+var kaboom_range = 50
+var time = 0
 
 # NOTE Set GRAVITY to false to make creeper levitate toward player
 var GRAVITY = true
@@ -21,12 +26,11 @@ var left_dir_range = -35
 var right_dir_range = 75
 
 
-# TODO: Creeper go KA-BOOM
 func _physics_process(delta):
 	$Particles/sparkle.visible = false
 
 	global_rotation = 0
-	if player_chase:
+	if player_chase and not kaboom_state:
 		if not _check_in_attack_range(left_dir_range, right_dir_range):
 			$AnimatedSprite2D.play("creeper_move")
 			$Particles/sparkle.global_position = player.position
@@ -59,6 +63,14 @@ func _physics_process(delta):
 			attack_player(player, 3)
 	else:
 		$AnimatedSprite2D.play("creeper_idle")
+	
+	## TODO Screen shake Effect
+	#if kaboom_state == true:
+		#time += 1
+		#var final_position = Vector2(sin(time) * 10, sin(time) * 20)
+		#$Camera2D.offset = lerp($Camera2D.offset, final_position, 0.2)
+	#elif time:
+		#time = 0
 
 
 func _on_detection_area_body_entered(body):
@@ -122,23 +134,30 @@ func attack_player(body, damage=5):
 			player.get_node("CombatHandler").take_damage(player, damage, position.x)
 		else:
 			kaboom_state = true
+			$ExplodeSound.play()	# 2.6 sec
 			
-			# TODO make it blinking
+			# Make it blinking
 			for i in range(10):
 				modulate = Color(60.0, 60.0, 60.0, 255.0)
-				await get_tree().create_timer(0.2).timeout
+				await get_tree().create_timer(0.13).timeout
 				modulate = Color.WHITE
+				await get_tree().create_timer(0.13).timeout
 			
-			# KA-BOOM!!
-			player.get_node("CombatHandler").take_damage(player, 25, position.x)
-			_self_kill()
+			# KA-BOOM!! (reduce damage by distance)
+			if _check_in_attack_range(left_dir_range - kaboom_range, right_dir_range + kaboom_range):
+				var reduced_damage = abs(player.position.x - position.x) / 3
+				if kaboom_damage - reduced_damage >= 0:
+					kaboom_damage -= reduced_damage
+				print("kaboom damage: ", kaboom_damage)
+				player.get_node("CombatHandler").take_damage(player, kaboom_damage, position.x)
+			_self_kill(true)
 
 
-func _self_kill():
+func _self_kill(smoke=false):
 	var effect = enemy_explosion_particle.instantiate()
 	effect.global_position = global_position
 	
 	# NOTE set explosion smoke
-	effect.smoke = true
+	effect.smoke = smoke
 	get_tree().current_scene.add_child(effect)
 	queue_free()
