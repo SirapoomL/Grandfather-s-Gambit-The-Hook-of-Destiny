@@ -151,7 +151,6 @@ animations = [{
 
 [node name="Ground_Enemy_Spirit" type="RigidBody2D" groups=["ground_mobs"]]
 position = Vector2(0, -40)
-gravity_scale = 0.0
 script = ExtResource("1_32077")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

@@ -25,8 +25,6 @@ func _physics_process(delta):
 	$Particles/smoke.visible = false
 
 	global_rotation = 0
-	if GRAVITY:
-		global_position.y += 980 * delta
 	if player_chase:
 		if not _check_in_attack_range(left_dir_range, right_dir_range):
 			$AnimatedSprite2D.play("spirit_move")
