@@ -200,6 +200,10 @@ func _on_attack_box_body_entered(body):
 		if exp_gained != 0:
 			body._self_kill()
 		# do smth here
+	if body is Minotaur:
+		var x = await body.hit(get_node("CombatHandler").get_attack_damage(attack_power, state, State))
+		var damage_dealt = x[0]
+		var exp_gained = x[1]
 		
 
 func _on_check_area_area_exited(area):
