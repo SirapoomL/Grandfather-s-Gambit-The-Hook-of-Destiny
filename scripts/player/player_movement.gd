@@ -146,6 +146,8 @@ func process_collision(player, _delta):
 			elif not player.is_on_floor():
 				player.velocity.y = 0
 				player.change_state(player.State.IDLE)
+			elif player.velocity == Vector2.ZERO:
+				player.change_state(player.State.IDLE)
 			
 func process_animation(player,_delta):
 	if player.just_take_damage < 0:

@@ -29,7 +29,7 @@ var face_left = false
 @export var strafe_force = 10
 @export var air_terminal_velocity = 400
 @export var gravity = 980 # Adjust the gravity to your needs
-@export var hook_speed = 1200
+@export var hook_speed = 800
 @export var hook_quota = 2
 @export var hook_acc = 98*2
 @export var hook_cooldown = 2
@@ -135,6 +135,8 @@ func _physics_process(delta):
 		
 	# process_movement(delta)
 	process_hitbox_overlapped()
+	if is_instance_valid($MainCamera2D):
+		$CameraHandler.process($MainCamera2D, delta)
 	get_node("CombatHandler").process(self, delta)
 	get_node("MovementHandler").process(self, delta)
 	get_debug_hud().update_hook_count(hook_count)
@@ -142,6 +144,13 @@ func _physics_process(delta):
 	get_debug_hud().update_player_position(global_position)
 	get_debug_hud().get_node("PlayerState").text = "State: " + State.keys()[state]
 	get_debug_hud().get_node("PlayerVelocity").text =  "Velocity: " + str(velocity)
+
+func reset_camera_transform_default():
+	if is_instance_valid($MainCamera2D):
+		$MainCamera2D.enabled = true
+		$MainCamera2D.offset = Vector2.ZERO
+		$MainCamera2D.zoom = Vector2(1, 1)
+		$MainCamera2D.anchor_mode = 1
 
 func shoot_action(is_holding):
 	# swing hook can't be duplicated
@@ -256,3 +265,17 @@ func process_hitbox_overlapped():
 					var rng = RandomNumberGenerator.new()
 					incoming_pos_x = rng.randf_range(-10.0, 10.0)
 				$CombatHandler.take_damage(self, area.damage, position.x + incoming_pos_x, 240)
+			
+			if area is CameraOverrideArea:
+				$CameraHandler.set_camera_override_area(area)
+
+
+
+func _on_hit_box_area_2d_area_entered(area):
+	if area is CameraOverrideArea:
+		$CameraHandler.set_camera_override_area(area)
+
+
+func _on_hit_box_area_2d_area_exited(area):
+	if area is CameraOverrideArea:
+		$CameraHandler.remove_camera_override_area()

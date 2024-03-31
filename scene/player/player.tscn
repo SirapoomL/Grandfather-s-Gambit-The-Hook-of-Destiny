@@ -1,6 +1,7 @@
 [gd_scene load_steps=48 format=3 uid="uid://hl4xtvdy2spj"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_88xg1"]
+[ext_resource type="Script" path="res://scripts/player/camera_handler.gd" id="6_1qean"]
 [ext_resource type="Texture2D" uid="uid://cue6n6ustabi6" path="res://art/player/combined_char_red.png" id="6_4ign3"]
 [ext_resource type="Script" path="res://scripts/player/hook_handler.gd" id="7_3efig"]
 [ext_resource type="Script" path="res://scripts/player/player_combat.gd" id="7_5wpcc"]
@@ -283,9 +284,6 @@ graph_offset = Vector2(14, -48)
 radius = 4.0
 height = 24.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_cxc4q"]
-radius = 600.0
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w4y3r"]
 radius = 27.0
 height = 70.0
@@ -359,24 +357,20 @@ script = ExtResource("7_5wpcc")
 [node name="MovementHandler" type="Node" parent="."]
 script = ExtResource("8_1yhd2")
 
+[node name="CameraHandler" type="Node" parent="."]
+script = ExtResource("6_1qean")
+
 [node name="CheckArea" type="Area2D" parent="."]
-collision_layer = 32776
-collision_mask = 32776
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CheckArea"]
 shape = SubResource("CapsuleShape2D_74ae3")
 debug_color = Color(0.956863, 0.027451, 0.0352941, 0.227451)
 
-[node name="HookRangeIndicator2" type="Area2D" parent="."]
-visible = false
-collision_layer = 0
-collision_mask = 0
-
-[node name="CircleShape" type="CollisionShape2D" parent="HookRangeIndicator2"]
-shape = SubResource("CircleShape2D_cxc4q")
-debug_color = Color(0.635294, 0.592157, 0.290196, 0.278431)
-
 [node name="HitBoxArea2D" type="Area2D" parent="."]
+collision_layer = 32769
+collision_mask = 32769
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxArea2D"]
 shape = SubResource("CapsuleShape2D_w4y3r")
@@ -388,4 +382,5 @@ debug_color = Color(0.345098, 0.619608, 0.129412, 0.419608)
 [connection signal="area_entered" from="CheckArea" to="." method="_on_check_area_area_entered"]
 [connection signal="area_exited" from="CheckArea" to="." method="_on_check_area_area_exited"]
 [connection signal="area_entered" from="HitBoxArea2D" to="." method="_on_hit_box_area_2d_area_entered"]
+[connection signal="area_exited" from="HitBoxArea2D" to="." method="_on_hit_box_area_2d_area_exited"]
 [connection signal="body_entered" from="HitBoxArea2D" to="." method="_on_hit_box_area_2d_body_entered"]
