@@ -6,6 +6,8 @@ extends Area2D
 @export var impale_damage : int = 20
 @export var whirl_damage : int = 40
 
+const ATTACKING_STATE = [minotaur.State.CLEAVE, minotaur.State.IMPALE, minotaur.State.WHIRLING]
+
 func _ready():
 	monitoring = false
 	for child in get_children():
@@ -14,7 +16,7 @@ func _ready():
 	minotaur.connect("facing_direction", _on_minotaur_facing_direction_changed)
 
 func _on_body_entered(body):
-	if body.name != "Player":
+	if body.name != "Player" || minotaur.state not in ATTACKING_STATE:
 		return
 	var damage : int
 	match(minotaur.state):

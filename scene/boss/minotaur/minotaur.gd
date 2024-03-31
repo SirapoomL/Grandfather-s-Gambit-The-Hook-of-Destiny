@@ -3,9 +3,13 @@ extends CharacterBody2D
 class_name Minotaur
 
 @export var speed : float = 200.0
-@export var action_cooldown : int = 4
-@export var cleave_cooldown : int = 5
-@export var impale_cooldown : int = 3
+@export var health : int = 200
+@export var experience : int = 40
+
+@export var attack_range : float = 35 * scale.x
+@export var action_cooldown : int = 2
+@export var cleave_cooldown : int = 6
+@export var impale_cooldown : int = 4
 @export var whirl_cooldown : int = 20
 
 @onready var collision : CollisionShape2D = $CollisionShape2D
@@ -16,6 +20,7 @@ class_name Minotaur
 enum State {NORMAL, HIT, DEAD, CLEAVE, IMPALE, WHIRL_START, WHIRLING, WHIRL_END}
 const MOVABLE_STATE = [State.NORMAL, State.WHIRLING]
 const ATTACKABLE_STATE = [State.NORMAL]
+const IMPACTABLE_STATE = [State.NORMAL]
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -32,20 +37,22 @@ var impale_cooldown_remaining : int = 3
 var whirl_cooldown_remaining : int = 10
 var rng = RandomNumberGenerator.new()
 
+var player_direction : Vector2
+
 func _ready():
 	animation_tree.active = true
 	animation_playback = animation_tree["parameters/playback"]
+	collision.disabled = false
 
 func _physics_process(delta):
+	if state == State.DEAD:
+		return
+	
 	if not is_on_floor():
 		velocity.y += gravity * delta
 		
-	if state == State.DEAD:
-		move_and_slide()
-		return
-	
 	var player = get_parent().get_node("Player")
-	var player_direction = player.position - position
+	player_direction = player.position - position
 	
 	if is_idle:
 		if player_direction.length() > 1000:
@@ -55,29 +62,25 @@ func _physics_process(delta):
 	
 	direction = 1 if (player_direction.x > 0) else -1
 	
-	if abs(player_direction.x) < 120 && state in ATTACKABLE_STATE:
+	if abs(player_direction.x) < attack_range && state in ATTACKABLE_STATE:
 		if action_cooldown_remaining < 0:
-			action_cooldown_remaining = action_cooldown
+			action_cooldown_remaining = 100
 			var random = rng.randf()
 			if cleave_cooldown_remaining < 0 && random > 0.66:
-				cleave_cooldown_remaining = cleave_cooldown
-				animation_playback.travel("cleave")
 				switch_state(State.CLEAVE)
 			elif whirl_cooldown_remaining < 0 && random > 0.33:
-				whirl_cooldown_remaining = whirl_cooldown
-				animation_playback.travel("whirl_start")
 				switch_state(State.WHIRL_START)
 			elif impale_cooldown_remaining < 0:
-				impale_cooldown_remaining = impale_cooldown
-				animation_playback.travel("impale")
 				switch_state(State.IMPALE)
+			else:
+				action_cooldown_remaining = 0
 		else:
 			direction = 0
 	
 	if direction && state in MOVABLE_STATE:
 		velocity.x = direction * speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
+		velocity.x = move_toward(velocity.x, 0, speed/10)
 	
 	move_and_slide()
 	update_animation_params()
@@ -104,19 +107,58 @@ func _on_timer_timeout():
 	whirl_cooldown_remaining -= 1
 
 func switch_state(next_state : State):
+	match(next_state):
+		State.HIT:
+			velocity.x = 200 if player_direction.x < 0 else -200
+			velocity.y = -100
+			animation_playback.travel("hit")
+		State.DEAD:
+			collision.set_deferred("disabled", true)
+			animation_playback.travel("dead")
+		State.CLEAVE:
+			cleave_cooldown_remaining = cleave_cooldown
+			animation_playback.travel("cleave")
+		State.IMPALE:
+			impale_cooldown_remaining = impale_cooldown
+			animation_playback.travel("impale")
+		State.WHIRL_START:
+			whirl_cooldown_remaining = whirl_cooldown
+			animation_playback.travel("whirl_start")
+		
 	state = next_state
 
 func _on_animation_tree_animation_finished(anim_name):
 	match(anim_name):
 		"cleave":
+			action_cooldown_remaining = action_cooldown
 			switch_state(State.NORMAL)
 		"impale":
+			action_cooldown_remaining = action_cooldown
 			switch_state(State.NORMAL)
 		"whirl_start":
 			switch_state(State.WHIRLING)
 		"whirling":
 			switch_state(State.WHIRL_END)
 		"whirl_end":
+			action_cooldown_remaining = action_cooldown
+			switch_state(State.NORMAL)
+		"hit":
 			switch_state(State.NORMAL)
 		"dead":
 			queue_free()
+
+func hit(damage : int):
+	if health <= 0:
+		return [0, 0]
+	
+	var prev_health = health
+	health -= damage
+	
+	if health <= 0:
+		switch_state(State.DEAD)
+		return [prev_health - health, experience]
+	
+	if state in IMPACTABLE_STATE:
+		switch_state(State.HIT)
+	
+	return [prev_health - health, 0]
