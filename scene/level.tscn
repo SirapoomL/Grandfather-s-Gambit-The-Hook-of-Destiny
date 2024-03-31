@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://bnycfvgjngbs1"]
+[gd_scene load_steps=40 format=3 uid="uid://bnycfvgjngbs1"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_dxhif"]
 [ext_resource type="PackedScene" uid="uid://si486osg7gro" path="res://scene/BG.tscn" id="2_ai2ce"]
@@ -2502,24 +2502,6 @@ size = Vector2(308, 1147)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eqvip"]
 size = Vector2(5121, 1145)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bqbqo"]
-size = Vector2(763, 61)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3uh5f"]
-size = Vector2(106.25, 920.75)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xjfvr"]
-size = Vector2(279.953, 1186.86)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_267g5"]
-size = Vector2(80.7813, 1368.34)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0sog6"]
-size = Vector2(2452.56, 220.344)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v240q"]
-size = Vector2(1778.64, 220.344)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3pl0s"]
 size = Vector2(6154.38, 155.203)
 
@@ -2528,6 +2510,9 @@ size = Vector2(705, 1167.3)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ttx00"]
 size = Vector2(313, 776)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3uyiy"]
+size = Vector2(77, 66)
 
 [node name="Map" type="Node"]
 script = ExtResource("1_dxhif")
@@ -2721,41 +2706,6 @@ scale = Vector2(-1.21946, 2.21872)
 position = Vector2(2523, -359)
 scale = Vector2(1.04053, 1.62429)
 
-[node name="StaticHazards" type="StaticBody2D" parent="."]
-collision_layer = 9
-collision_mask = 9
-script = ExtResource("10_ijuwo")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticHazards"]
-position = Vector2(3355.5, -258)
-shape = SubResource("RectangleShape2D_bqbqo")
-debug_color = Color(0.827451, 0.368627, 0.4, 0.419608)
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticHazards"]
-position = Vector2(7500.88, -1044.63)
-shape = SubResource("RectangleShape2D_3uh5f")
-debug_color = Color(0.827451, 0.368627, 0.4, 0.419608)
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticHazards"]
-position = Vector2(8452.02, -801.57)
-shape = SubResource("RectangleShape2D_xjfvr")
-debug_color = Color(0.827451, 0.368627, 0.4, 0.419608)
-
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticHazards"]
-position = Vector2(11122.6, -1103.83)
-shape = SubResource("RectangleShape2D_267g5")
-debug_color = Color(0.827451, 0.368627, 0.4, 0.419608)
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticHazards"]
-position = Vector2(9857.72, -501.828)
-shape = SubResource("RectangleShape2D_0sog6")
-debug_color = Color(0.827451, 0.368627, 0.4, 0.419608)
-
-[node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticHazards"]
-position = Vector2(12179, -1045)
-shape = SubResource("RectangleShape2D_v240q")
-debug_color = Color(0.827451, 0.368627, 0.4, 0.419608)
-
 [node name="NonHookableStaticTerrain" type="StaticBody2D" parent="."]
 collision_layer = 9
 collision_mask = 9
@@ -2822,3 +2772,11 @@ position = Vector2(12521, -1324)
 
 [node name="Ground_Enemy_Spirit14" parent="." instance=ExtResource("13_symc6")]
 position = Vector2(12845, -1348)
+
+[node name="Hazards" type="Area2D" parent="."]
+script = ExtResource("10_ijuwo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hazards"]
+position = Vector2(897, 722)
+shape = SubResource("RectangleShape2D_3uyiy")
+debug_color = Color(0.839216, 0.364706, 0.341176, 0.419608)

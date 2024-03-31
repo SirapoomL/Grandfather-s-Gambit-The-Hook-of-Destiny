@@ -142,6 +142,7 @@ func process_collision(player, _delta):
 				pass
 				#player.change_state(player.State.WALL_HOOK)
 			player.velocity.y = 0
+			
 func process_animation(player,_delta):
 	if player.just_take_damage < 0:
 		#print("hiding")

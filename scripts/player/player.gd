@@ -237,3 +237,15 @@ func die():
 func _on_hook_handler_hook_regenerated():
 	if hook_count < hook_quota:
 		hook_count += 1
+
+
+func _on_hit_box_area_2d_area_entered(area):
+	if area is Hazard:
+		print("hazard hit")
+		var hazard = area
+		var incoming_pos_x = velocity.x
+		if incoming_pos_x == 0:
+			var rng = RandomNumberGenerator.new()
+			incoming_pos_x = rng.randf_range(-10.0, 10.0)
+		$CombatHandler.take_damage(self, area.damage, position.x + incoming_pos_x)
+		

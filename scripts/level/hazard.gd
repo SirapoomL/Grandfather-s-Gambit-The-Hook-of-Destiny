@@ -1,7 +1,7 @@
 extends StaticTerrain
 class_name Hazard
 
-@export var damage = 0
+@export var damage = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

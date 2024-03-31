@@ -93,7 +93,7 @@ func possible(player, new_state):
 		return true
 	return false
 
-func take_damage(player, damage, damage_source_pos_x= -99999):
+func take_damage(player, damage, damage_source_pos_x= -99999, knockback_pow=150):
 	if player.i_frame > 0:
 		return 0
 	player.current_hp = player.current_hp-damage if player.current_hp-damage > 0 else 0
@@ -104,7 +104,7 @@ func take_damage(player, damage, damage_source_pos_x= -99999):
 	player.just_take_damage = player.max_i_frame * 0.8
 	if damage_source_pos_x != -99999:
 		player.change_state(player.State.BOUNCE)
-		player.velocity.y = -150
-		player.velocity.x = -150 if player.position.x < damage_source_pos_x else 150
+		player.velocity.y = -knockback_pow
+		player.velocity.x = -knockback_pow if player.position.x < damage_source_pos_x else knockback_pow
 		player.position.y -= 1
 	return damage
