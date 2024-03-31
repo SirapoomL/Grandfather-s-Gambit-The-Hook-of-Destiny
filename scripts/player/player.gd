@@ -205,11 +205,13 @@ func _on_attack_box_body_entered(body):
 func _on_check_area_area_exited(area):
 	#if area.has_meta("oneway_platform"):
 		#emerge_oneway_platform()
-	#if is_instance_valid(area) && is_instance_valid(normal_hook):
-		#if area.global_position == normal_hook.global_position:
-			#print("hook passed")
-			#change_state(State.IDLE)
-	pass
+	if is_instance_valid(area) && is_instance_valid(normal_hook) && area == normal_hook:
+		print("normal hook Exits")
+		normal_hook.armed = true
+	elif is_instance_valid(area) && is_instance_valid(swing_hook) && area == swing_hook:
+		print("swing hook Exits")
+		swing_hook.armed = true
+	
 		
 func emerge_oneway_platform():
 	if state in HOOKING_STATE or state == State.GLIDE:

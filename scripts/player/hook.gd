@@ -7,6 +7,7 @@ class_name Hook
 
 var original_pos = Vector2(0, 0)
 var hook_owner: Player
+var armed: bool = false
 
 signal hook_break(hook:Hook)
 signal wall_hit(position)
@@ -39,6 +40,9 @@ func _physics_process(delta):
 
 func _on_body_entered(body):
 	if body is StaticTerrain:
+		if not armed:
+			print("hit but unarmed")
+			return
 		if body is StaticHookTerrain:
 			wall_hit.emit(position)
 			speed = 0
