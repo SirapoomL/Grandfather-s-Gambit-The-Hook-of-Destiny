@@ -76,6 +76,8 @@ func _ready():
 func change_state(s: State):
 	if state_lock_time > 0:
 		return false
+	if s != state:
+		print(s)
 	if state in HOOKING_STATE and s not in HOOKING_STATE:
 		if is_instance_valid(normal_hook):
 			normal_hook.dehook()
@@ -99,7 +101,8 @@ func _physics_process(delta):
 	var new_state_lock_time =  state_lock_time - delta if state_lock_time - delta > 0 else 0
 	if new_state_lock_time < state_lock_time and new_state_lock_time == 0:
 		action_just_free = true
-		state = State.IDLE
+		if state != State.BOUNCE:
+			state = State.IDLE
 	state_lock_time = new_state_lock_time
 	if !GameState.is_playing():
 		return

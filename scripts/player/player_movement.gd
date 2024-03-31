@@ -36,7 +36,7 @@ func process_movement(player, delta):
 			player.jump_state = 0
 		if GameInputMapper.is_action_pressed("move_right"):
 			if player.state != player.State.GLIDE:
-				player.state = player.State.RUN
+				player.change_state(player.State.RUN)
 			if player.is_on_floor():
 				# if sliding, do nothing
 				if player.state != player.State.GLIDE:
@@ -48,7 +48,7 @@ func process_movement(player, delta):
 			#player.set_deferred("rotation", 0)
 		if GameInputMapper.is_action_pressed("move_left"):
 			if player.state != player.State.GLIDE:
-				player.state = player.State.RUN
+				player.change_state(player.State.RUN)
 			if player.is_on_floor():
 				# if sliding, do nothing
 				if player.state != player.State.GLIDE:
@@ -113,8 +113,10 @@ func process_movement(player, delta):
 		if player.state == player.State.BOUNCE:
 			player.velocity.y += player.gravity * delta
 			if player.is_on_floor():
+				#pass
 				player.change_state(player.State.IDLE)
-			return
+				print("on floor")
+		return
 	if GameInputMapper.is_action_just_pressed("jump") and (player.jump_state < player.jump_quota || player.state == player.State.SWING || player.state == player.State.HOOKING):
 		player.hang_time = 0
 		player.change_state(player.State.JUMP)

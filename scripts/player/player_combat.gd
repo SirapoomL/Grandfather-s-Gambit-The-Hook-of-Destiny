@@ -9,7 +9,8 @@ func process(player, delta):
 		player.just_take_damage = abs(player.just_take_damage)-delta if player.just_take_damage+delta < 0 else 0 
 	
 	if player.state in player.UNAFFECTED_BY_INPUT:
-		return
+		if player.state not in player.ATTACK_STATE:
+			return
 	var light_attack = GameInputMapper.is_action_just_pressed("light_attack")
 	var heavy_attack = GameInputMapper.is_action_just_pressed("heavy_attack")
 	var left = GameInputMapper.is_action_pressed("move_left")
@@ -106,5 +107,6 @@ func take_damage(player, damage, damage_source_pos_x= -99999, knockback_pow=150)
 		player.change_state(player.State.BOUNCE)
 		player.velocity.y = -knockback_pow
 		player.velocity.x = -knockback_pow if player.position.x < damage_source_pos_x else knockback_pow
-		player.position.y -= 1
+		player.position.y -= 5
+		player.state_lock_time = 0.2
 	return damage
