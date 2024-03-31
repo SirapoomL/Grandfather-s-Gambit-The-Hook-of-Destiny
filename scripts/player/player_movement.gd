@@ -80,7 +80,6 @@ func process_movement(player, delta):
 		#	player.change_state(player.State.HOOKING)
 		
 		player.State.WALL_HOOK:
-			player.velocity.x = 0
 			player.velocity.y = 0
 			if GameInputMapper.is_action_just_released("hold_wall") ||GameInputMapper.is_action_pressed_in(["move_right", "move_left", "jump"]):
 				print("cancle wall hook")
@@ -137,13 +136,16 @@ func process_collision(player, _delta):
 				collision.get_collider().queue_free()
 			else:
 				pass
-		elif player.state == player.State.HOOKING:
-			if GameInputMapper.is_action_pressed("hold_wall"):
-				player.change_state(player.State.WALL_HOOK)
-			elif player.velocity == Vector2.ZERO:
-				pass
-				#player.change_state(player.State.WALL_HOOK)
-			player.velocity.y = 0
+		# collide with terrain
+		elif player.state == player.State.HOOKING: 
+			# check if collide is wall
+			var normal = collision.get_normal()
+			if collision.get_collider() is StaticHookTerrain and (normal.x == 1 or normal.x == -1) and GameInputMapper.is_action_pressed("hold_wall"):
+				player.face_left = normal.x > 0
+				player.change_state(player.State.WALL_HOOK)		
+			elif not player.is_on_floor():
+				player.velocity.y = 0
+				player.change_state(player.State.IDLE)
 			
 func process_animation(player,_delta):
 	if player.just_take_damage < 0:
@@ -174,7 +176,10 @@ func process_animation(player,_delta):
 		player.State.HEAVY_ATTACK:
 			state_machine.travel("heavy_attack")
 		player.State.HOOKING:
-			state_machine.travel("swing")
+			if player.is_on_floor():
+				state_machine.travel("slide")
+			else:
+				state_machine.travel("swing")
 		player.State.HOLD_HOOK:
 			state_machine.travel("swing")
 		player.State.SWING:
@@ -185,6 +190,8 @@ func process_animation(player,_delta):
 			if player.is_on_floor():
 				state_machine.travel("slide")
 			else : state_machine.travel("swing")
+		player.State.WALL_HOOK:
+			state_machine.travel("wall_hook")
 	#var anim = player.get_node("AnimationPlayer")
 	#anim.set_speed_scale(200)
 	#match player.state:

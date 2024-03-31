@@ -2447,7 +2447,7 @@ size = Vector2(4194.25, 204)
 size = Vector2(117, 1969.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bsey3"]
-size = Vector2(591, 97.75)
+size = Vector2(1066.5, 100.875)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2fw5a"]
 size = Vector2(534.341, 152.904)
@@ -2540,17 +2540,17 @@ position = Vector2(-59, -129.25)
 shape = SubResource("RectangleShape2D_1ot24")
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticHookableArea"]
-position = Vector2(1929, 706)
+position = Vector2(2166.75, 704.438)
 shape = SubResource("RectangleShape2D_bsey3")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticHookableArea"]
-position = Vector2(3000, 629)
+position = Vector2(3148, 576)
 scale = Vector2(1.67, 1.67)
 shape = SubResource("RectangleShape2D_2fw5a")
 
 [node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticHookableArea"]
-position = Vector2(2793, 175.5)
+position = Vector2(3846, 155)
 shape = SubResource("RectangleShape2D_jygw6")
 
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="StaticHookableArea"]
@@ -2610,7 +2610,7 @@ position = Vector2(1099, -573)
 [node name="OnewayPlatforms" type="Node" parent="."]
 
 [node name="OnewayPlatform2" parent="OnewayPlatforms" instance=ExtResource("10_x04jg")]
-position = Vector2(2456, 151)
+position = Vector2(3552, 95)
 scale = Vector2(1.53303, 1.94995)
 
 [node name="OnewayPlatform6" parent="OnewayPlatforms" instance=ExtResource("10_x04jg")]
@@ -2646,7 +2646,7 @@ position = Vector2(8742, -1384)
 scale = Vector2(-1.21946, 2.21872)
 
 [node name="OnewayPlatform" parent="OnewayPlatforms" instance=ExtResource("10_x04jg")]
-position = Vector2(2523, -359)
+position = Vector2(3641, -256)
 scale = Vector2(1.04053, 1.62429)
 
 [node name="NonHookableStaticTerrain" type="StaticBody2D" parent="."]
@@ -2683,7 +2683,7 @@ shape = SubResource("RectangleShape2D_3uyiy")
 debug_color = Color(0.839216, 0.364706, 0.341176, 0.419608)
 
 [node name="RefPlayer" parent="." instance=ExtResource("13_x4vtw")]
-position = Vector2(1838, -124)
+position = Vector2(1925, 1403)
 
 [node name="Enemies" type="Node" parent="."]
 
@@ -2738,3 +2738,13 @@ offset_right = 1624.0
 offset_bottom = 657.0
 theme_override_font_sizes/font_size = 22
 text = "Press spacebar to jump"
+
+[node name="Label2" type="Label" parent="TutorialTexts"]
+offset_left = 2410.0
+offset_top = 363.0
+offset_right = 2661.0
+offset_bottom = 441.0
+theme_override_font_sizes/font_size = 22
+text = "Press jump in the air
+to double jump"
+horizontal_alignment = 1

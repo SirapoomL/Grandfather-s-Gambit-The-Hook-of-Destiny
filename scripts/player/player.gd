@@ -76,8 +76,6 @@ func _ready():
 func change_state(s: State):
 	if state_lock_time > 0:
 		return false
-	if s != state:
-		print(s)
 	if state in HOOKING_STATE and s not in HOOKING_STATE:
 		if is_instance_valid(normal_hook):
 			normal_hook.dehook()
