@@ -182,7 +182,9 @@ func process_animation(player,_delta):
 		player.State.HOOK_ATTACK:
 			state_machine.travel("light_attack_1")
 		player.State.GLIDE:
-			state_machine.travel("swing")
+			if player.is_on_floor():
+				state_machine.travel("slide")
+			else : state_machine.travel("swing")
 	#var anim = player.get_node("AnimationPlayer")
 	#anim.set_speed_scale(200)
 	#match player.state:

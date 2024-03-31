@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://hl4xtvdy2spj"]
+[gd_scene load_steps=44 format=3 uid="uid://hl4xtvdy2spj"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_88xg1"]
 [ext_resource type="Texture2D" uid="uid://cue6n6ustabi6" path="res://art/player/combined_char_red.png" id="6_4ign3"]
@@ -155,6 +155,23 @@ tracks/0/keys = {
 "values": [104]
 }
 
+[sub_resource type="Animation" id="Animation_s2ags"]
+resource_name = "slide"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [107]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r8pbw"]
 _data = {
 "heavy_attack": SubResource("Animation_yci86"),
@@ -162,6 +179,7 @@ _data = {
 "light_attack_1": SubResource("Animation_u2y5l"),
 "light_attack_2": SubResource("Animation_atbjq"),
 "run": SubResource("Animation_hvlqx"),
+"slide": SubResource("Animation_s2ags"),
 "swing": SubResource("Animation_xkwyt")
 }
 
@@ -179,6 +197,9 @@ animation = &"light_attack_2"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4ke82"]
 animation = &"run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1rmua"]
+animation = &"slide"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2xblr"]
 animation = &"swing"
@@ -211,6 +232,10 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sd4oe"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kokm2"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jdi1n"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_lhmv1"]
 states/heavy_attack/node = SubResource("AnimationNodeAnimation_6gj08")
 states/heavy_attack/position = Vector2(382, 166)
@@ -222,9 +247,11 @@ states/light_attack_2/node = SubResource("AnimationNodeAnimation_j8p44")
 states/light_attack_2/position = Vector2(608, -31)
 states/run/node = SubResource("AnimationNodeAnimation_4ke82")
 states/run/position = Vector2(608, 153)
+states/slide/node = SubResource("AnimationNodeAnimation_1rmua")
+states/slide/position = Vector2(699, 100)
 states/swing/node = SubResource("AnimationNodeAnimation_2xblr")
-states/swing/position = Vector2(630, 51)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_30nxx"), "idle", "heavy_attack", SubResource("AnimationNodeStateMachineTransition_75i5w"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_cqm68"), "run", "heavy_attack", SubResource("AnimationNodeStateMachineTransition_77a1h"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_n2mj7"), "heavy_attack", "idle", SubResource("AnimationNodeStateMachineTransition_e4pfv"), "heavy_attack", "run", SubResource("AnimationNodeStateMachineTransition_aei4a"), "idle", "light_attack_1", SubResource("AnimationNodeStateMachineTransition_fy1x5"), "light_attack_1", "light_attack_2", SubResource("AnimationNodeStateMachineTransition_0kq4y"), "light_attack_2", "idle", SubResource("AnimationNodeStateMachineTransition_hk0fq"), "light_attack_1", "idle", SubResource("AnimationNodeStateMachineTransition_ghos6"), "idle", "swing", SubResource("AnimationNodeStateMachineTransition_1vpw8"), "swing", "idle", SubResource("AnimationNodeStateMachineTransition_sd4oe")]
+states/swing/position = Vector2(699, 42)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_30nxx"), "idle", "heavy_attack", SubResource("AnimationNodeStateMachineTransition_75i5w"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_cqm68"), "run", "heavy_attack", SubResource("AnimationNodeStateMachineTransition_77a1h"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_n2mj7"), "heavy_attack", "idle", SubResource("AnimationNodeStateMachineTransition_e4pfv"), "heavy_attack", "run", SubResource("AnimationNodeStateMachineTransition_aei4a"), "idle", "light_attack_1", SubResource("AnimationNodeStateMachineTransition_fy1x5"), "light_attack_1", "light_attack_2", SubResource("AnimationNodeStateMachineTransition_0kq4y"), "light_attack_2", "idle", SubResource("AnimationNodeStateMachineTransition_hk0fq"), "light_attack_1", "idle", SubResource("AnimationNodeStateMachineTransition_ghos6"), "idle", "swing", SubResource("AnimationNodeStateMachineTransition_1vpw8"), "swing", "idle", SubResource("AnimationNodeStateMachineTransition_sd4oe"), "swing", "slide", SubResource("AnimationNodeStateMachineTransition_kokm2"), "slide", "idle", SubResource("AnimationNodeStateMachineTransition_jdi1n")]
 graph_offset = Vector2(10, -51)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_74ae3"]
@@ -280,7 +307,6 @@ texture = ExtResource("6_4ign3")
 offset = Vector2(0, -15)
 hframes = 8
 vframes = 18
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
