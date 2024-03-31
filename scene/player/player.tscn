@@ -243,6 +243,7 @@ collision_layer = 32803
 collision_mask = 32803
 script = ExtResource("1_88xg1")
 hook_speed = 891
+hook_quota = 427
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -279,7 +280,7 @@ texture = ExtResource("6_4ign3")
 offset = Vector2(0, -15)
 hframes = 8
 vframes = 18
-frame = 3
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
