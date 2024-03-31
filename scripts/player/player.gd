@@ -54,7 +54,7 @@ var air_attack_qouta = 3
 var hook_attack_qouta = 1
 var exp = 0
 var i_frame = 0
-var max_i_frame = 0.5
+var max_i_frame = 1.25
 var just_take_damage = 0
 
 func get_debug_hud():
@@ -133,6 +133,7 @@ func _physics_process(delta):
 		$HookHandler.timer_off()
 		
 	# process_movement(delta)
+	process_hitbox_overlapped()
 	get_node("CombatHandler").process(self, delta)
 	get_node("MovementHandler").process(self, delta)
 	get_debug_hud().update_hook_count(hook_count)
@@ -238,14 +239,13 @@ func _on_hook_handler_hook_regenerated():
 	if hook_count < hook_quota:
 		hook_count += 1
 
-
-func _on_hit_box_area_2d_area_entered(area):
-	if area is Hazard:
-		print("hazard hit")
-		var hazard = area
-		var incoming_pos_x = velocity.x
-		if incoming_pos_x == 0:
-			var rng = RandomNumberGenerator.new()
-			incoming_pos_x = rng.randf_range(-10.0, 10.0)
-		$CombatHandler.take_damage(self, area.damage, position.x + incoming_pos_x)
-		
+func process_hitbox_overlapped():
+	for area in $HitBoxArea2D.get_overlapping_areas():
+			if area is Hazard and i_frame == 0:
+				print("hazard hit")
+				var hazard = area
+				var incoming_pos_x = velocity.x
+				if incoming_pos_x == 0:
+					var rng = RandomNumberGenerator.new()
+					incoming_pos_x = rng.randf_range(-10.0, 10.0)
+				$CombatHandler.take_damage(self, area.damage, position.x + incoming_pos_x, 240)

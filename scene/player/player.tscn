@@ -279,7 +279,6 @@ texture = ExtResource("6_4ign3")
 offset = Vector2(0, -15)
 hframes = 8
 vframes = 18
-frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -334,3 +333,4 @@ debug_color = Color(0.345098, 0.619608, 0.129412, 0.419608)
 [connection signal="area_entered" from="CheckArea" to="." method="_on_check_area_area_entered"]
 [connection signal="area_exited" from="CheckArea" to="." method="_on_check_area_area_exited"]
 [connection signal="area_entered" from="HitBoxArea2D" to="." method="_on_hit_box_area_2d_area_entered"]
+[connection signal="body_entered" from="HitBoxArea2D" to="." method="_on_hit_box_area_2d_body_entered"]
