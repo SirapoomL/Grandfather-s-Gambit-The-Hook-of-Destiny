@@ -6,9 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://cn8aeid3mpadg" path="res://art/forest_fantasy/SET1_background_obj.png" id="4_jv4uw"]
 
 [node name="ParallaxBackground" type="ParallaxBackground"]
+scroll_ignore_camera_zoom = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(1, 0)
+motion_scale = Vector2(0.1, 0)
 motion_mirroring = Vector2(1600, 0)
 
 [node name="Set1BakcgroundDay1" type="Sprite2D" parent="ParallaxLayer"]
@@ -17,7 +18,7 @@ scale = Vector2(2.50156, 2.44837)
 texture = ExtResource("1_gj0rn")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(1, 0)
+motion_scale = Vector2(0.2, 0)
 motion_mirroring = Vector2(1600, 0)
 
 [node name="Set1BakcgroundDay2" type="Sprite2D" parent="ParallaxLayer2"]
@@ -26,7 +27,7 @@ scale = Vector2(2.50156, 2.44565)
 texture = ExtResource("2_e6idh")
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(1, 0)
+motion_scale = Vector2(0.3, 0)
 motion_mirroring = Vector2(1600, 0)
 
 [node name="Set1BakcgroundDay3" type="Sprite2D" parent="ParallaxLayer3"]
@@ -35,7 +36,7 @@ scale = Vector2(2.5, 2.44837)
 texture = ExtResource("3_1w23m")
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(1, 0)
+motion_scale = Vector2(0.4, 0)
 motion_mirroring = Vector2(1600, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer4"]

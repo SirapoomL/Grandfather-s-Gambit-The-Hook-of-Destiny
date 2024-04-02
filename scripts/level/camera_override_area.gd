@@ -19,6 +19,11 @@ class_name CameraOverrideArea
 @export var position_smoothing_enabled = true
 @export var position_smoothing_speed = 5
 
+@export var set_camera_limit = false
+@export var camera_limit = Vector4(0, -100000000, 100000000, 100000000)
+
+@export var transition_speed = 4.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

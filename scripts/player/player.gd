@@ -235,9 +235,7 @@ func emerge_oneway_platform():
 
 
 func _on_check_area_area_entered(area):
-	#if area is EventTriggerArea:
-		#pass
-	if area.has_meta("oneway_platform"):
+	if area.has_meta("oneway_platform") && state == State.GLIDE:
 		emerge_oneway_platform()
 	if is_instance_valid(area) && is_instance_valid(normal_hook):
 		if area.global_position == normal_hook.global_position:
@@ -265,14 +263,12 @@ func process_hitbox_overlapped():
 					var rng = RandomNumberGenerator.new()
 					incoming_pos_x = rng.randf_range(-10.0, 10.0)
 				$CombatHandler.take_damage(self, area.damage, position.x + incoming_pos_x, 240)
-			
-			if area is CameraOverrideArea:
-				$CameraHandler.set_camera_override_area(area)
 
 
 
 func _on_hit_box_area_2d_area_entered(area):
 	if area is CameraOverrideArea:
+		print("enter camera override")
 		$CameraHandler.set_camera_override_area(area)
 
 
