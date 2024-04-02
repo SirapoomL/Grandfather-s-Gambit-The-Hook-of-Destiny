@@ -1,13 +1,13 @@
 [gd_scene load_steps=14 format=3 uid="uid://dgou2ctgr645i"]
 
-[ext_resource type="Script" path="res://scripts/pause_menu/pause_menu.gd" id="1_0fbji"]
-[ext_resource type="Script" path="res://scripts/pause_menu/setting.gd" id="2_pc57k"]
-[ext_resource type="Script" path="res://scripts/pause_menu/control.gd" id="3_tenqp"]
+[ext_resource type="Script" path="res://scripts/ui/pause_menu/pause_menu.gd" id="1_0fbji"]
+[ext_resource type="Script" path="res://scripts/ui/pause_menu/setting.gd" id="2_pc57k"]
+[ext_resource type="Script" path="res://scripts/ui/pause_menu/control.gd" id="3_tenqp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_podnf"]
 content_margin_left = 25.0
 content_margin_right = 25.0
-bg_color = Color(0.294118, 0.25098, 0.247059, 1)
+bg_color = Color(0.537255, 0.254902, 0.227451, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -19,7 +19,7 @@ anti_aliasing_size = 0.947
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3mjrk"]
 content_margin_left = 25.0
 content_margin_right = 25.0
-bg_color = Color(0.423529, 0.368627, 0.360784, 1)
+bg_color = Color(0.733333, 0.380392, 0.341176, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -30,7 +30,7 @@ border_blend = true
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ctvfl"]
 content_margin_left = 25.0
 content_margin_right = 25.0
-bg_color = Color(0.223529, 0.188235, 0.184314, 1)
+bg_color = Color(0.372549, 0.164706, 0.145098, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -39,7 +39,7 @@ border_color = Color(0, 0, 0, 1)
 border_blend = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2w4lx"]
-bg_color = Color(0.431373, 0.372549, 0.368627, 1)
+bg_color = Color(0.682353, 0.345098, 0.309804, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -48,7 +48,7 @@ border_color = Color(0, 0, 0, 1)
 border_blend = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d7gmp"]
-bg_color = Color(0.294118, 0.25098, 0.247059, 1)
+bg_color = Color(0.537255, 0.254902, 0.227451, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -59,7 +59,7 @@ corner_radius_top_left = 15
 corner_radius_top_right = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_maa68"]
-bg_color = Color(0.215686, 0.180392, 0.180392, 1)
+bg_color = Color(0.215686, 0.0862745, 0.0705882, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -101,7 +101,7 @@ corner_radius_bottom_left = 15
 shadow_size = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jn3p"]
-bg_color = Color(0.215686, 0.180392, 0.180392, 1)
+bg_color = Color(0.215686, 0.0862745, 0.0705882, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -115,19 +115,21 @@ corner_radius_bottom_left = 15
 shadow_size = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iupb4"]
-bg_color = Color(0.454902, 0.396078, 0.396078, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.219608, 0.219608, 0.219608, 1)
+bg_color = Color(0.215686, 0.0862745, 0.0705882, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
-shadow_size = 3
+shadow_size = 2
 
 [node name="Menu_Interface" type="CanvasLayer"]
+layer = 2
 script = ExtResource("1_0fbji")
 
 [node name="Control" type="Control" parent="."]
@@ -326,6 +328,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "move left"
 
 [node name="MoveRight" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -339,6 +344,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "move right"
 
 [node name="Jump" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -352,6 +360,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "jump"
 
 [node name="Shoot" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -365,6 +376,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "grapple hook"
 
 [node name="Inventory" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -378,6 +392,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "inventory"
 
 [node name="SkillTree" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -391,6 +408,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "skill tree"
 
 [node name="LightAttack" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -404,6 +424,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "light attack"
 
 [node name="HeavyAttack" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -417,6 +440,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "heavy attack"
 
 [node name="HoldWall" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -430,6 +456,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "hold on the wall"
 
 [node name="AssignerContainer" type="VBoxContainer" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer"]
@@ -529,3 +558,20 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+
+[node name="Blur" type="Panel" parent="Control"]
+modulate = Color(0.345098, 0.345098, 0.345098, 1)
+show_behind_parent = true
+z_index = -3
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -198.0
+offset_top = -247.0
+offset_right = 195.0
+offset_bottom = 154.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

@@ -61,6 +61,9 @@ func get_debug_hud():
 	return get_tree().root.get_node("Main/DebugHud")
 
 func start(pos):
+	hook_count = hook_quota
+	jump_state = jump_quota
+	$HookHandler.set_paused(false)
 	current_hp = max_hp
 	position = pos
 	state = State.IDLE
