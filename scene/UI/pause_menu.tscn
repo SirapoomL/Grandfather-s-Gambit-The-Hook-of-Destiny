@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=3 uid="uid://dgou2ctgr645i"]
 
-[ext_resource type="Script" path="res://scripts/pause_menu/pause_menu.gd" id="1_0fbji"]
-[ext_resource type="Script" path="res://scripts/pause_menu/setting.gd" id="2_pc57k"]
-[ext_resource type="Script" path="res://scripts/pause_menu/control.gd" id="3_tenqp"]
+[ext_resource type="Script" path="res://scripts/ui/pause_menu/pause_menu.gd" id="1_0fbji"]
+[ext_resource type="Script" path="res://scripts/ui/pause_menu/setting.gd" id="2_pc57k"]
+[ext_resource type="Script" path="res://scripts/ui/pause_menu/control.gd" id="3_tenqp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_podnf"]
 content_margin_left = 25.0

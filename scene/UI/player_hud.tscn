@@ -1,0 +1,134 @@
+[gd_scene load_steps=14 format=3 uid="uid://dksrf1wtir086"]
+
+[ext_resource type="Script" path="res://scripts/ui/player_hud.gd" id="1_iyce2"]
+[ext_resource type="Texture2D" uid="uid://ppoeof1vrkjn" path="res://art/ui/player_hud/HeartBg.png" id="2_e1yiq"]
+[ext_resource type="Shader" path="res://outline.gdshader" id="2_mcm4o"]
+[ext_resource type="Texture2D" uid="uid://bd55fmm606xmx" path="res://art/ui/player_hud/hp_bar2.png" id="3_sonvf"]
+[ext_resource type="Texture2D" uid="uid://kcljbosdlfuh" path="res://art/ui/player_hud/hp_bar1.png" id="4_uw0aj"]
+[ext_resource type="Texture2D" uid="uid://d4ja7vjs6x5l3" path="res://art/ui/player_hud/heart.png" id="5_cn4g1"]
+[ext_resource type="Texture2D" uid="uid://cnc6hxjko450j" path="res://art/ui/player_hud/hook_bg.png" id="7_vlb66"]
+[ext_resource type="Texture2D" uid="uid://vr5bqtx6rge4" path="res://art/ui/player_hud/jump_bg.png" id="8_v5rum"]
+[ext_resource type="Texture2D" uid="uid://dg4bgpd3rqtbn" path="res://art/player/hook_tip.png" id="9_rh07a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wsivq"]
+shader = ExtResource("2_mcm4o")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7a7oy"]
+shader = ExtResource("2_mcm4o")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nnee5"]
+shader = ExtResource("2_mcm4o")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6rd1d"]
+shader = ExtResource("2_mcm4o")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="PlayerHud" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 61.0
+offset_top = 43.0
+offset_right = 61.0
+offset_bottom = 43.0
+script = ExtResource("1_iyce2")
+
+[node name="HeartLogoBg" type="TextureRect" parent="."]
+texture_filter = 5
+material = SubResource("ShaderMaterial_wsivq")
+layout_mode = 2
+offset_left = 37.0
+offset_top = 44.0
+offset_right = 153.0
+offset_bottom = 142.0
+texture = ExtResource("2_e1yiq")
+stretch_mode = 4
+
+[node name="HpBar" type="TextureProgressBar" parent="."]
+z_index = -2
+texture_filter = 1
+material = SubResource("ShaderMaterial_7a7oy")
+custom_minimum_size = Vector2(333, 0)
+layout_mode = 2
+offset_left = 117.0
+offset_top = 61.0
+offset_right = 634.0
+offset_bottom = 117.0
+value = 50.0
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("3_sonvf")
+texture_over = ExtResource("4_uw0aj")
+texture_progress = ExtResource("3_sonvf")
+tint_under = Color(0.0823529, 0.0823529, 0.0823529, 1)
+tint_over = Color(0.584314, 0.282353, 0.25098, 1)
+tint_progress = Color(0.0470588, 0.92549, 0.172549, 1)
+
+[node name="HeartLogo" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 71.0
+offset_right = 115.0
+offset_bottom = 121.0
+texture = ExtResource("5_cn4g1")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="HookLimit" type="TextureRect" parent="."]
+z_index = -5
+texture_filter = 1
+material = SubResource("ShaderMaterial_nnee5")
+layout_mode = 0
+offset_left = 146.0
+offset_top = 104.0
+offset_right = 294.0
+offset_bottom = 204.0
+texture = ExtResource("7_vlb66")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="JumpLimit2" type="TextureRect" parent="."]
+z_index = -6
+texture_filter = 1
+material = SubResource("ShaderMaterial_6rd1d")
+layout_mode = 0
+offset_left = 245.0
+offset_top = 63.0
+offset_right = 420.0
+offset_bottom = 158.0
+texture = ExtResource("8_v5rum")
+
+[node name="HookLogo" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 186.0
+offset_top = 136.0
+offset_right = 250.0
+offset_bottom = 199.0
+texture = ExtResource("9_rh07a")
+stretch_mode = 4

@@ -23,14 +23,14 @@ func game_over():
 	$DeathSound.play()
 	$ScoreTimer.stop()
 	$MobTimer.stop()
-	$HUD.show_game_over()
+	$MainMenu.show_game_over()
 
 func main_menu():
 	GameState.set_current_state(GameState.State.NOT_STARTED)
 	$Player.start($StartPosition.position)
 	$ScoreTimer.stop()
 	$MobTimer.stop()
-	$HUD.show_main_menu()
+	$MainMenu.show_main_menu()
 	$Music.stop()
 
 func toggle_pause():
@@ -54,7 +54,7 @@ func new_game():
 	#get_tree().call_group("ground_mobs", "queue_free")
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
-	$HUD.update_score(score)
+	$MainMenu.update_score(score)
 	$Music.play()
 	
 func _on_mob_timer_timeout():
@@ -100,7 +100,7 @@ func _on_mob_timer_timeout():
 	
 func _on_score_timer_timeout():
 	score += 1
-	$HUD.update_score(score)
+	$MainMenu.update_score(score)
 
 func _on_start_timer_timeout():
 	$MobTimer.start()
