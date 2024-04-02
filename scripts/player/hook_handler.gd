@@ -22,6 +22,12 @@ func timer_off():
 	if not $HookRegenerate.is_stopped():
 		$HookRegenerate.stop()
 
+func set_paused(paused):
+	if paused:
+		$HookRegenerate.paused = true
+	else:
+		$HookRegenerate.paused = false
+
 func get_time_left():
 	if not $HookRegenerate.is_stopped():
 		return $HookRegenerate.time_left

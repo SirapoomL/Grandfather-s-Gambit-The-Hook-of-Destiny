@@ -24,7 +24,7 @@ var setting_tab
 
 var setting_container
 var control_container
-
+var keybind 
 
 func _ready():
 	main = get_node("/root/Main")
@@ -40,7 +40,7 @@ func _ready():
 	tab_container.connect("tab_changed",Callable(self, "_on_Tab_Changed"))
 
 func _process(delta):
-	if GameState.get_current_state() == GameState.State.NOT_STARTED:
+	if GameState.get_current_state() == GameState.State.NOT_STARTED or control_container.state != control_container.keybindState.NORMAL:
 		return
 	if GameInputMapper.is_action_just_pressed("esc"):
 		main.toggle_pause()

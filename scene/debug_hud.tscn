@@ -6,40 +6,42 @@
 script = ExtResource("1_1cmec")
 
 [node name="HookCountLabel" type="Label" parent="."]
-offset_left = 28.0
-offset_top = 26.0
-offset_right = 291.0
-offset_bottom = 116.0
+offset_left = 1167.0
+offset_top = 23.0
+offset_right = 1430.0
+offset_bottom = 113.0
 theme_override_font_sizes/font_size = 36
 text = "Hook Count:"
 vertical_alignment = 1
 
 [node name="PlayerPosition" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 1461.0
+offset_top = -2.0
+offset_right = 1501.0
+offset_bottom = 21.0
 text = "pos"
 
 [node name="PlayerState" type="Label" parent="."]
-offset_left = 28.0
-offset_top = 128.0
-offset_right = 236.0
-offset_bottom = 197.0
+offset_left = 1167.0
+offset_top = 125.0
+offset_right = 1375.0
+offset_bottom = 194.0
 theme_override_font_sizes/font_size = 36
 text = "State:"
 
 [node name="HookCooldown" type="Label" parent="."]
-offset_left = 28.0
-offset_top = 64.0
-offset_right = 312.0
-offset_bottom = 154.0
+offset_left = 1167.0
+offset_top = 61.0
+offset_right = 1451.0
+offset_bottom = 151.0
 theme_override_font_sizes/font_size = 36
 text = "Hook Cooldown:"
 vertical_alignment = 1
 
 [node name="PlayerVelocity" type="Label" parent="."]
-offset_left = 1.0
-offset_top = 23.0
-offset_right = 185.0
-offset_bottom = 90.0
+offset_left = 1461.0
+offset_top = 20.0
+offset_right = 1645.0
+offset_bottom = 87.0
 theme_override_font_sizes/font_size = 14
 text = "Velocity:"

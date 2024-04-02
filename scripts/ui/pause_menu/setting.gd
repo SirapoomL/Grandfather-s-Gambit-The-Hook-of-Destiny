@@ -38,7 +38,7 @@ func _on_QuitToMenuButton_pressed():
 	# TODO: add a confirmation dialog
 	print("Quit to menu button pressed")
 	pause_menu.current_ui_state = pause_menu.NavbarState.CLOSE
-	# wait 1 second before going back to the main menu
+	# wait 0.05 second before going back to the main menu
 	await get_tree().create_timer(0.05).timeout  
 	main.main_menu()
 	

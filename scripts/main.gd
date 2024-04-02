@@ -28,22 +28,24 @@ func game_over():
 func main_menu():
 	GameState.set_current_state(GameState.State.NOT_STARTED)
 	$Player.start($StartPosition.position)
+	$Player.get_node("HookHandler").set_paused(false)
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 	$MainMenu.show_main_menu()
 	$Music.stop()
+	
 
 func toggle_pause():
 	if GameState.is_playing():
 		GameState.set_current_state(GameState.State.PAUSED)
-		$Music.stop()
-		$ScoreTimer.stop()
-		# $MobTimer.stop()
+		$Music.stream_paused = true
+		$ScoreTimer.paused = true
+		$Player.get_node("HookHandler").set_paused(true)
 	else:
 		GameState.set_current_state(GameState.State.PLAYING)
-		$Music.play()
-		$ScoreTimer.start()
-		# $MobTimer.start()
+		$Music.stream_paused = false
+		$ScoreTimer.paused = false
+		$Player.get_node("HookHandler").set_paused(false)
 
 func new_game():
 	score = 0
