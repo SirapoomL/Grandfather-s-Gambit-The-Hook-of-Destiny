@@ -49,6 +49,8 @@ func _on_body_entered(body):
 		else:
 			hook_break.emit(self)
 			queue_free()
+	if body is Hazard:
+		hook_break.emit(self)
 	if body is Player:
 		hook_player_reached.emit()
 

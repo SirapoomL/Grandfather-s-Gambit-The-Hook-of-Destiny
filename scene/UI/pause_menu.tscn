@@ -115,17 +115,18 @@ corner_radius_bottom_left = 15
 shadow_size = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iupb4"]
-bg_color = Color(0.454902, 0.396078, 0.396078, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.219608, 0.219608, 0.219608, 1)
+bg_color = Color(0.215686, 0.0862745, 0.0705882, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
-shadow_size = 3
+shadow_size = 2
 
 [node name="Menu_Interface" type="CanvasLayer"]
 layer = 2
@@ -327,6 +328,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "move left"
 
 [node name="MoveRight" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -340,6 +344,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "move right"
 
 [node name="Jump" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -353,6 +360,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "jump"
 
 [node name="Shoot" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -366,6 +376,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "grapple hook"
 
 [node name="Inventory" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -379,6 +392,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "inventory"
 
 [node name="SkillTree" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -392,6 +408,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "skill tree"
 
 [node name="LightAttack" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -405,6 +424,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "light attack"
 
 [node name="HeavyAttack" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -418,6 +440,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "heavy attack"
 
 [node name="HoldWall" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
@@ -431,6 +456,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 disabled = true
 action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "hold on the wall"
 
 [node name="AssignerContainer" type="VBoxContainer" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer"]

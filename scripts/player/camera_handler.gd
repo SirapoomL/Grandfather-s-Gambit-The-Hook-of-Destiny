@@ -3,6 +3,8 @@ extends Node
 var camera_override_area: CameraOverrideArea = null
 @export var default_offset = Vector2.ZERO
 @export var default_zoom = Vector2(1, 1)
+@export var default_camera_limit = Vector4(0, -100000000, 100000000, 100000000)
+@export var transition_speed = 4.0
 
 var t = 0
 
@@ -18,22 +20,30 @@ func _process(delta):
 func process(camera: Camera2D, delta):
 	if not is_instance_valid(camera):
 		return
-	t += delta
 	if camera_override_area:
 		var coa = camera_override_area
 		if coa.set_zoom:
-			camera.zoom = coa.zoom
+			camera.zoom = camera.zoom.lerp(coa.zoom, delta * coa.transition_speed)
 		if coa.set_offset:
-			camera.offset.lerp(coa.offset, t)
+			camera.offset = camera.offset.lerp(coa.offset, delta * coa.transition_speed)
 		if coa.set_anchor_mode:
 			camera.anchor_mode = coa.anchor_mode
 		if coa.set_camera_pos:
-			camera.global_position.lerp(coa.target_camera_pos, t)
+			camera.global_position = camera.global_position.lerp(coa.target_camera_pos, delta * coa.transition_speed)
+		#if coa.set_camera_limit:
+			#camera.limit_left = coa.camera_limit.x
+			#camera.limit_top = coa.camera_limit.y
+			#camera.limit_right = coa.camera_limit.z
+			#camera.limit_bottom = coa.camera_limit.w 			
 	else:
 		camera.enabled = true
 		camera.anchor_mode = 1
-		camera.zoom = default_zoom
-		camera.offset = default_offset
+		camera.zoom = camera.zoom.lerp(default_zoom, delta * transition_speed)
+		camera.offset = camera.offset.lerp(default_offset, delta * transition_speed)
+		#camera.limit_left = default_camera_limit.x
+		#camera.limit_top = default_camera_limit.y
+		#camera.limit_right = default_camera_limit.z
+		#camera.limit_bottom = default_camera_limit.w
 		
 func set_camera_override_area(coa: CameraOverrideArea):
 	camera_override_area = coa
