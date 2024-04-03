@@ -14,64 +14,86 @@ func strafe(player, delta, direction, factor):
 		player.velocity.x = max(new_v_x, player.velocity.x)
 	else:
 		player.velocity.x = min(new_v_x, player.velocity.x)
+
+func process_gravity(player, delta, k = 1):
+	player.velocity.y += player.gravity * delta * k
 	
+func process_gravity_with_hang_time(player, delta, k = 0.1):
+	if player.hang_time < 0:
+		process_gravity(player, delta)
+	else:
+		player.hang_time = player.hang_time - delta
+		process_gravity(player, delta, k)
+		
+func process_normal_state(player, delta):
+	process_gravity_with_hang_time(player, delta)
+	if player.is_on_floor():
+		player.hang_time = 0.1
+		# slide if gliding
+		if player.state == player.State.GLIDE && player.velocity.x != 0:
+			player.velocity.x = move_toward(player.velocity.x, 0, 1000 * delta)
+		else:
+			player.velocity.x = 0
+			player.change_state(player.State.IDLE)
+		player.jump_state = 0
+	if GameInputMapper.is_action_pressed("move_right"):
+		if player.state != player.State.GLIDE:
+			player.change_state(player.State.RUN)
+		if player.is_on_floor():
+			# if sliding, do nothing
+			if player.state != player.State.GLIDE:
+				player.velocity.x = player.speed
+		else:
+			var strafe_factor = 5 if player.state == player.State.GLIDE else 7.5
+			strafe(player, delta, 1, strafe_factor)
+		player.face_left = false
+		#player.set_deferred("rotation", 0)
+	if GameInputMapper.is_action_pressed("move_left"):
+		if player.state != player.State.GLIDE:
+			player.change_state(player.State.RUN)
+		if player.is_on_floor():
+			# if sliding, do nothing
+			if player.state != player.State.GLIDE:
+				player.velocity.x = -player.speed
+		else:
+			var strafe_factor = 5 if player.state == player.State.GLIDE else 7.5
+			strafe(player, delta, -1, strafe_factor)
+		player.face_left = true
+
+func process_normal_hook_state(player, delta):
+	if is_instance_valid(player.normal_hook):
+		print("hook valid")
+		var direction = (player.normal_hook.position - player.position).normalized()
+		player.set_velocity(direction * player.hook_speed)
+		if (player.position - player.normal_hook.position).dot(player.velocity) > 0:
+			player.change_state(player.State.IDLE)
 func process_movement(player, delta):
 	#print(player.state)
 	# Handle movement logic here
 	if player.state in player.NORMAL_STATE:
-		if player.hang_time < 0:
-			player.velocity.y += player.gravity * delta
-		else:
-			player.hang_time = player.hang_time - delta
-			player.velocity.y += player.gravity * delta * 0.1
-		if player.is_on_floor():
-			player.hang_time = 0.1
-			player.air_attack_qouta = 3
-			# slide if gliding
-			if player.state == player.State.GLIDE && player.velocity.x != 0:
-				player.velocity.x = move_toward(player.velocity.x, 0, 1000 * delta)
-			else:
-				player.velocity.x = 0
-				player.change_state(player.State.IDLE)
-			player.jump_state = 0
-		if GameInputMapper.is_action_pressed("move_right"):
-			if player.state != player.State.GLIDE:
-				player.change_state(player.State.RUN)
-			if player.is_on_floor():
-				# if sliding, do nothing
-				if player.state != player.State.GLIDE:
-					player.velocity.x = player.speed
-			else:
-				var strafe_factor = 5 if player.state == player.State.GLIDE else 7.5
-				strafe(player, delta, 1, strafe_factor)
-			player.face_left = false
-			#player.set_deferred("rotation", 0)
-		if GameInputMapper.is_action_pressed("move_left"):
-			if player.state != player.State.GLIDE:
-				player.change_state(player.State.RUN)
-			if player.is_on_floor():
-				# if sliding, do nothing
-				if player.state != player.State.GLIDE:
-					player.velocity.x = -player.speed
-			else:
-				var strafe_factor = 5 if player.state == player.State.GLIDE else 7.5
-				strafe(player, delta, -1, strafe_factor)
-			player.face_left = true
+		process_normal_state(player, delta)
 	if player.state in player.ATTACK_STATE:
-		player.velocity.y += player.gravity * delta * 0.1
-		player.velocity.x = 0
+		if player.state != player.State.SWING_ATTACK:
+			process_gravity(player, delta, 0.1)
+			player.velocity.x = 0
+		elif is_instance_valid(player.normal_hook):
+			process_normal_hook_state(player, delta)
+		else:
+			process_normal_state(player, delta)
+	if player.state in player.NORMAL_HOOK_STATE:
+		process_normal_hook_state(player, delta)
 	match player.state:
 		#player.State.JUST_HOOKED:
 			#player.change_state(player.State.HOOKING)
-		player.State.HOOKING:
-			if is_instance_valid(player.normal_hook):
-				# calculate velocity towards hook (like pulling to it)
-				var direction = (player.normal_hook.position - player.position).normalized()
-				player.set_velocity(direction * player.hook_speed)
-				#player.velocity += (direction * player.hook_power * delta)
-				# TODO: discuss about the IF below later.
-				if (player.position - player.normal_hook.position).dot(player.velocity) > 0:
-					player.change_state(player.State.IDLE)
+		#player.State.HOOKING:
+			#if is_instance_valid(player.normal_hook):
+				## calculate velocity towards hook (like pulling to it)
+				#var direction = (player.normal_hook.position - player.position).normalized()
+				#player.set_velocity(direction * player.hook_speed)
+				##player.velocity += (direction * player.hook_power * delta)
+				## TODO: discuss about the IF below later.
+				#if (player.position - player.normal_hook.position).dot(player.velocity) > 0:
+					#player.change_state(player.State.IDLE)
 			
 		# player.State.HOOKING:
 		# 	if (player.position - player.normal_hook.position).dot(player.velocity) > 0:
@@ -94,7 +116,7 @@ func process_movement(player, delta):
 				return
 				
 			# apply gravity
-			player.velocity.y += player.gravity * delta
+			process_gravity(player, delta)
 			
 			# left/right strafe
 			if GameInputMapper.is_action_pressed("move_right"):
@@ -110,7 +132,7 @@ func process_movement(player, delta):
 				player.velocity = player.velocity.project(hook_direction.orthogonal())
 	if player.state in player.UNAFFECTED_BY_INPUT:
 		if player.state == player.State.BOUNCE:
-			player.velocity.y += player.gravity * delta
+			process_gravity(player, delta)
 			if player.is_on_floor():
 				#pass
 				player.change_state(player.State.IDLE)
@@ -119,7 +141,7 @@ func process_movement(player, delta):
 	if GameInputMapper.is_action_just_pressed("jump") and (player.jump_state < player.jump_quota || player.state == player.State.SWING || player.state == player.State.HOOKING):
 		player.hang_time = 0
 		player.change_state(player.State.JUMP)
-		if player.state != player.State.SWING && player.state != player.State.HOOKING:
+		if player.state != player.State.SWING && player.state not in player.NORMAL_HOOK_STATE:
 			player.jump_state += 1
 		player.velocity.y = player.jump_force
 
@@ -130,21 +152,21 @@ func process_collision(player, _delta):
 		if collision.get_collider() is Hook:
 			player.change_state(player.State.IDLE)
 		if collision.get_collider() is Enemy or collision.get_collider() is GroundEnemySpirit or collision.get_collider() is GroundEnemyCreeper:
-			if player.state == player.State.HOOKING:
+			if player.state in player.NORMAL_HOOK_STATE:
 				print("hit")
 				player.kill.emit(collision.get_collider())
 				collision.get_collider().queue_free()
 			else:
 				pass
 		# collide with terrain
-		elif player.state == player.State.HOOKING: 
+		elif player.state in player.NORMAL_HOOK_STATE: 
 			# check if collide is wall
 			var normal = collision.get_normal()
 			if collision.get_collider() is StaticHookTerrain and (normal.x == 1 or normal.x == -1) and GameInputMapper.is_action_pressed("hold_wall"):
 				player.face_left = normal.x > 0
 				player.change_state(player.State.WALL_HOOK)		
 			elif not player.is_on_floor():
-				player.velocity.y = 0
+				#player.velocity.y = 0
 				player.change_state(player.State.IDLE)
 			elif player.velocity == Vector2.ZERO:
 				player.change_state(player.State.IDLE)
@@ -186,8 +208,8 @@ func process_animation(player,_delta):
 			state_machine.travel("swing")
 		player.State.SWING:
 			state_machine.travel("swing")
-		player.State.HOOK_ATTACK:
-			state_machine.travel("light_attack_1")
+		player.State.SWING_ATTACK:
+			state_machine.travel("swing_attack")
 		player.State.GLIDE:
 			if player.is_on_floor():
 				state_machine.travel("slide")

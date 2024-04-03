@@ -7,6 +7,9 @@ func process(player, delta):
 		player.just_take_damage = delta-player.just_take_damage if player.just_take_damage-delta > 0 else 0
 	elif player.just_take_damage < 0:
 		player.just_take_damage = abs(player.just_take_damage)-delta if player.just_take_damage+delta < 0 else 0 
+	if player.is_on_floor():
+		player.swing_attack_qouta = 1
+		player.air_attack_qouta = 3
 	
 	if player.state in player.UNAFFECTED_BY_INPUT:
 		if player.state not in player.ATTACK_STATE:
@@ -25,7 +28,9 @@ func process(player, delta):
 	#if (light_attack or heavy_attack) and player.state in player.HOOKING_STATE:
 		#try_change_state(player, player.State.HOOK_ATTACK, attack_direction)
 	if light_attack:
-		if player.state == player.State.LIGHT_ATTACK_1:
+		if player.state == player.State.HOOKING:
+			try_change_state(player, player.State.SWING_ATTACK, attack_direction)
+		elif player.state == player.State.LIGHT_ATTACK_1:
 			try_change_state(player, player.State.LIGHT_ATTACK_2, attack_direction)
 		else: try_change_state(player, player.State.LIGHT_ATTACK_1, attack_direction)
 	elif heavy_attack:
@@ -38,7 +43,7 @@ func get_attack_damage(attack_power, current_state, State):
 		return 0.6 * attack_power
 	if current_state == State.HEAVY_ATTACK:
 		return 1.5 * attack_power
-	if current_state == State.HOOK_ATTACK:
+	if current_state == State.SWING_ATTACK:
 		return attack_power
 	return 0.5 * attack_power
 
@@ -56,6 +61,10 @@ func try_change_state(player, next_state, attack_direction):
 		change_state(player, "LightAttack1",player.State.LIGHT_ATTACK_1,attack_direction,0.5,0.04,1)
 	if next_state == player.State.HEAVY_ATTACK:
 		change_state(player, "HeavyAttack",player.State.HEAVY_ATTACK,attack_direction,0.8,0.08, 1)
+	if next_state == player.State.SWING_ATTACK:
+		if player.swing_attack_qouta < 1:
+			return
+		change_state(player, "SwingAttack",player.State.SWING_ATTACK,attack_direction,0.8,0.08, 1)
 
 func change_state(player, node_name, next_state, attack_direction, lock_time, hang_time, qouta_used):
 	#player.get_node("AttackBox/"+node_name+"CollisionShape").set_deferred("disabled", false)
@@ -73,13 +82,18 @@ func change_state(player, node_name, next_state, attack_direction, lock_time, ha
 		player.global_position.x -= player.speed * 0.02
 	else:
 		player.global_position.x += player.speed * 0.02
+	
+	
+	if next_state == player.State.SWING_ATTACK:
+		player.swing_attack_qouta = player.swing_attack_qouta - qouta_used
+	else:
 	# Movement 
-	player.hang_time = hang_time
-	player.velocity.y  = 0
-	#if player.state in player.NORMAL_STATE:
-		#player.velocity.x = 0
-	if not player.is_on_floor():
-		player.air_attack_qouta = player.air_attack_qouta - qouta_used
+		player.hang_time = hang_time
+		player.velocity.y  = 0
+		#if player.state in player.NORMAL_STATE:
+			#player.velocity.x = 0
+		if not player.is_on_floor():
+			player.air_attack_qouta = player.air_attack_qouta - qouta_used
 		
 func possible(player, new_state):
 	for action in player.action_queue:
