@@ -278,3 +278,11 @@ func _on_hit_box_area_2d_area_entered(area):
 func _on_hit_box_area_2d_area_exited(area):
 	if area is CameraOverrideArea:
 		$CameraHandler.remove_camera_override_area()
+		
+		
+func _shake_camera(time):
+	if is_instance_valid($MainCamera2D):
+		var final_position = Vector2(sin(time) * 5, sin(time) * 10)
+		$MainCamera2D.enabled = true
+		$MainCamera2D.offset = lerp($MainCamera2D.offset, final_position, 0.2)
+	

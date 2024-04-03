@@ -64,13 +64,12 @@ func _physics_process(delta):
 	else:
 		$AnimatedSprite2D.play("creeper_idle")
 	
-	## TODO Screen shake Effect
-	#if kaboom_state == true:
-		#time += 1
-		#var final_position = Vector2(sin(time) * 10, sin(time) * 20)
-		#$Camera2D.offset = lerp($Camera2D.offset, final_position, 0.2)
-	#elif time:
-		#time = 0
+	# Screen shake Effect
+	if kaboom_state == true and player != null:
+		player._shake_camera(time)
+		time += 1
+	elif time:
+		time = 0
 
 
 func _on_detection_area_body_entered(body):
@@ -150,8 +149,9 @@ func attack_player(body, damage=5):
 					kaboom_damage -= reduced_damage
 				print("kaboom damage: ", kaboom_damage)
 				player.get_node("CombatHandler").take_damage(player, kaboom_damage, position.x)
+			
+			# Dead with explosion effect
 			_self_kill(true)
-
 
 func _self_kill(smoke=false):
 	var effect = enemy_explosion_particle.instantiate()
