@@ -31,6 +31,7 @@ func render_chain():
 	
 func dehook():
 	visible = false
+	queue_free()
 
 func _physics_process(delta):
 	position += direction * speed * delta
