@@ -6,12 +6,14 @@ signal kill(mob)
 signal finish_hook
 
 # State
-enum State {DEAD, IDLE, RUN, LIGHT_ATTACK_1, LIGHT_ATTACK_2, HEAVY_ATTACK, 
-JUMP, JUST_HOOKED, HOOKING, HOLD_HOOK, SWING, WALL_HOOK, HOOK_ATTACK,
+enum State {DEAD, IDLE, RUN, JUMP, 
+LIGHT_ATTACK_1, LIGHT_ATTACK_2, HEAVY_ATTACK, SWING_ATTACK, 
+JUST_HOOKED, HOOKING, HOLD_HOOK, SWING, WALL_HOOK,
 BOUNCE, GLIDE}
 const NORMAL_STATE = [State.IDLE, State.RUN, State.JUMP, State.GLIDE]
-const ATTACK_STATE = [State.LIGHT_ATTACK_1, State.LIGHT_ATTACK_2, State.HEAVY_ATTACK, State.HOOK_ATTACK]
-const HOOKING_STATE = [State.HOOKING, State.HOLD_HOOK, State.SWING, State.WALL_HOOK]
+const ATTACK_STATE = [State.LIGHT_ATTACK_1, State.LIGHT_ATTACK_2, State.HEAVY_ATTACK, State.SWING_ATTACK]
+const HOOKING_STATE = [State.HOOKING, State.HOLD_HOOK, State.SWING, State.WALL_HOOK, State.SWING_ATTACK]
+const NORMAL_HOOK_STATE = [State.HOOKING, State.SWING_ATTACK]
 const UNAFFECTED_BY_INPUT = [ State.DEAD,
 	State.LIGHT_ATTACK_1,State.LIGHT_ATTACK_2, State.HEAVY_ATTACK,
 	State.BOUNCE
@@ -51,7 +53,7 @@ var max_hp = 100
 var current_hp = 100
 var attack_power = 20
 var air_attack_qouta = 3
-var hook_attack_qouta = 1
+var swing_attack_qouta = 1
 var exp = 0
 var i_frame = 0
 var max_i_frame = 1.25
@@ -77,13 +79,13 @@ func _ready():
 	hide()
 		
 func change_state(s: State):
-	if state_lock_time > 0:
-		return false
 	if state in HOOKING_STATE and s not in HOOKING_STATE:
 		if is_instance_valid(normal_hook):
 			normal_hook.dehook()
 		if is_instance_valid(swing_hook):
 			swing_hook.dehook()
+	if state_lock_time > 0:
+		return false
 	#if s == State.HOOKING:
 		#velocity.x *= 0.6
 		#velocity.y = 0
@@ -91,6 +93,7 @@ func change_state(s: State):
 		get_node("AttackBox/"+"LightAttack1"+"CollisionShape").set_deferred("disabled", false)
 		get_node("AttackBox/"+"LightAttack2"+"CollisionShape").set_deferred("disabled", false)
 		get_node("AttackBox/"+"HeavyAttack"+"CollisionShape").set_deferred("disabled", false)
+		get_node("AttackBox/"+"SwingAttack"+"CollisionShape").set_deferred("disabled", false)
 	state = s
 	return true
 
@@ -146,7 +149,7 @@ func _physics_process(delta):
 	get_debug_hud().update_hook_cooldown($HookHandler.get_time_left())
 	get_debug_hud().update_player_position(global_position)
 	get_debug_hud().get_node("PlayerState").text = "State: " + State.keys()[state]
-	get_debug_hud().get_node("PlayerVelocity").text =  "Velocity: " + str(velocity)
+	get_debug_hud().get_node("PlayerVelocity").text =  "Velocity: " + str(round(velocity))
 
 func reset_camera_transform_default():
 	if is_instance_valid($MainCamera2D):
@@ -231,14 +234,14 @@ func _on_check_area_area_exited(area):
 	
 		
 func emerge_oneway_platform():
-	if state in HOOKING_STATE or state == State.GLIDE:
+	if state in HOOKING_STATE or state == State.GLIDE or state == State.SWING_ATTACK:
 		print("hooking over oneway platform")
 		velocity.y = 0.6 * velocity.y
 		velocity.y = min(velocity.y, oneway_platform_threshold)
 
 
 func _on_check_area_area_entered(area):
-	if area.has_meta("oneway_platform") && state == State.GLIDE:
+	if area.has_meta("oneway_platform") && (state == State.GLIDE || state == State.SWING_ATTACK):
 		emerge_oneway_platform()
 	if is_instance_valid(area) && is_instance_valid(normal_hook):
 		if area.global_position == normal_hook.global_position:
