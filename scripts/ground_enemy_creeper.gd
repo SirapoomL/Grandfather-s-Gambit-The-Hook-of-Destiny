@@ -9,6 +9,7 @@ var offset = 5
 
 # You can adjust monster's config here 
 var speed = 50
+var max_hp = 70
 var hp = 70
 var exp = 25
 
@@ -26,7 +27,17 @@ var left_dir_range = -35
 var right_dir_range = 75
 
 
+func update_hp_bar(hp_value):
+	$health_bar.set_max(max_hp)
+	if hp_value == max_hp:
+		$health_bar.visible = false
+	else:
+		$health_bar.visible = true
+		$health_bar.value = hp_value
+
+
 func _physics_process(delta):
+	update_hp_bar(hp)
 	$Particles/sparkle.visible = false
 
 	global_rotation = 0

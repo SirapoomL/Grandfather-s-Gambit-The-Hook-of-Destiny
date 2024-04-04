@@ -9,15 +9,25 @@ var offset = 5
 
 # You can adjust monster's config here
 var speed = 40
-var hp = 125
+var max_hp = 75
+var hp = 75
 var exp = 50
 
 # NOTE Set GRAVITY to false to make worm levitate toward player
 var GRAVITY = true
 
 # Distance between player and mob for attack range
-var left_dir_range = -300
-var right_dir_range = 300
+var left_dir_range = -250
+var right_dir_range = 250
+
+
+func update_hp_bar(hp_value):
+	$health_bar.set_max(max_hp)
+	if hp_value == max_hp:
+		$health_bar.visible = false
+	else:
+		$health_bar.visible = true
+		$health_bar.value = hp_value
 
 
 func _play_idle_animation():
@@ -45,12 +55,15 @@ func _play_attack_animation():
 
 
 func _physics_process(delta):
+	update_hp_bar(hp)
+
 	global_rotation = 0
 	if player_chase:
 		if not _check_in_attack_range(left_dir_range, right_dir_range):
-			# Move worm in x-axis
 			if $AnimationPlayer.get_current_animation() != "attack":
 				_play_walk_animation()
+
+				# Move worm in x-axis
 				if (player.position.x > position.x):
 					position.x += speed * delta
 				else:
@@ -61,7 +74,7 @@ func _physics_process(delta):
 					position.y += speed * delta
 				elif not GRAVITY && (player.position.y < position.y):
 					position.y -= speed * delta
-			
+
 			# Flip worm face direction
 			if (player.position.x - position.x) < offset:
 				$Idle_Sprite2D.flip_h = true
