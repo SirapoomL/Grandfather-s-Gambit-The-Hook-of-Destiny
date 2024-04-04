@@ -216,6 +216,10 @@ offset_right = 60.0
 offset_bottom = -65.0
 show_percentage = false
 
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]

@@ -112,12 +112,10 @@ animation = &"creeper_move"
 frame_progress = 0.996309
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(2, -1)
 shape = SubResource("CapsuleShape2D_q4ckc")
 
 [node name="DetectionArea" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 position = Vector2(-2, -19)
@@ -146,6 +144,10 @@ offset_top = -82.0
 offset_right = 60.0
 offset_bottom = -65.0
 show_percentage = false
+
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

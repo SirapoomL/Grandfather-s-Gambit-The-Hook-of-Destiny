@@ -65,8 +65,10 @@ func _physics_process(delta):
 
 		# Player is in spirit's attack range (stop spirit movement)
 		else:
-			$AnimatedSprite2D.play("spirit_attack")
-			attack_player(player, 5)
+			if $AttackCooldown.is_stopped():
+				$AnimatedSprite2D.play("spirit_attack")
+				attack_player(player, 5)
+				$AttackCooldown.start()
 	else:
 		$AnimatedSprite2D.play("spirit_idle")
 		$Particles/explode.emitting = false
@@ -132,6 +134,7 @@ func attack_player(body, damage=5):
 		$AttackSound.play()
 		#$Particles/explode.emitting = true
 		$Particles/thunder.visible = true
+		#$Particles/thunder.set_speed_scale(2.0)
 		$Particles/thunder.play("default")
 		player.get_node("CombatHandler").take_damage(player, damage, position.x)
 	

@@ -70,8 +70,10 @@ func _physics_process(delta):
 
 		# Player is in creeper's attack range (stop creeper movement)
 		else:
-			$AnimatedSprite2D.play("creeper_attack")
-			attack_player(player, 3)
+			if $AttackCooldown.is_stopped():
+				$AnimatedSprite2D.play("creeper_attack")
+				attack_player(player, 3)
+				$AttackCooldown.start()
 	else:
 		$AnimatedSprite2D.play("creeper_idle")
 	
