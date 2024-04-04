@@ -117,7 +117,7 @@ func hit(damage, knockback=30):
 	
 	
 func attack_player(body, damage=5):
-	if (body.name == 'Player'):
+	if (body != null) and (body.name == 'Player'):
 		$AttackSound.play()
 		#$Particles/explode.emitting = true
 		$Particles/thunder.visible = true

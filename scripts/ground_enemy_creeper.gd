@@ -124,7 +124,7 @@ func hit(damage, knockback=30):
 	
 	
 func attack_player(body, damage=5):
-	if (body.name == 'Player'):
+	if (body != null) and (body.name == 'Player'):
 		
 		if hp >= 35:
 			$AttackSound.play()
