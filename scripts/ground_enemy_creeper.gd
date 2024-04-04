@@ -38,7 +38,11 @@ func update_hp_bar(hp_value):
 
 func _physics_process(delta):
 	update_hp_bar(hp)
-	$Particles/sparkle.visible = false
+	if $Particles/sparkle.is_playing():
+		$Particles/sparkle.visible = true
+	else:
+		$Particles/sparkle.visible = false
+		$Particles/sparkle.stop()
 
 	global_rotation = 0
 	if player_chase and not kaboom_state:
@@ -74,8 +78,11 @@ func _physics_process(delta):
 				$AnimatedSprite2D.play("creeper_attack")
 				attack_player(player, 3)
 				$AttackCooldown.start()
+			else:
+				$Particles/sparkle.stop()
 	else:
 		$AnimatedSprite2D.play("creeper_idle")
+		$Particles/sparkle.visible = false
 	
 	# Screen shake Effect
 	if kaboom_state == true and player != null:

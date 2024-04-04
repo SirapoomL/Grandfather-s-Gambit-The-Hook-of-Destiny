@@ -32,7 +32,11 @@ func update_hp_bar(hp_value):
 
 func _physics_process(delta):
 	update_hp_bar(hp)
-	$Particles/thunder.visible = false
+	if $Particles/thunder.is_playing():
+		$Particles/thunder.visible = true
+	else:
+		$Particles/thunder.visible = false
+		$Particles/thunder.stop()
 	$Particles/smoke.visible = false
 
 	global_rotation = 0
@@ -69,9 +73,12 @@ func _physics_process(delta):
 				$AnimatedSprite2D.play("spirit_attack")
 				attack_player(player, 5)
 				$AttackCooldown.start()
+			else:
+				$Particles/thunder.stop()
 	else:
 		$AnimatedSprite2D.play("spirit_idle")
 		$Particles/explode.emitting = false
+		$Particles/thunder.visible = false
 
 
 func _on_detection_area_body_entered(body):
