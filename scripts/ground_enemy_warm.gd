@@ -16,8 +16,8 @@ var exp = 50
 var GRAVITY = true
 
 # Distance between player and mob for attack range
-var left_dir_range = -150
-var right_dir_range = 150
+var left_dir_range = -300
+var right_dir_range = 300
 
 
 func _play_idle_animation():
@@ -48,19 +48,19 @@ func _physics_process(delta):
 	global_rotation = 0
 	if player_chase:
 		if not _check_in_attack_range(left_dir_range, right_dir_range):
-			_play_walk_animation()
-			
 			# Move worm in x-axis
-			if (player.position.x > position.x):
-				position.x += speed * delta
-			else:
-				position.x -= speed * delta
+			if $AnimationPlayer.get_current_animation() != "attack":
+				_play_walk_animation()
+				if (player.position.x > position.x):
+					position.x += speed * delta
+				else:
+					position.x -= speed * delta
 				
-			# Make worm levitating towards player
-			if not GRAVITY && (player.position.y > position.y):
-				position.y += speed * delta
-			elif not GRAVITY && (player.position.y < position.y):
-				position.y -= speed * delta
+				# Make worm levitating towards player
+				if not GRAVITY && (player.position.y > position.y):
+					position.y += speed * delta
+				elif not GRAVITY && (player.position.y < position.y):
+					position.y -= speed * delta
 			
 			# Flip worm face direction
 			if (player.position.x - position.x) < offset:
@@ -76,8 +76,13 @@ func _physics_process(delta):
 
 		# Player is in worm's attack range (stop worm movement)
 		else:
+			# Flip worm face direction
+			if (player.position.x - position.x) < offset:
+				$Attack_Sprite2D.flip_h = true
+			elif (player.position.x - position.x) > offset:
+				$Attack_Sprite2D.flip_h = false
+			
 			if $AttackCooldown.is_stopped():
-				print("Attack cooldown stop")
 				_play_attack_animation()
 				attack_player(player, 10)
 				$AttackCooldown.start()
@@ -134,13 +139,17 @@ func hit(damage, knockback=30):
 	
 	return [damage, 0]
 	
-	
+
+# TODO add fireball animation range(-300, 300)
+# TODO add fireball sound
+# TODO if fireball hit player, deal damage
 func attack_player(body, damage=5):
 	if (body != null) and (body.name == 'Player'):
 		#$AttackSound.play()
 		#$Particles/sparkle.visible = true
 		#$Particles/sparkle.play("default")
-		player.get_node("CombatHandler").take_damage(player, damage, position.x)
+		if abs(player.position.y - position.y) < 20:
+			player.get_node("CombatHandler").take_damage(player, damage, position.x)
 
 
 func _self_kill(smoke=false):
