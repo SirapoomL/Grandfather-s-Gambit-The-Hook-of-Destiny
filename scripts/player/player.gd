@@ -116,7 +116,7 @@ func _physics_process(delta):
 	# Handling shoot
 	# TODO: extract this as a method
 	if GameInputMapper.is_action_just_released("shoot"):
-		if swing_hook:
+		if is_instance_valid(swing_hook):
 			swing_hook.queue_free()
 			swing_hook = null
 			
