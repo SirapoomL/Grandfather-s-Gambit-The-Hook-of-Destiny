@@ -4,6 +4,7 @@ signal dead
 signal shoot(direction, hold)
 signal kill(mob)
 signal finish_hook
+signal player_level_up(level)
 
 # State
 enum State {DEAD, IDLE, RUN, JUMP, 
@@ -54,7 +55,11 @@ var current_hp = 100
 var attack_power = 20
 var air_attack_qouta = 3
 var swing_attack_qouta = 1
-var exp = 0
+var exp = 99
+var max_exp = 100
+var base_exp = 100
+var growth_factor = 1.2
+var level = 1
 var i_frame = 0
 var max_i_frame = 1.25
 var just_take_damage = 0
@@ -209,17 +214,22 @@ func _on_hook_break(h:Hook):
 
 func _on_attack_box_body_entered(body):
 	print("Player trying to hit:", body.name.capitalize())
+	var exp_gained = 0
 	if body is Enemy or body.name.to_lower().begins_with('ground_enemy'):
 		var x = await body.hit(get_node("CombatHandler").get_attack_damage(attack_power, state, State))
 		var damage_dealt = x[0]
-		var exp_gained = x[1]
+		exp_gained = x[1]
 		if exp_gained != 0:
 			body._self_kill()
 		# do smth here
 	if body is Minotaur:
 		var x = await body.hit(get_node("CombatHandler").get_attack_damage(attack_power, state, State))
 		var damage_dealt = x[0]
-		var exp_gained = x[1]
+		exp_gained = x[1]
+	
+	exp += exp_gained
+	if exp >= max_exp:
+		level_up()
 		
 
 func _on_check_area_area_exited(area):
@@ -288,4 +298,18 @@ func _shake_camera(time):
 		var final_position = Vector2(sin(time) * 5, sin(time) * 10)
 		$MainCamera2D.enabled = true
 		$MainCamera2D.offset = lerp($MainCamera2D.offset, final_position, 0.2)
+
+func level_up():
+	level += 1
+	max_exp = get_max_exp_for_level(level)
+	exp = 0
+	current_hp = max_hp
+	$LevelUpSound.play()
+	# TODO add attribute increase
+	emit_signal("player_level_up", level)
+	print("Level up! Level:", level, "Max Exp:", max_exp)
+
+func get_max_exp_for_level(level):
+	max_exp = base_exp * pow(growth_factor, level - 1)
+	return int(max_exp)
 	

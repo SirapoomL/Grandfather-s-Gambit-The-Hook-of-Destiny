@@ -15,6 +15,8 @@ var jump_icon_art = preload("res://art/ui/player_hud/jump_icon.png")
 var hook_icon_art = preload("res://art/ui/player_hud/hook_icon.png")
 var hook_countdown
 var hook_handler
+var level_bar
+var level_text
 
 var max_hp
 var current_hp
@@ -31,6 +33,8 @@ func _ready():
 	hook_limit = $HookLimitBg/HookLimit
 	hook_countdown = $HookLimitBg/HookCountdown
 	hook_handler = player.get_node("HookHandler")
+	level_bar = $LevelBar
+	level_text = $LevelBar/Info
 	
 	# set max hp
 	max_hp = player.max_hp
@@ -44,6 +48,16 @@ func _ready():
 	update_texture_rect(jump_limit, jump_icon_art, player.jump_quota , jump_available, Vector2(25, 25))
 	hook_available = player.hook_quota - player.hook_count
 	update_texture_rect(hook_limit, hook_icon_art, player.hook_quota, hook_available, Vector2(25, 25))
+
+	# set level bar
+	level_bar.max_value = player.max_exp
+	level_text.text = str(player.level)
+	level_bar.value = player.exp
+	update_level_bar(player.exp, player.level)
+
+
+	# connect signal
+	player.connect("player_level_up", _on_level_up)
 
 func set_player_hud_visibility(visible):
 	player_hud.visible = visible
@@ -75,10 +89,20 @@ func _process(delta):
 	else:
 		hook_logo.modulate = Color(1, 1, 1, 1)
 
+	# update level bar
+	update_level_bar(player.exp, player.level)
+
 func update_hp_bar(hp_value):
 	hp_bar.value = hp_value
 	# add text to tooltip
 	info.text = str(hp_value) + "/" + str(max_hp)
+
+func update_level_bar(exp, level):
+	level_bar.value = exp
+	level_text.text = str(level)
+
+func _on_level_up(level):
+	print("level up to " + str(level))	
 
 func update_hook_countdown(time):
 	hook_countdown.value = time

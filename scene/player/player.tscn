@@ -1,10 +1,11 @@
-[gd_scene load_steps=51 format=3 uid="uid://hl4xtvdy2spj"]
+[gd_scene load_steps=52 format=3 uid="uid://hl4xtvdy2spj"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_88xg1"]
 [ext_resource type="Script" path="res://scripts/player/camera_handler.gd" id="6_1qean"]
 [ext_resource type="Texture2D" uid="uid://cue6n6ustabi6" path="res://art/player/combined_char_red.png" id="6_4ign3"]
 [ext_resource type="Script" path="res://scripts/player/hook_handler.gd" id="7_3efig"]
 [ext_resource type="Script" path="res://scripts/player/player_combat.gd" id="7_5wpcc"]
+[ext_resource type="AudioStream" uid="uid://dd3ovsomx67yq" path="res://art/player/level_up_sound.mp3" id="7_ji7pi"]
 [ext_resource type="Script" path="res://scripts/player/player_movement.gd" id="8_1yhd2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rru7u"]
@@ -376,7 +377,7 @@ texture = ExtResource("6_4ign3")
 offset = Vector2(0, -15)
 hframes = 8
 vframes = 18
-frame = 2
+frame = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -421,6 +422,11 @@ collision_mask = 32769
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxArea2D"]
 shape = SubResource("CapsuleShape2D_w4y3r")
 debug_color = Color(0.345098, 0.619608, 0.129412, 0.419608)
+
+[node name="LevelUpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_ji7pi")
+volume_db = -15.0
+pitch_scale = 1.35
 
 [connection signal="body_entered" from="AttackBox" to="." method="_on_attack_box_body_entered"]
 [connection signal="hook_regenerated" from="HookHandler" to="." method="_on_hook_handler_hook_regenerated"]

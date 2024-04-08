@@ -1,25 +1,17 @@
-[gd_scene load_steps=17 format=3 uid="uid://dksrf1wtir086"]
+[gd_scene load_steps=18 format=3 uid="uid://dksrf1wtir086"]
 
 [ext_resource type="Script" path="res://scripts/ui/player_hud.gd" id="1_iyce2"]
-[ext_resource type="Texture2D" uid="uid://ppoeof1vrkjn" path="res://art/ui/player_hud/HeartBg.png" id="2_e1yiq"]
 [ext_resource type="Shader" path="res://outline.gdshader" id="2_mcm4o"]
 [ext_resource type="Texture2D" uid="uid://bd55fmm606xmx" path="res://art/ui/player_hud/hp_bar2.png" id="3_sonvf"]
 [ext_resource type="Texture2D" uid="uid://kcljbosdlfuh" path="res://art/ui/player_hud/hp_bar1.png" id="4_uw0aj"]
-[ext_resource type="Texture2D" uid="uid://d4ja7vjs6x5l3" path="res://art/ui/player_hud/heart.png" id="5_cn4g1"]
 [ext_resource type="FontFile" uid="uid://cmx8rfebikf2p" path="res://fonts/Xolonium-Regular.ttf" id="6_rmh3t"]
 [ext_resource type="Texture2D" uid="uid://cnc6hxjko450j" path="res://art/ui/player_hud/hook_bg.png" id="7_vlb66"]
 [ext_resource type="Texture2D" uid="uid://vr5bqtx6rge4" path="res://art/ui/player_hud/jump_bg.png" id="8_v5rum"]
 [ext_resource type="Texture2D" uid="uid://dg4bgpd3rqtbn" path="res://art/player/hook_tip.png" id="9_rh07a"]
+[ext_resource type="Texture2D" uid="uid://cv3ph810bn8qj" path="res://art/ui/player_hud/level_bar1.png" id="10_7421s"]
 [ext_resource type="Texture2D" uid="uid://cwtqluqcqpw30" path="res://art/ui/player_hud/hook_countdown.png" id="11_3porj"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wsivq"]
-shader = ExtResource("2_mcm4o")
-shader_parameter/color = Color(0, 0, 0, 1)
-shader_parameter/width = 0.576
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
+[ext_resource type="Texture2D" uid="uid://cxm3ff5b3q7ao" path="res://art/ui/player_hud/level_bar2.png" id="11_g0pob"]
+[ext_resource type="Texture2D" uid="uid://c15d875yh58sh" path="res://art/ui/player_hud/level_bar3.png" id="12_6j0kn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7a7oy"]
 shader = ExtResource("2_mcm4o")
@@ -57,6 +49,15 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c5ajt"]
+shader = ExtResource("2_mcm4o")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/width = 1.504
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
 [node name="PlayerHud" type="Control"]
 layout_mode = 3
 anchors_preset = 0
@@ -65,17 +66,6 @@ offset_top = 42.0
 offset_right = 49.0
 offset_bottom = 42.0
 script = ExtResource("1_iyce2")
-
-[node name="HeartLogoBg" type="TextureRect" parent="."]
-texture_filter = 5
-material = SubResource("ShaderMaterial_wsivq")
-layout_mode = 2
-offset_left = -7.0
-offset_top = -16.0
-offset_right = 137.0
-offset_bottom = 100.0
-texture = ExtResource("2_e1yiq")
-stretch_mode = 4
 
 [node name="HpBar" type="TextureProgressBar" parent="."]
 z_index = -2
@@ -118,16 +108,6 @@ text = "text"
 fit_content = true
 scroll_active = false
 drag_and_drop_selection_enabled = false
-
-[node name="HeartLogo" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 22.0
-offset_top = 19.0
-offset_right = 78.0
-offset_bottom = 69.0
-texture = ExtResource("5_cn4g1")
-expand_mode = 1
-stretch_mode = 4
 
 [node name="HookLimitBg" type="TextureRect" parent="."]
 z_index = -6
@@ -200,3 +180,49 @@ offset_right = 275.0
 offset_bottom = 71.0
 theme_override_constants/separation = 1
 alignment = 1
+
+[node name="LevelBar" type="TextureProgressBar" parent="."]
+z_index = -1
+texture_filter = 1
+material = SubResource("ShaderMaterial_c5ajt")
+layout_mode = 0
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 103.0
+offset_bottom = 95.0
+value = 50.0
+fill_mode = 4
+nine_patch_stretch = true
+texture_under = ExtResource("10_7421s")
+texture_over = ExtResource("11_g0pob")
+texture_progress = ExtResource("12_6j0kn")
+tint_under = Color(0.0980392, 0.0980392, 0.0980392, 1)
+tint_progress = Color(0.858824, 0.705882, 0, 1)
+
+[node name="Info" type="RichTextLabel" parent="LevelBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.5
+offset_top = -15.0
+offset_right = 8.5
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+tooltip_text = "yhuhjyjyj"
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 5
+theme_override_constants/outline_size = 1
+theme_override_fonts/normal_font = ExtResource("6_rmh3t")
+theme_override_font_sizes/normal_font_size = 34
+text = "1"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+drag_and_drop_selection_enabled = false
