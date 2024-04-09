@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8t8ckassyw0e"]
+
+[ext_resource type="Texture2D" uid="uid://bw346lhpy6b32" path="res://art/campf.png" id="1_8cp22"]
+
+[sub_resource type="Animation" id="Animation_lsp6a"]
+resource_name = "idle_1"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r14dq"]
+_data = {
+"idle_1": SubResource("Animation_lsp6a")
+}
+
+[node name="Campfire" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("1_8cp22")
+hframes = 4
+frame = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_r14dq")
+}
+autoplay = "idle_1"
