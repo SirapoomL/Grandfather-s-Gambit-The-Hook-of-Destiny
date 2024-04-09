@@ -64,7 +64,7 @@ func try_change_state(player, next_state, attack_direction):
 	if next_state == player.State.SWING_ATTACK:
 		if player.swing_attack_qouta < 1:
 			return
-		change_state(player, "SwingAttack",player.State.SWING_ATTACK,attack_direction,0.8,0.08, 1)
+		change_state(player, "SwingAttack",player.State.SWING_ATTACK,attack_direction,0.42,0.04, 1)
 
 func change_state(player, node_name, next_state, attack_direction, lock_time, hang_time, qouta_used):
 	#player.get_node("AttackBox/"+node_name+"CollisionShape").set_deferred("disabled", false)

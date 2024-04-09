@@ -22,7 +22,7 @@ size = Vector2(55, 61)
 size = Vector2(56, 96)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8xutg"]
-size = Vector2(193, 34)
+size = Vector2(107, 34)
 
 [sub_resource type="Animation" id="Animation_yci86"]
 resource_name = "heavy_attack"
@@ -179,7 +179,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_mvdp2"]
 resource_name = "swing_attack"
-length = 0.8
+length = 0.42
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -188,10 +188,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.4, 0.48, 0.56, 0.64, 0.72),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.08, 0.16, 0.26, 0.34),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [120, 121, 122, 123, 124, 125, 126, 127]
+"values": [144, 145, 146, 147, 148]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -200,7 +200,7 @@ tracks/1/path = NodePath("AttackBox/SwingAttackCollisionShape:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.3, 0.48),
+"times": PackedFloat32Array(0.16, 0.26),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -318,7 +318,7 @@ states/swing_attack/position = Vector2(747, -137)
 states/wall_hook/node = SubResource("AnimationNodeAnimation_ibepb")
 states/wall_hook/position = Vector2(754, 146)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_30nxx"), "idle", "heavy_attack", SubResource("AnimationNodeStateMachineTransition_75i5w"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_cqm68"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_n2mj7"), "heavy_attack", "idle", SubResource("AnimationNodeStateMachineTransition_e4pfv"), "idle", "light_attack_1", SubResource("AnimationNodeStateMachineTransition_fy1x5"), "light_attack_1", "light_attack_2", SubResource("AnimationNodeStateMachineTransition_0kq4y"), "light_attack_2", "idle", SubResource("AnimationNodeStateMachineTransition_hk0fq"), "light_attack_1", "idle", SubResource("AnimationNodeStateMachineTransition_ghos6"), "idle", "swing", SubResource("AnimationNodeStateMachineTransition_1vpw8"), "swing", "idle", SubResource("AnimationNodeStateMachineTransition_sd4oe"), "swing", "slide", SubResource("AnimationNodeStateMachineTransition_kokm2"), "slide", "idle", SubResource("AnimationNodeStateMachineTransition_jdi1n"), "swing", "wall_hook", SubResource("AnimationNodeStateMachineTransition_pl4f7"), "wall_hook", "idle", SubResource("AnimationNodeStateMachineTransition_1e4pw"), "swing", "swing_attack", SubResource("AnimationNodeStateMachineTransition_bx32w"), "swing_attack", "swing", SubResource("AnimationNodeStateMachineTransition_opk28")]
-graph_offset = Vector2(70, -230)
+graph_offset = Vector2(69, -232)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_74ae3"]
 radius = 4.0
@@ -367,7 +367,7 @@ disabled = true
 [node name="SwingAttackCollisionShape" type="CollisionShape2D" parent="AttackBox"]
 light_mask = 0
 visibility_layer = 512
-position = Vector2(9.5, -1)
+position = Vector2(22.5, -1)
 shape = SubResource("RectangleShape2D_8xutg")
 disabled = true
 
@@ -376,7 +376,7 @@ scale = Vector2(2.5, 2.5)
 texture = ExtResource("6_4ign3")
 offset = Vector2(0, -15)
 hframes = 8
-vframes = 18
+vframes = 19
 frame = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
