@@ -12,6 +12,8 @@ var speed = 60
 var max_hp = 50
 var hp = 50
 var exp = 10
+var i_frame = 0
+var max_i_frame = 0.1
 
 # NOTE Set GRAVITY to false to make spirit levitate toward player
 var GRAVITY = true
@@ -32,6 +34,7 @@ func update_hp_bar(hp_value):
 
 func _physics_process(delta):
 	update_hp_bar(hp)
+	i_frame = i_frame-delta if i_frame-delta > 0 else 0
 	if $Particles/thunder.is_playing():
 		$Particles/thunder.visible = true
 	else:
@@ -113,6 +116,9 @@ func _check_in_attack_range(left_dir_range, right_dir_range):
 
 
 func hit(damage, knockback=30):
+	if i_frame > 0:
+		return [0,0]
+	i_frame = max_i_frame
 	# Add knockback when getting hit
 	if (player.position.x > position.x):
 		position.x -= knockback + damage / 2

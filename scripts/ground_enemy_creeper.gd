@@ -12,6 +12,8 @@ var speed = 50
 var max_hp = 70
 var hp = 70
 var exp = 25
+var i_frame = 0
+var max_i_frame = 0.1
 
 # Explosion config
 var kaboom_state = false
@@ -38,6 +40,7 @@ func update_hp_bar(hp_value):
 
 func _physics_process(delta):
 	update_hp_bar(hp)
+	i_frame = i_frame-delta if i_frame-delta > 0 else 0
 	if $Particles/sparkle.is_playing():
 		$Particles/sparkle.visible = true
 	else:
@@ -120,6 +123,9 @@ func _check_in_attack_range(left_dir_range, right_dir_range):
 
 
 func hit(damage, knockback=30):
+	if i_frame > 0:
+		return [0,0]
+	i_frame = max_i_frame
 	# Add knockback when getting hit
 	if (player.position.x > position.x):
 		position.x -= knockback + damage / 2
