@@ -94,8 +94,8 @@ func _process(delta):
 
 func update_hp_bar(hp_value):
 	hp_bar.value = hp_value
-	# add text to tooltip
-	info.text = str(hp_value) + "/" + str(max_hp)
+	# add text and round to 2 decimal places
+	info.text = str(round(hp_value)) + " / " + str(round(max_hp))
 
 func update_level_bar(exp, level):
 	level_bar.value = exp

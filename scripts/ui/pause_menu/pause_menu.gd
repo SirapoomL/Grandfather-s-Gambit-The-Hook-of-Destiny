@@ -34,8 +34,8 @@ func _ready():
 	mastery_tab = $Control/TabContainer/Mastery
 	weapons_skills_tab = $Control/TabContainer/Skill
 	setting_tab = $Control/TabContainer/Setting
-	setting_container = $Control/TabContainer/Setting/SettingContainer
-	control_container = $Control/TabContainer/Setting/ControlContainer
+	setting_container = $Control/TabContainer/Setting/Setting/SettingContainer
+	control_container = $Control/TabContainer/Setting/Setting/ControlContainer
 	# Connect signals for tabs container
 	tab_container.connect("tab_changed",Callable(self, "_on_Tab_Changed"))
 

@@ -25,8 +25,6 @@ func _ready():
 func _process(delta):
 	pass
 
-
-
 func _on_ControlsButton_pressed():
 	# Logic for controls UI or action
 	pause_menu.current_setting_tab_state = pause_menu.SettingTabState.IN_CONTROL
