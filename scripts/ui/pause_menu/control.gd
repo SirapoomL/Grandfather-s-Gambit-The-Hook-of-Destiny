@@ -7,7 +7,7 @@ var current_action = ""
 var pause_menu
 var button_actions = [
 	"move_left", "move_right", "jump", "shoot", 
-	"inventory", "skill_tree", "light_attack", "heavy_attack", "hold_wall"
+	"inventory", "skills", "mastery", "light_attack", "heavy_attack", "hold_wall"
 ]
 var button_values = {}
 var old_mouse_position

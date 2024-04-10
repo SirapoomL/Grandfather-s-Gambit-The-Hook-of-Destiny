@@ -43,9 +43,9 @@ func _process(delta):
 	if GameState.get_current_state() == GameState.State.NOT_STARTED or control_container.state != control_container.keybindState.NORMAL:
 		return
 	if GameInputMapper.is_action_just_pressed("esc"):
-		main.toggle_pause()
-		prepare_pause_menu()
-		toggle_pause()
+		toggle_pause(NavbarState.SETTING)
+	elif GameInputMapper.is_action_just_pressed("skills"):
+		toggle_pause(NavbarState.WEAPONS_SKILLS)
 
 	# do state for pause menu
 	match current_ui_state:
@@ -87,11 +87,25 @@ func prepare_pause_menu():
 	# hide control container
 	current_setting_tab_state = SettingTabState.MAIN
 
-func toggle_pause():
+func change_tab_index(state):
+	match state:
+		NavbarState.MASTERY:
+			tab_container.current_tab = 0
+		NavbarState.WEAPONS_SKILLS:
+			tab_container.current_tab = 1
+		NavbarState.SETTING:
+			tab_container.current_tab = 2
+
+func toggle_pause(state):
+	main.toggle_pause()
+	prepare_pause_menu()
 	if current_ui_state == NavbarState.CLOSE:
-		current_ui_state = NavbarState.SETTING
+		current_ui_state = state
+		show_pause_menu()
+		change_tab_index(state)
 	else:
 		current_ui_state = NavbarState.CLOSE
+		hide_pause_menu()
 
 func show_pause_menu():
 	# Logic to show the pause menu

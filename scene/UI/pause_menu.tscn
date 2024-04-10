@@ -397,7 +397,7 @@ shortcut_feedback = false
 shortcut_in_tooltip = false
 text = "inventory"
 
-[node name="SkillTree" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
+[node name="Mastery" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
 layout_mode = 2
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 55
@@ -411,7 +411,23 @@ action_mode = 0
 button_mask = 0
 shortcut_feedback = false
 shortcut_in_tooltip = false
-text = "skill tree"
+text = "mastery"
+
+[node name="Skills" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+disabled = true
+action_mode = 0
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
+text = "skills"
 
 [node name="LightAttack" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/ActionContainer"]
 layout_mode = 2
@@ -519,7 +535,17 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 
-[node name="SkillTreeValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
+[node name="SkillsValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
+custom_minimum_size = Vector2(350, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_maa68")
+theme_override_styles/hover = SubResource("StyleBoxFlat_udfks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26ee2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
+
+[node name="MasteryValue" type="Button" parent="Control/TabContainer/Setting/ControlContainer/VBoxContainer/KeyBindContainer/ScrollContainer/HBoxContainer/AssignerContainer"]
 custom_minimum_size = Vector2(350, 80)
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
@@ -560,7 +586,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_1jn3p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_iupb4")
 
 [node name="Blur" type="Panel" parent="Control"]
-modulate = Color(0.345098, 0.345098, 0.345098, 1)
+modulate = Color(0.239216, 0.239216, 0.239216, 1)
 show_behind_parent = true
 z_index = -3
 z_as_relative = false
