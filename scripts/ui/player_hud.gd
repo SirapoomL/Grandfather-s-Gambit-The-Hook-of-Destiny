@@ -64,6 +64,7 @@ func set_player_hud_visibility(visible):
 	is_visible = visible
 
 func _process(delta):
+	
 	if GameState.get_current_state_str() not in ["PLAYING", "PAUSED"] :
 		if is_visible:
 			set_player_hud_visibility(false)
@@ -72,8 +73,10 @@ func _process(delta):
 		if not is_visible:
 			set_player_hud_visibility(true)
 
+	max_hp = player.max_hp
 	update_hp_bar(player.current_hp)
 	update_hook_countdown(hook_handler.get_time_left())
+
 
 	jump_available = player.jump_quota - player.jump_state
 	# print("updating jump available to " + str(player.jump_state) + " from " + str($JumpLimitBg.get_node("JumpLimit").get_child_count()))
@@ -88,17 +91,20 @@ func _process(delta):
 		hook_logo.modulate = Color(1, 1, 1, 0.5)
 	else:
 		hook_logo.modulate = Color(1, 1, 1, 1)
+	
 
 	# update level bar
 	update_level_bar(player.exp, player.level)
 
 func update_hp_bar(hp_value):
 	hp_bar.value = hp_value
+	hp_bar.max_value = max_hp
 	# add text and round to 2 decimal places
 	info.text = str(round(hp_value)) + " / " + str(round(max_hp))
 
 func update_level_bar(exp, level):
 	level_bar.value = exp
+	level_bar.max_value = player.max_exp
 	level_text.text = str(level)
 
 func _on_level_up(level):
@@ -106,6 +112,7 @@ func _on_level_up(level):
 
 func update_hook_countdown(time):
 	hook_countdown.value = time
+	hook_countdown.max_value = player.hook_cooldown
 	
 func update_texture_rect(hbox, texture, org_amount, amount, rect_min_size):
 	# First, remove all existing TextureRects

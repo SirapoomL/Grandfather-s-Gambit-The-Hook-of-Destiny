@@ -119,6 +119,14 @@ func update_button(init=false):
 			if player.hook_quota >= 5:
 				button.disabled = true
 				button.text = "Max"
+		elif field_name == "HookCooldownButton":
+			if player.hook_cooldown <= 0.5:
+				button.disabled = true
+				button.text = "Max"
+		elif field_name == "AttackPowerButton":
+			if player.attack_power >= 50:
+				button.disabled = true
+				button.text = "Max"
 		
 		if init:
 			button.pressed.connect(on_button_pressed.bind(field_name,value))
@@ -156,7 +164,7 @@ func on_button_pressed(field_name, cost):
 		"hook_speed_button":
 			player.hook_speed += 20
 		"hook_cooldown_button":
-			player.hook_cooldown -= 0.05
+			player.hook_cooldown -= 0.1
 		"attack_power_button":
 			player.attack_power += 1
 		_:
