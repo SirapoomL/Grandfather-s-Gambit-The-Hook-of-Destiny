@@ -1,20 +1,20 @@
 [gd_scene load_steps=18 format=3 uid="uid://dksrf1wtir086"]
 
-[ext_resource type="Script" path="res://scripts/ui/player_hud.gd" id="1_iyce2"]
-[ext_resource type="Shader" path="res://outline.gdshader" id="2_mcm4o"]
-[ext_resource type="Texture2D" uid="uid://bd55fmm606xmx" path="res://art/ui/player_hud/hp_bar2.png" id="3_sonvf"]
-[ext_resource type="Texture2D" uid="uid://kcljbosdlfuh" path="res://art/ui/player_hud/hp_bar1.png" id="4_uw0aj"]
-[ext_resource type="FontFile" uid="uid://cmx8rfebikf2p" path="res://fonts/Xolonium-Regular.ttf" id="6_rmh3t"]
-[ext_resource type="Texture2D" uid="uid://cnc6hxjko450j" path="res://art/ui/player_hud/hook_bg.png" id="7_vlb66"]
-[ext_resource type="Texture2D" uid="uid://vr5bqtx6rge4" path="res://art/ui/player_hud/jump_bg.png" id="8_v5rum"]
-[ext_resource type="Texture2D" uid="uid://dg4bgpd3rqtbn" path="res://art/player/hook_tip.png" id="9_rh07a"]
-[ext_resource type="Texture2D" uid="uid://cv3ph810bn8qj" path="res://art/ui/player_hud/level_bar1.png" id="10_7421s"]
-[ext_resource type="Texture2D" uid="uid://cwtqluqcqpw30" path="res://art/ui/player_hud/hook_countdown.png" id="11_3porj"]
-[ext_resource type="Texture2D" uid="uid://cxm3ff5b3q7ao" path="res://art/ui/player_hud/level_bar2.png" id="11_g0pob"]
-[ext_resource type="Texture2D" uid="uid://c15d875yh58sh" path="res://art/ui/player_hud/level_bar3.png" id="12_6j0kn"]
+[ext_resource type="Script" path="res://scripts/ui/player_hud.gd" id="1_v682l"]
+[ext_resource type="Shader" path="res://outline.gdshader" id="2_8a4u2"]
+[ext_resource type="Texture2D" uid="uid://bd55fmm606xmx" path="res://art/ui/player_hud/hp_bar2.png" id="3_kv8ud"]
+[ext_resource type="Texture2D" uid="uid://kcljbosdlfuh" path="res://art/ui/player_hud/hp_bar1.png" id="4_0gwfm"]
+[ext_resource type="FontFile" uid="uid://cmx8rfebikf2p" path="res://fonts/Xolonium-Regular.ttf" id="5_bhewd"]
+[ext_resource type="Texture2D" uid="uid://cnc6hxjko450j" path="res://art/ui/player_hud/hook_bg.png" id="6_env45"]
+[ext_resource type="Texture2D" uid="uid://cwtqluqcqpw30" path="res://art/ui/player_hud/hook_countdown.png" id="7_44lcg"]
+[ext_resource type="Texture2D" uid="uid://dg4bgpd3rqtbn" path="res://art/player/hook_tip.png" id="8_5nk02"]
+[ext_resource type="Texture2D" uid="uid://vr5bqtx6rge4" path="res://art/ui/player_hud/jump_bg.png" id="9_pwwdt"]
+[ext_resource type="Texture2D" uid="uid://cv3ph810bn8qj" path="res://art/ui/player_hud/level_bar1.png" id="10_ukqm2"]
+[ext_resource type="Texture2D" uid="uid://cxm3ff5b3q7ao" path="res://art/ui/player_hud/level_bar2.png" id="11_i100q"]
+[ext_resource type="Texture2D" uid="uid://c15d875yh58sh" path="res://art/ui/player_hud/level_bar3.png" id="12_cx4uv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7a7oy"]
-shader = ExtResource("2_mcm4o")
+shader = ExtResource("2_8a4u2")
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
@@ -23,7 +23,7 @@ shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nnee5"]
-shader = ExtResource("2_mcm4o")
+shader = ExtResource("2_8a4u2")
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
@@ -32,7 +32,7 @@ shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nbxt8"]
-shader = ExtResource("2_mcm4o")
+shader = ExtResource("2_8a4u2")
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/width = 1.398
 shader_parameter/pattern = 0
@@ -41,7 +41,7 @@ shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6rd1d"]
-shader = ExtResource("2_mcm4o")
+shader = ExtResource("2_8a4u2")
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/width = 0.496
 shader_parameter/pattern = 0
@@ -50,7 +50,7 @@ shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c5ajt"]
-shader = ExtResource("2_mcm4o")
+shader = ExtResource("2_8a4u2")
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/width = 1.504
 shader_parameter/pattern = 0
@@ -65,7 +65,7 @@ offset_left = 49.0
 offset_top = 42.0
 offset_right = 49.0
 offset_bottom = 42.0
-script = ExtResource("1_iyce2")
+script = ExtResource("1_v682l")
 
 [node name="HpBar" type="TextureProgressBar" parent="."]
 z_index = -2
@@ -83,9 +83,9 @@ stretch_margin_left = 3
 stretch_margin_top = 3
 stretch_margin_right = 3
 stretch_margin_bottom = 3
-texture_under = ExtResource("3_sonvf")
-texture_over = ExtResource("4_uw0aj")
-texture_progress = ExtResource("3_sonvf")
+texture_under = ExtResource("3_kv8ud")
+texture_over = ExtResource("4_0gwfm")
+texture_progress = ExtResource("3_kv8ud")
 tint_under = Color(0.0823529, 0.0823529, 0.0823529, 1)
 tint_over = Color(0.584314, 0.282353, 0.25098, 1)
 tint_progress = Color(0.054902, 0.65098, 0, 1)
@@ -94,7 +94,7 @@ tint_progress = Color(0.054902, 0.65098, 0, 1)
 layout_mode = 0
 offset_left = 197.0
 offset_top = 15.0
-offset_right = 317.0
+offset_right = 426.0
 offset_bottom = 45.0
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -102,7 +102,7 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/shadow_outline_size = 5
 theme_override_constants/outline_size = 1
-theme_override_fonts/normal_font = ExtResource("6_rmh3t")
+theme_override_fonts/normal_font = ExtResource("5_bhewd")
 theme_override_font_sizes/normal_font_size = 24
 text = "text"
 fit_content = true
@@ -118,7 +118,7 @@ offset_left = 95.0
 offset_top = 58.0
 offset_right = 398.0
 offset_bottom = 199.0
-texture = ExtResource("7_vlb66")
+texture = ExtResource("6_env45")
 expand_mode = 1
 stretch_mode = 4
 
@@ -133,9 +133,9 @@ offset_bottom = 141.0
 step = 0.0
 fill_mode = 3
 nine_patch_stretch = true
-texture_under = ExtResource("11_3porj")
-texture_over = ExtResource("11_3porj")
-texture_progress = ExtResource("11_3porj")
+texture_under = ExtResource("7_44lcg")
+texture_over = ExtResource("7_44lcg")
+texture_progress = ExtResource("7_44lcg")
 tint_under = Color(0.580392, 0.396078, 0.380392, 1)
 tint_over = Color(1, 1, 1, 0.14902)
 tint_progress = Color(0.164706, 0.164706, 0.164706, 0.513726)
@@ -156,7 +156,7 @@ offset_left = 70.0
 offset_top = 56.0
 offset_right = 140.0
 offset_bottom = 126.0
-texture = ExtResource("9_rh07a")
+texture = ExtResource("8_5nk02")
 stretch_mode = 4
 
 [node name="JumpLimitBg" type="TextureRect" parent="."]
@@ -170,7 +170,7 @@ offset_left = 210.0
 offset_top = 27.0
 offset_right = 519.0
 offset_bottom = 130.0
-texture = ExtResource("8_v5rum")
+texture = ExtResource("9_pwwdt")
 
 [node name="JumpLimit" type="HBoxContainer" parent="JumpLimitBg"]
 layout_mode = 0
@@ -193,9 +193,9 @@ offset_bottom = 95.0
 value = 50.0
 fill_mode = 4
 nine_patch_stretch = true
-texture_under = ExtResource("10_7421s")
-texture_over = ExtResource("11_g0pob")
-texture_progress = ExtResource("12_6j0kn")
+texture_under = ExtResource("10_ukqm2")
+texture_over = ExtResource("11_i100q")
+texture_progress = ExtResource("12_cx4uv")
 tint_under = Color(0.0980392, 0.0980392, 0.0980392, 1)
 tint_progress = Color(0.858824, 0.705882, 0, 1)
 
@@ -219,7 +219,7 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/shadow_outline_size = 5
 theme_override_constants/outline_size = 1
-theme_override_fonts/normal_font = ExtResource("6_rmh3t")
+theme_override_fonts/normal_font = ExtResource("5_bhewd")
 theme_override_font_sizes/normal_font_size = 34
 text = "1"
 fit_content = true

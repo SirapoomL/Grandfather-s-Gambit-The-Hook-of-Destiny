@@ -1,0 +1,132 @@
+[gd_scene load_steps=9 format=3 uid="uid://dgou2ctgr645i"]
+
+[ext_resource type="Script" path="res://scripts/ui/pause_menu/pause_menu.gd" id="1_0fbji"]
+[ext_resource type="PackedScene" uid="uid://cb53bis4s85j7" path="res://scene/UI/pause_menu/skill.tscn" id="2_dcwmv"]
+[ext_resource type="PackedScene" uid="uid://jh0li6sm6man" path="res://scene/UI/pause_menu/setting.tscn" id="2_p0toi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_podnf"]
+content_margin_left = 25.0
+content_margin_right = 25.0
+bg_color = Color(0.537255, 0.254902, 0.227451, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+anti_aliasing_size = 0.947
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3mjrk"]
+content_margin_left = 25.0
+content_margin_right = 25.0
+bg_color = Color(0.733333, 0.380392, 0.341176, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ctvfl"]
+content_margin_left = 25.0
+content_margin_right = 25.0
+bg_color = Color(0.372549, 0.164706, 0.145098, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2w4lx"]
+bg_color = Color(0.682353, 0.345098, 0.309804, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d7gmp"]
+bg_color = Color(0.537255, 0.254902, 0.227451, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+
+[node name="Menu_Interface" type="CanvasLayer"]
+layer = 2
+script = ExtResource("1_0fbji")
+
+[node name="Control" type="Control" parent="."]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="Control"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = 100.0
+offset_right = -150.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 45
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_podnf")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_3mjrk")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_ctvfl")
+theme_override_styles/tab_focus = SubResource("StyleBoxFlat_2w4lx")
+theme_override_styles/panel = SubResource("StyleBoxFlat_d7gmp")
+tab_alignment = 1
+current_tab = 1
+
+[node name="Skill" type="TabBar" parent="Control/TabContainer"]
+visible = false
+layout_mode = 2
+tab_alignment = 1
+
+[node name="Skill" parent="Control/TabContainer/Skill" instance=ExtResource("2_dcwmv")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 12.0
+offset_top = 36.0
+offset_right = 1575.0
+offset_bottom = 820.0
+
+[node name="Setting" type="TabBar" parent="Control/TabContainer"]
+layout_mode = 2
+tab_alignment = 1
+
+[node name="Setting" parent="Control/TabContainer/Setting" instance=ExtResource("2_p0toi")]
+layout_mode = 1
+
+[node name="Blur" type="Panel" parent="Control"]
+modulate = Color(0.239216, 0.239216, 0.239216, 1)
+show_behind_parent = true
+z_index = -3
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -198.0
+offset_top = -247.0
+offset_right = 195.0
+offset_bottom = 154.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

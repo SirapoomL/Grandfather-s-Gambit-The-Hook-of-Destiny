@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dy07ciachl1ir"]
+[gd_scene load_steps=2 format=3 uid="uid://moohfm1lypcs"]
 
-[ext_resource type="Script" path="res://scripts/setting.gd" id="1_4kx1r"]
+[ext_resource type="Script" path="res://scripts/setting.gd" id="1_idt76"]
 
 [node name="Setting" type="CanvasLayer"]
-script = ExtResource("1_4kx1r")
+script = ExtResource("1_idt76")
 
 [node name="TextEdit" type="TextEdit" parent="."]
 offset_left = 425.0

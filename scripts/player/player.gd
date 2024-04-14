@@ -55,7 +55,8 @@ var current_hp = 100
 var attack_power = 20
 var air_attack_qouta = 3
 var swing_attack_qouta = 1
-var exp = 99
+var skill_point = 19
+var exp = 95
 var max_exp = 100
 var base_exp = 100
 var growth_factor = 1.2
@@ -302,6 +303,11 @@ func _shake_camera(time):
 func level_up():
 	level += 1
 	max_exp = get_max_exp_for_level(level)
+	max_hp += 15
+	if level % 5 == 0:
+		skill_point += 5
+	else:
+		skill_point += 1
 	exp = 0
 	current_hp = max_hp
 	$LevelUpSound.play()
