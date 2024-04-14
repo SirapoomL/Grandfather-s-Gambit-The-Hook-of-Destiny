@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cb53bis4s85j7"]
+[gd_scene load_steps=49 format=3 uid="uid://cb53bis4s85j7"]
 
 [ext_resource type="Texture2D" uid="uid://cue6n6ustabi6" path="res://art/player/combined_char_red.png" id="1_4gpjt"]
 [ext_resource type="Script" path="res://scripts/ui/pause_menu/skill.gd" id="1_o2ukl"]
@@ -312,6 +312,81 @@ states/wall_hook/position = Vector2(754, 146)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_30nxx"), "idle", "heavy_attack", SubResource("AnimationNodeStateMachineTransition_75i5w"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_cqm68"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_n2mj7"), "heavy_attack", "idle", SubResource("AnimationNodeStateMachineTransition_e4pfv"), "idle", "light_attack_1", SubResource("AnimationNodeStateMachineTransition_fy1x5"), "light_attack_1", "light_attack_2", SubResource("AnimationNodeStateMachineTransition_0kq4y"), "light_attack_2", "idle", SubResource("AnimationNodeStateMachineTransition_hk0fq"), "light_attack_1", "idle", SubResource("AnimationNodeStateMachineTransition_ghos6"), "idle", "swing", SubResource("AnimationNodeStateMachineTransition_1vpw8"), "swing", "idle", SubResource("AnimationNodeStateMachineTransition_sd4oe"), "swing", "slide", SubResource("AnimationNodeStateMachineTransition_kokm2"), "slide", "idle", SubResource("AnimationNodeStateMachineTransition_jdi1n"), "swing", "wall_hook", SubResource("AnimationNodeStateMachineTransition_pl4f7"), "wall_hook", "idle", SubResource("AnimationNodeStateMachineTransition_1e4pw"), "swing", "swing_attack", SubResource("AnimationNodeStateMachineTransition_bx32w"), "swing_attack", "swing", SubResource("AnimationNodeStateMachineTransition_opk28")]
 graph_offset = Vector2(69, -232)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vma0v"]
+bg_color = Color(0.215686, 0.0862745, 0.0705882, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dgdi6"]
+bg_color = Color(0.435294, 0.203922, 0.176471, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3e7un"]
+bg_color = Color(0.341176, 0.152941, 0.129412, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jbrb4"]
+bg_color = Color(0.172549, 0.0627451, 0.0509804, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mwl7d"]
+bg_color = Color(0.8, 0.45098, 0.403922, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_agoh4"]
+bg_color = Color(0.121569, 0.113725, 0.113725, 0.427451)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mr4ea"]
+bg_color = Color(0.52549, 0.52549, 0.52549, 0.768627)
+
 [node name="Skill" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -329,23 +404,56 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="SkillpointContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 65)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/SkillpointContainer"]
+custom_minimum_size = Vector2(200, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Skillpoint" type="RichTextLabel" parent="VBoxContainer/SkillpointContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_5inou")
+theme_override_font_sizes/normal_font_size = 32
+text = "Skill Point:"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/SkillpointContainer"]
+custom_minimum_size = Vector2(175, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="SkillpointValue" type="RichTextLabel" parent="VBoxContainer/SkillpointContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_5inou")
+theme_override_font_sizes/normal_font_size = 32
+text = "0"
+
+[node name="StatContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/StatContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(200, 250)
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/StatContainer/MarginContainer"]
+custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_vfhd3")
 
-[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/HBoxContainer/MarginContainer/PanelContainer"]
-position = Vector2(99.5, 154.804)
+[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/StatContainer/MarginContainer/PanelContainer"]
+position = Vector2(105, 123)
 scale = Vector2(3.58929, 3.58929)
 texture = ExtResource("1_4gpjt")
 offset = Vector2(0, -15)
@@ -353,56 +461,55 @@ hframes = 8
 vframes = 19
 frame = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="VBoxContainer/HBoxContainer/MarginContainer/PanelContainer"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VBoxContainer/StatContainer/MarginContainer/PanelContainer"]
 libraries = {
 "": SubResource("AnimationLibrary_r8pbw")
 }
 speed_scale = 0.1
 
-[node name="AnimationTree" type="AnimationTree" parent="VBoxContainer/HBoxContainer/MarginContainer/PanelContainer"]
+[node name="AnimationTree" type="AnimationTree" parent="VBoxContainer/StatContainer/MarginContainer/PanelContainer"]
 libraries = {
 "": SubResource("AnimationLibrary_r8pbw")
 }
 tree_root = SubResource("AnimationNodeStateMachine_1v8ua")
 anim_player = NodePath("../AnimationPlayer")
 
-[node name="Blank" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="Blank" type="MarginContainer" parent="VBoxContainer/StatContainer"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/StatContainer"]
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 theme_override_constants/margin_left = 45
-theme_override_constants/margin_top = 45
 theme_override_constants/margin_right = 45
-theme_override_constants/margin_bottom = 45
+theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/MarginContainer2"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/StatContainer/MarginContainer2"]
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2"]
-custom_minimum_size = Vector2(600, 45)
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2"]
+custom_minimum_size = Vector2(600, 55)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(150, 0)
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(200, 2.08165e-12)
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Name" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2/HBoxContainer/MarginContainer"]
+[node name="Name" type="RichTextLabel" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/normal_font = ExtResource("2_5inou")
-theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/normal_font_size = 32
 text = "Name :"
 
-[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HBoxContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
@@ -411,84 +518,711 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="PlayerName" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2/HBoxContainer/MarginContainer2"]
+[node name="PlayerName" type="RichTextLabel" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/normal_font = ExtResource("2_5inou")
-theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/normal_font_size = 32
 text = "John Obi Mikel"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2"]
-custom_minimum_size = Vector2(600, 45)
+[node name="HpContainer" type="HBoxContainer" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2"]
+custom_minimum_size = Vector2(450, 55)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2/HBoxContainer2"]
-custom_minimum_size = Vector2(200, 0)
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HpContainer"]
+custom_minimum_size = Vector2(250, 2.08165e-12)
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Jump" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2/HBoxContainer2/MarginContainer"]
+[node name="Hp" type="RichTextLabel" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HpContainer/MarginContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/normal_font = ExtResource("2_5inou")
-theme_override_font_sizes/normal_font_size = 25
-text = "Jump Count  :"
+theme_override_font_sizes/normal_font_size = 32
+text = "Hp  :"
 
-[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2/HBoxContainer2"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HpContainer"]
 clip_contents = true
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(200, 2.08165e-12)
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="PlayerJump" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2/HBoxContainer2/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HpContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="Hp" type="RichTextLabel" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HpContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(110, 2.08165e-12)
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/normal_font = ExtResource("2_5inou")
-theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/normal_font_size = 32
 text = "tesdt 2"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2"]
-custom_minimum_size = Vector2(600, 45)
+[node name="Button" type="Button" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HpContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_vma0v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dgdi6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3e7un")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jbrb4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_mwl7d")
+text = "5 SP"
+
+[node name="JumpLimitContainer" type="HBoxContainer" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2"]
+custom_minimum_size = Vector2(450, 55)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2/HBoxContainer3"]
-custom_minimum_size = Vector2(200, 0)
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/JumpLimitContainer"]
+custom_minimum_size = Vector2(300, 2.08165e-12)
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Hook" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2/HBoxContainer3/MarginContainer"]
+[node name="Jump" type="RichTextLabel" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/JumpLimitContainer/MarginContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/normal_font = ExtResource("2_5inou")
-theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/normal_font_size = 32
+text = "Jump Count  :"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/JumpLimitContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/JumpLimitContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="Jump" type="RichTextLabel" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/JumpLimitContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(60, 2.08165e-12)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_5inou")
+theme_override_font_sizes/normal_font_size = 32
+text = "tesdt 2"
+
+[node name="Button" type="Button" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/JumpLimitContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_vma0v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dgdi6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3e7un")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jbrb4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_mwl7d")
+text = "5 SP"
+
+[node name="HookLimitContainer" type="HBoxContainer" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2"]
+custom_minimum_size = Vector2(450, 55)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HookLimitContainer"]
+custom_minimum_size = Vector2(300, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Hook" type="RichTextLabel" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HookLimitContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_5inou")
+theme_override_font_sizes/normal_font_size = 32
 text = "Hook Count :"
 
-[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2/HBoxContainer3"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HookLimitContainer"]
 clip_contents = true
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(150, 2.08165e-12)
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="PlayerHook" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/MarginContainer2/VBoxContainer2/HBoxContainer3/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HookLimitContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="Hook" type="RichTextLabel" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HookLimitContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(60, 2.08165e-12)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_5inou")
+theme_override_font_sizes/normal_font_size = 32
+text = "rerer 23"
+
+[node name="Button" type="Button" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HookLimitContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_vma0v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dgdi6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3e7un")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jbrb4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_mwl7d")
+text = "5 SP"
+
+[node name="AttributeContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 175)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/AttributeContainer"]
+custom_minimum_size = Vector2(1245, 245)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_agoh4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(405, 2.08165e-12)
+layout_mode = 2
+
+[node name="PlayerSpeed" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerSpeed"]
+custom_minimum_size = Vector2(400, 55)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerSpeed/HBoxContainer2"]
+custom_minimum_size = Vector2(225, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerSpeed/HBoxContainer2/MarginContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Speed" type="RichTextLabel" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerSpeed/HBoxContainer2/MarginContainer/MarginContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/normal_font = ExtResource("2_5inou")
 theme_override_font_sizes/normal_font_size = 25
-text = "rerer 23"
+text = "Player Speed :"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerSpeed/HBoxContainer2"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerSpeed/HBoxContainer2/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerSpeed/HBoxContainer2/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Speed" type="RichTextLabel" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerSpeed/HBoxContainer2/MarginContainer2/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_5inou")
+theme_override_font_sizes/normal_font_size = 25
+text = "100"
+
+[node name="Button" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerSpeed/HBoxContainer2/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_vma0v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dgdi6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3e7un")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jbrb4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_mwl7d")
+text = "1 SP"
+
+[node name="PlayerJump" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerJump"]
+custom_minimum_size = Vector2(400, 55)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerJump/HBoxContainer2"]
+custom_minimum_size = Vector2(225, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerJump/HBoxContainer2/MarginContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Jump" type="RichTextLabel" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerJump/HBoxContainer2/MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_5inou")
+theme_override_font_sizes/normal_font_size = 25
+text = "Player Jump :"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerJump/HBoxContainer2"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerJump/HBoxContainer2/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerJump/HBoxContainer2/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Jump" type="RichTextLabel" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerJump/HBoxContainer2/MarginContainer2/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_5inou")
+theme_override_font_sizes/normal_font_size = 25
+text = "100"
+
+[node name="Button" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerJump/HBoxContainer2/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_vma0v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dgdi6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3e7un")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jbrb4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_mwl7d")
+text = "1 SP"
+
+[node name="PlayerStrafe" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerStrafe"]
+custom_minimum_size = Vector2(400, 55)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerStrafe/HBoxContainer2"]
+custom_minimum_size = Vector2(225, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerStrafe/HBoxContainer2/MarginContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Strafe" type="RichTextLabel" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerStrafe/HBoxContainer2/MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_5inou")
+theme_override_font_sizes/normal_font_size = 25
+text = "Player Strafe  :"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerStrafe/HBoxContainer2"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerStrafe/HBoxContainer2/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerStrafe/HBoxContainer2/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Strafe" type="RichTextLabel" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerStrafe/HBoxContainer2/MarginContainer2/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_5inou")
+theme_override_font_sizes/normal_font_size = 25
+text = "100"
+
+[node name="Button" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerStrafe/HBoxContainer2/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_vma0v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dgdi6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3e7un")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jbrb4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_mwl7d")
+text = "1 SP"
+
+[node name="Gravity" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/Gravity"]
+custom_minimum_size = Vector2(400, 55)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/Gravity/HBoxContainer2"]
+custom_minimum_size = Vector2(225, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/Gravity/HBoxContainer2/MarginContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Gravity" type="RichTextLabel" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/Gravity/HBoxContainer2/MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_5inou")
+theme_override_font_sizes/normal_font_size = 25
+text = "Gravity  :"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/Gravity/HBoxContainer2"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/Gravity/HBoxContainer2/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/Gravity/HBoxContainer2/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Gravity" type="RichTextLabel" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/Gravity/HBoxContainer2/MarginContainer2/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_5inou")
+theme_override_font_sizes/normal_font_size = 25
+text = "100"
+
+[node name="Button" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/Gravity/HBoxContainer2/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_vma0v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dgdi6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3e7un")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jbrb4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_mwl7d")
+text = "1 SP"
+
+[node name="Divider" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/Divider"]
+custom_minimum_size = Vector2(2, 2.08165e-12)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mr4ea")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(405, 2.08165e-12)
+layout_mode = 2
+
+[node name="HookCooldown" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookCooldown"]
+custom_minimum_size = Vector2(400, 85)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookCooldown/HBoxContainer2"]
+custom_minimum_size = Vector2(225, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookCooldown/HBoxContainer2/MarginContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HookCooldown" type="RichTextLabel" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookCooldown/HBoxContainer2/MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_5inou")
+theme_override_font_sizes/normal_font_size = 25
+text = "Hook Cooldown  :"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookCooldown/HBoxContainer2"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookCooldown/HBoxContainer2/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookCooldown/HBoxContainer2/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HookCooldown" type="RichTextLabel" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookCooldown/HBoxContainer2/MarginContainer2/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_5inou")
+theme_override_font_sizes/normal_font_size = 25
+text = "100"
+
+[node name="Button" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookCooldown/HBoxContainer2/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_vma0v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dgdi6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3e7un")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jbrb4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_mwl7d")
+text = "1 SP"
+
+[node name="HookSpeed" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookSpeed"]
+custom_minimum_size = Vector2(400, 55)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookSpeed/HBoxContainer2"]
+custom_minimum_size = Vector2(225, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookSpeed/HBoxContainer2/MarginContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HookSpeed" type="RichTextLabel" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookSpeed/HBoxContainer2/MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_5inou")
+theme_override_font_sizes/normal_font_size = 25
+text = "Hook Speed  :"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookSpeed/HBoxContainer2"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookSpeed/HBoxContainer2/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookSpeed/HBoxContainer2/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HookSpeed" type="RichTextLabel" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookSpeed/HBoxContainer2/MarginContainer2/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_5inou")
+theme_override_font_sizes/normal_font_size = 25
+text = "100"
+
+[node name="Button" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookSpeed/HBoxContainer2/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_vma0v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dgdi6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3e7un")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jbrb4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_mwl7d")
+text = "1 SP"
+
+[node name="Divider2" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/Divider2"]
+custom_minimum_size = Vector2(2, 2.08165e-12)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mr4ea")
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(405, 2.08165e-12)
+layout_mode = 2
+
+[node name="AttackPower" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer3/AttackPower"]
+custom_minimum_size = Vector2(400, 55)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer3/AttackPower/HBoxContainer2"]
+custom_minimum_size = Vector2(225, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer3/AttackPower/HBoxContainer2/MarginContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="AttackPower" type="RichTextLabel" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer3/AttackPower/HBoxContainer2/MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_5inou")
+theme_override_font_sizes/normal_font_size = 25
+text = "Attack Power  :"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer3/AttackPower/HBoxContainer2"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer3/AttackPower/HBoxContainer2/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer3/AttackPower/HBoxContainer2/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="AttackPower" type="RichTextLabel" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer3/AttackPower/HBoxContainer2/MarginContainer2/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/normal_font = ExtResource("2_5inou")
+theme_override_font_sizes/normal_font_size = 25
+text = "100"
+
+[node name="Button" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer3/AttackPower/HBoxContainer2/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(75, 2.08165e-12)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_vma0v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dgdi6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3e7un")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jbrb4")
+theme_override_styles/focus = SubResource("StyleBoxFlat_mwl7d")
+text = "1 SP"

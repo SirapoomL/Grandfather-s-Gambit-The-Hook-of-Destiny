@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://dgou2ctgr645i"]
 
 [ext_resource type="Script" path="res://scripts/ui/pause_menu/pause_menu.gd" id="1_0fbji"]
-[ext_resource type="PackedScene" uid="uid://cb53bis4s85j7" path="res://scene/ui/pause_menu/skill.tscn" id="2_dcwmv"]
-[ext_resource type="PackedScene" uid="uid://jh0li6sm6man" path="res://scene/ui/pause_menu/setting.tscn" id="2_p0toi"]
+[ext_resource type="PackedScene" uid="uid://cb53bis4s85j7" path="res://scene/UI/pause_menu/skill.tscn" id="2_dcwmv"]
+[ext_resource type="PackedScene" uid="uid://jh0li6sm6man" path="res://scene/UI/pause_menu/setting.tscn" id="2_p0toi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_podnf"]
 content_margin_left = 25.0
@@ -110,27 +110,18 @@ theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
 [node name="Skill" type="TabBar" parent="Control/TabContainer"]
-visible = false
 layout_mode = 2
 tab_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/TabContainer/Skill"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 16.0
-offset_right = 1600.0
-offset_bottom = 845.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 50
-
-[node name="Skill" parent="Control/TabContainer/Skill/MarginContainer" instance=ExtResource("2_dcwmv")]
+[node name="Skill" parent="Control/TabContainer/Skill" instance=ExtResource("2_dcwmv")]
 layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 12.0
+offset_top = 36.0
+offset_right = 1575.0
+offset_bottom = 820.0
 
 [node name="Setting" type="TabBar" parent="Control/TabContainer"]
 layout_mode = 2
