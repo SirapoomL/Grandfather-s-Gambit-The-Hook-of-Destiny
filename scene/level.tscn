@@ -3288,5 +3288,14 @@ offset_right = 19795.0
 offset_bottom = -5845.0
 text = "To be continued"
 
+[node name="Label7" type="Label" parent="TutorialTexts"]
+offset_left = 541.0
+offset_top = 606.0
+offset_right = 885.0
+offset_bottom = 684.0
+theme_override_font_sizes/font_size = 22
+text = "Press tab to upgrade player stat
+Press esc to pause"
+
 [node name="Campfire" parent="." instance=ExtResource("16_f2c15")]
 position = Vector2(22640, -4885)
