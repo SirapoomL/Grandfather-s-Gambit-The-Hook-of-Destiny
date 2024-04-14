@@ -568,6 +568,7 @@ theme_override_font_sizes/normal_font_size = 32
 text = "tesdt 2"
 
 [node name="Button" type="Button" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HpContainer/MarginContainer2/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(75, 2.08165e-12)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
@@ -619,7 +620,7 @@ theme_override_fonts/normal_font = ExtResource("2_5inou")
 theme_override_font_sizes/normal_font_size = 32
 text = "tesdt 2"
 
-[node name="Button" type="Button" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/JumpLimitContainer/MarginContainer2/HBoxContainer"]
+[node name="JumpQuotaButton" type="Button" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/JumpLimitContainer/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(75, 2.08165e-12)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
@@ -671,7 +672,7 @@ theme_override_fonts/normal_font = ExtResource("2_5inou")
 theme_override_font_sizes/normal_font_size = 32
 text = "rerer 23"
 
-[node name="Button" type="Button" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HookLimitContainer/MarginContainer2/HBoxContainer"]
+[node name="HookQuotaButton" type="Button" parent="VBoxContainer/StatContainer/MarginContainer2/VBoxContainer2/HookLimitContainer/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(75, 2.08165e-12)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
@@ -758,7 +759,7 @@ theme_override_fonts/normal_font = ExtResource("2_5inou")
 theme_override_font_sizes/normal_font_size = 25
 text = "100"
 
-[node name="Button" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerSpeed/HBoxContainer2/MarginContainer2/HBoxContainer"]
+[node name="SpeedButton" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerSpeed/HBoxContainer2/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(75, 2.08165e-12)
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
@@ -829,7 +830,7 @@ theme_override_fonts/normal_font = ExtResource("2_5inou")
 theme_override_font_sizes/normal_font_size = 25
 text = "100"
 
-[node name="Button" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerJump/HBoxContainer2/MarginContainer2/HBoxContainer"]
+[node name="JumpButton" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerJump/HBoxContainer2/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(75, 2.08165e-12)
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
@@ -900,7 +901,7 @@ theme_override_fonts/normal_font = ExtResource("2_5inou")
 theme_override_font_sizes/normal_font_size = 25
 text = "100"
 
-[node name="Button" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerStrafe/HBoxContainer2/MarginContainer2/HBoxContainer"]
+[node name="StrafeButton" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/PlayerStrafe/HBoxContainer2/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(75, 2.08165e-12)
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
@@ -971,7 +972,7 @@ theme_override_fonts/normal_font = ExtResource("2_5inou")
 theme_override_font_sizes/normal_font_size = 25
 text = "100"
 
-[node name="Button" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/Gravity/HBoxContainer2/MarginContainer2/HBoxContainer"]
+[node name="GravityButton" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer/Gravity/HBoxContainer2/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(75, 2.08165e-12)
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
@@ -1000,7 +1001,6 @@ layout_mode = 2
 
 [node name="HookCooldown" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookCooldown"]
 custom_minimum_size = Vector2(400, 55)
@@ -1040,10 +1040,9 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookCooldown/HBoxContainer2/MarginContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(75, 2.08165e-12)
+custom_minimum_size = Vector2(60, 2.08165e-12)
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
+theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
@@ -1052,10 +1051,10 @@ layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/normal_font = ExtResource("2_5inou")
-theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/normal_font_size = 20
 text = "100"
 
-[node name="Button" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookCooldown/HBoxContainer2/MarginContainer2/HBoxContainer"]
+[node name="HookCooldownButton" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookCooldown/HBoxContainer2/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(75, 2.08165e-12)
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
@@ -1126,7 +1125,7 @@ theme_override_fonts/normal_font = ExtResource("2_5inou")
 theme_override_font_sizes/normal_font_size = 25
 text = "100"
 
-[node name="Button" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookSpeed/HBoxContainer2/MarginContainer2/HBoxContainer"]
+[node name="HookSpeedButton" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookSpeed/HBoxContainer2/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(75, 2.08165e-12)
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
@@ -1213,7 +1212,7 @@ theme_override_fonts/normal_font = ExtResource("2_5inou")
 theme_override_font_sizes/normal_font_size = 25
 text = "100"
 
-[node name="Button" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer3/AttackPower/HBoxContainer2/MarginContainer2/HBoxContainer"]
+[node name="AttackPowerButton" type="Button" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer3/AttackPower/HBoxContainer2/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(75, 2.08165e-12)
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
@@ -1222,4 +1221,5 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_dgdi6")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_3e7un")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_jbrb4")
 theme_override_styles/focus = SubResource("StyleBoxFlat_mwl7d")
+action_mode = 0
 text = "1 SP"

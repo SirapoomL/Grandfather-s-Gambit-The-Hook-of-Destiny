@@ -3,7 +3,7 @@ class_name PauseMenu
 
 enum NavbarState {
 	CLOSE,
-	MASTERY,
+	# MASTERY,
 	WEAPONS_SKILLS,
 	SETTING
 }
@@ -31,7 +31,7 @@ func _ready():
 	# Initialize the UI to be closed
 	current_ui_state = NavbarState.CLOSE
 	tab_container = $Control/TabContainer
-	mastery_tab = $Control/TabContainer/Mastery
+	# mastery_tab = $Control/TabContainer/Mastery
 	weapons_skills_tab = $Control/TabContainer/Skill
 	setting_tab = $Control/TabContainer/Setting
 	setting_container = $Control/TabContainer/Setting/Setting/SettingContainer
@@ -51,9 +51,9 @@ func _process(delta):
 	match current_ui_state:
 		NavbarState.CLOSE:
 			hide_pause_menu()
-		NavbarState.MASTERY:
-			# Show the mastery tab
-			mastery_tab.visible = true
+		# NavbarState.MASTERY:
+		# 	# Show the mastery tab
+		# 	mastery_tab.visible = true
 		NavbarState.WEAPONS_SKILLS:
 			# Show the weapons and skills tab
 			weapons_skills_tab.visible = true
@@ -75,11 +75,11 @@ func _process(delta):
 func _on_Tab_Changed(tab_index):
 	# Handle the tab change event
 	match tab_index:
+		# 0:  
+		# 	_on_Mastery_pressed()
 		0:  
-			_on_Mastery_pressed()
-		1:  
 			_on_WeaponsSkills_pressed()
-		2:  
+		1:  
 			_on_Setting_pressed()
 
 func prepare_pause_menu():
@@ -89,12 +89,12 @@ func prepare_pause_menu():
 
 func change_tab_index(state):
 	match state:
-		NavbarState.MASTERY:
-			tab_container.current_tab = 0
+		# NavbarState.MASTERY:
+		# 	tab_container.current_tab = 0
 		NavbarState.WEAPONS_SKILLS:
-			tab_container.current_tab = 1
+			tab_container.current_tab = 0
 		NavbarState.SETTING:
-			tab_container.current_tab = 2
+			tab_container.current_tab = 1
 
 func toggle_pause(state):
 	main.toggle_pause()
@@ -118,10 +118,10 @@ func hide_pause_menu():
 	GameState.set_current_state(GameState.State.PLAYING)
 
 
-func _on_Mastery_pressed():
-	# Logic for mastery UI or action
-	current_ui_state = NavbarState.MASTERY
-	print("Mastery button pressed")
+# func _on_Mastery_pressed():
+# 	# Logic for mastery UI or action
+# 	current_ui_state = NavbarState.MASTERY
+# 	print("Mastery button pressed")
 
 func _on_WeaponsSkills_pressed():
 	# Logic for weapons and skills UI or action
