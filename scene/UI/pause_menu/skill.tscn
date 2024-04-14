@@ -459,7 +459,7 @@ texture = ExtResource("1_4gpjt")
 offset = Vector2(0, -15)
 hframes = 8
 vframes = 19
-frame = 2
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="VBoxContainer/StatContainer/MarginContainer/PanelContainer"]
 libraries = {
@@ -1003,15 +1003,14 @@ layout_mode = 2
 theme_override_constants/margin_left = 10
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookCooldown"]
-custom_minimum_size = Vector2(400, 85)
+custom_minimum_size = Vector2(400, 55)
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookCooldown/HBoxContainer2"]
-custom_minimum_size = Vector2(225, 2.08165e-12)
+custom_minimum_size = Vector2(255, 2.08165e-12)
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookCooldown/HBoxContainer2/MarginContainer"]
@@ -1019,7 +1018,6 @@ custom_minimum_size = Vector2(75, 2.08165e-12)
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="HookCooldown" type="RichTextLabel" parent="VBoxContainer/AttributeContainer/PanelContainer/HBoxContainer/VBoxContainer2/HookCooldown/HBoxContainer2/MarginContainer/MarginContainer"]
@@ -1034,7 +1032,6 @@ text = "Hook Cooldown  :"
 clip_contents = true
 custom_minimum_size = Vector2(150, 2.08165e-12)
 layout_mode = 2
-theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
@@ -1046,7 +1043,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(75, 2.08165e-12)
 layout_mode = 2
 theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 25
+theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
