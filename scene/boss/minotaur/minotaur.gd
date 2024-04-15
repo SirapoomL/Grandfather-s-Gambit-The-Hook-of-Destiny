@@ -51,14 +51,12 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 		
-	var player = get_parent().get_node("Player")
+	var player = get_tree().root.get_node("Main/Player")
 	player_direction = player.position - position
 	
 	if is_idle:
-		if player_direction.length() > 1000:
-			move_and_slide()
-			return
-		is_idle = false
+		move_and_slide()
+		return
 	
 	direction = 1 if (player_direction.x > 0) else -1
 	
@@ -146,6 +144,12 @@ func _on_animation_tree_animation_finished(anim_name):
 			switch_state(State.NORMAL)
 		"dead":
 			queue_free()
+
+func action():
+	is_idle = false
+	
+func idle():
+	is_idle = true
 
 func hit(damage : int):
 	if health <= 0:
