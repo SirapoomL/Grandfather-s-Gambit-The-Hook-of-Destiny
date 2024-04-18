@@ -26,6 +26,7 @@ func game_over():
 	$MainMenu.show_game_over()
 
 func main_menu():
+	$Player.save()
 	GameState.set_current_state(GameState.State.NOT_STARTED)
 	$Player.start($StartPosition.position)
 	$Player.get_node("HookHandler").set_paused(false)
@@ -33,6 +34,7 @@ func main_menu():
 	$MobTimer.stop()
 	$MainMenu.show_main_menu()
 	$Music.stop()
+	get_tree().reload_current_scene()
 	
 
 func toggle_pause():

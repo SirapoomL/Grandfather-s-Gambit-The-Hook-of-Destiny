@@ -6,6 +6,9 @@ enum State {
 	GAME_OVER,
 	PAUSED
 }
+var player_status
+var save_pointx = 393
+var save_pointy = 656
 
 @onready var _current_state  = State.NOT_STARTED
 
@@ -26,3 +29,12 @@ func is_playing():
 
 func is_paused():
 	return _current_state == State.PAUSED
+
+func set_player_status(status):
+	player_status = status
+
+func get_player_status():
+	return player_status
+
+func get_save_point():
+	return [save_pointx,save_pointy]

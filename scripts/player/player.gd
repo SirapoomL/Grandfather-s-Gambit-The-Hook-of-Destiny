@@ -69,14 +69,62 @@ func get_debug_hud():
 	return get_tree().root.get_node("Main/DebugHud")
 
 func start(pos):
+	current_hp = max_hp
+	var status = GameState.get_player_status()
+	if status:
+		print(status)
+		jump_quota = status.jump_quota
+		hook_quota = status.hook_quota
+		speed = status.speed
+		jump_force = status.jump_force
+		strafe_force = status.strafe_force
+		gravity = status.gravity
+		hook_speed = status.hook_speed
+		hook_cooldown = status.hook_cooldown
+		attack_power = status.attack_power
+		max_hp = status.max_hp
+		current_hp = status.current_hp
+		exp = status.exp
+		max_exp = status.max_exp
+		skill_point = status.skill_point
+		level = status.level
+		if GameState.get_save_point():
+			position.x = GameState.get_save_point()[0]
+			position.y = GameState.get_save_point()[1]
+		else:
+			position = status.position
+	else:
+		print("default pos")
+		position = pos
 	hook_count = hook_quota
 	jump_state = jump_quota
 	$HookHandler.set_paused(false)
-	current_hp = max_hp
-	position = pos
 	state = State.IDLE
 	show()
 	$CollisionShape2D.disabled = false
+
+func save():
+	var status = {
+		"jump_quota": jump_quota,
+		"hook_quota": hook_quota,
+		"speed": speed,
+		"jump_force": jump_force,
+		"strafe_force": strafe_force,
+		"gravity": gravity,
+		"hook_speed": hook_speed,
+		"hook_cooldown": hook_cooldown,
+		"attack_power": attack_power,
+		"max_hp": max_hp,
+		"current_hp": current_hp if state != State.DEAD else max_hp,
+		"exp": exp,
+		"max_exp": max_exp,
+		"skill_point": skill_point,
+		"level": level,
+		"position": position,
+	}
+	print("save",status)
+	GameState.set_player_status(status)
+	pass
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -263,6 +311,7 @@ func die():
 	hide()
 	dead.emit()
 	change_state(State.DEAD)
+	save()
 	get_node("CollisionShape2D").set_deferred("disabled", true)
 
 
