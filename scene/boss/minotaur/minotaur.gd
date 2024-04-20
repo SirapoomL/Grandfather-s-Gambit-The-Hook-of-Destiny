@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 class_name Minotaur
 
+signal death
+
 @export var speed : float = 200.0
 @export var health : int = 200
 @export var experience : int = 40
@@ -143,8 +145,8 @@ func _on_animation_tree_animation_finished(anim_name):
 		"hit":
 			switch_state(State.NORMAL)
 		"dead":
+			death.emit()
 			queue_free()
-
 func action():
 	is_idle = false
 	

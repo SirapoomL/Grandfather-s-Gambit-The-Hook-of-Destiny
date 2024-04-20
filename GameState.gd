@@ -11,6 +11,9 @@ var player_status
 var save_pointx = 393
 var save_pointy = 656
 
+var minotaur_dead = false
+var gate_1_opened = false
+
 @onready var _current_state  = State.NOT_STARTED
 
 func set_current_state(value):

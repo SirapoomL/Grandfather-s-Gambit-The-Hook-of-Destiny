@@ -15,6 +15,12 @@ func _process(delta):
 
 
 func _on_minotaur_boss_room_boss_room_entered():
-	$Minotaur.action()
-	GameState.set_current_state(GameState.State.CUT_SCENE)
-	print("setting cutscene")
+	if !GameState.minotaur_dead and is_instance_valid($Minotaur):
+		$Minotaur.action()
+		GameState.set_current_state(GameState.State.CUT_SCENE)
+		print("setting cutscene")
+
+
+func _on_minotaur_death():
+	GameState.minotaur_dead = true
+	print("congrats")

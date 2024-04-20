@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8t8ckassyw0e"]
+[gd_scene load_steps=8 format=3 uid="uid://c8t8ckassyw0e"]
 
 [ext_resource type="Texture2D" uid="uid://bw346lhpy6b32" path="res://art/campf.png" id="1_8cp22"]
 [ext_resource type="Script" path="res://scripts/level/checkpoint.gd" id="1_r1i60"]
 [ext_resource type="Script" path="res://scripts/events/checkpoint_event.gd" id="2_enr6v"]
+[ext_resource type="AudioStream" uid="uid://cq0313trcjaex" path="res://art/sfx/ignite.mp3" id="4_16snp"]
 
 [sub_resource type="Animation" id="Animation_lsp6a"]
 resource_name = "idle_1"
@@ -52,6 +53,11 @@ position = Vector2(0, -18.5)
 shape = SubResource("RectangleShape2D_i8vh2")
 debug_color = Color(0.847059, 0.368627, 0.227451, 0.419608)
 
+[node name="IgniteSFX" type="AudioStreamPlayer2D" parent="InteractArea"]
+stream = ExtResource("4_16snp")
+
+[node name="CDTimer" type="Timer" parent="InteractArea"]
+
 [node name="Tooltip" type="Label" parent="."]
 visible = false
 offset_left = -78.0
@@ -64,3 +70,4 @@ horizontal_alignment = 1
 
 [connection signal="area_entered" from="InteractArea" to="." method="_on_interact_area_area_entered"]
 [connection signal="area_exited" from="InteractArea" to="." method="_on_interact_area_area_exited"]
+[connection signal="timeout" from="InteractArea/CDTimer" to="InteractArea" method="_on_cd_timer_timeout"]

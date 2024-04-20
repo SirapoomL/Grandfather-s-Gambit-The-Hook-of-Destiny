@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://bnycfvgjngbs1"]
+[gd_scene load_steps=100 format=3 uid="uid://bnycfvgjngbs1"]
 
 [ext_resource type="Script" path="res://scripts/level/level_manager.gd" id="1_kdlm8"]
 [ext_resource type="PackedScene" uid="uid://si486osg7gro" path="res://scene/BG.tscn" id="2_ai2ce"]
@@ -10,7 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://bb7ln7ij1hrvk" path="res://scene/obstacles/hook_point.tscn" id="7_2ahnc"]
 [ext_resource type="Script" path="res://scripts/events/minotaur_room_event.gd" id="8_emk1r"]
 [ext_resource type="Script" path="res://scripts/level/hazard.gd" id="10_ijuwo"]
+[ext_resource type="Script" path="res://scripts/events/gate1_event.gd" id="10_p20ku"]
+[ext_resource type="Script" path="res://scene/boss/minotaur/minotaur_arena_gate.gd" id="10_vg865"]
 [ext_resource type="PackedScene" uid="uid://chgxtfgdtjswn" path="res://scene/obstacles/oneway_platform.tscn" id="10_x04jg"]
+[ext_resource type="AudioStream" uid="uid://c5qbx1b33hm0j" path="res://art/sfx/rock_smash_sfx.mp3" id="11_4aklc"]
 [ext_resource type="Script" path="res://scripts/level/static_terrain.gd" id="11_xt3qs"]
 [ext_resource type="Script" path="res://scripts/level/camera_override_area.gd" id="12_pfext"]
 [ext_resource type="PackedScene" uid="uid://dfwlcctlb3wde" path="res://scene/enemy/ground_enemy_spirit.tscn" id="13_symc6"]
@@ -2425,13 +2428,28 @@ sources/3 = SubResource("TileSetAtlasSource_h28bi")
 size = Vector2(2679, 1256)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dywoa"]
-size = Vector2(2354.75, 936)
+size = Vector2(3636, 936)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1okhu"]
+size = Vector2(2559, 936)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_43fh2"]
 size = Vector2(2396.89, 1709)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_81cxk"]
 size = Vector2(2354.75, 943)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h75v7"]
+size = Vector2(327.5, 162)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i0qub"]
+size = Vector2(154.5, 465.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fynmm"]
+size = Vector2(163, 34.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0gnew"]
+size = Vector2(80.5, 183)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i7yxy"]
 size = Vector2(221, 833.313)
@@ -2456,9 +2474,6 @@ size = Vector2(3680, 904.843)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtpow"]
 size = Vector2(140, 1504.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_03qb5"]
-size = Vector2(148, 572)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rj4dj"]
 size = Vector2(2097.79, 500)
@@ -2491,10 +2506,16 @@ size = Vector2(2946.25, 632.25)
 size = Vector2(1489.06, 632.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mjnfq"]
-size = Vector2(1482.06, 2374.13)
+size = Vector2(1482.06, 1642.13)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7jpow"]
 size = Vector2(433.031, 908.063)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8w36q"]
+size = Vector2(619.516, 735)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0fycv"]
+size = Vector2(291.758, 554)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b0r51"]
 size = Vector2(2765, 788.031)
@@ -2509,7 +2530,7 @@ size = Vector2(384, 904)
 size = Vector2(462, 35)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fmhwd"]
-size = Vector2(156, 35)
+size = Vector2(157, 35)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i2545"]
 size = Vector2(186, 119.625)
@@ -2675,7 +2696,7 @@ set_camera_limit = true
 camera_limit = Vector4(0, -1e+08, 1e+08, -3333)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="EventTriggerAreas/CameraZoomout2"]
-position = Vector2(13778.1, -4166)
+position = Vector2(14465, -4309)
 shape = SubResource("RectangleShape2D_dywoa")
 debug_color = Color(0.811765, 0.364706, 0.505882, 0.0901961)
 
@@ -2691,8 +2712,8 @@ switch_camera = true
 camera = NodePath("../../camereas/MinotaurCamera")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EventTriggerAreas/CameraZoomoutBoss"]
-position = Vector2(22009, -8044)
-shape = SubResource("RectangleShape2D_dywoa")
+position = Vector2(22026.5, -8044)
+shape = SubResource("RectangleShape2D_1okhu")
 debug_color = Color(0.811765, 0.364706, 0.505882, 0.0901961)
 
 [node name="CameraZoomout3" type="Area2D" parent="EventTriggerAreas"]
@@ -2719,7 +2740,59 @@ shape = SubResource("RectangleShape2D_81cxk")
 debug_color = Color(0.611765, 0.364706, 1, 0.0901961)
 
 [node name="RefPlayer" parent="." instance=ExtResource("13_x4vtw")]
-position = Vector2(19592, -8804)
+position = Vector2(11249, -4388)
+
+[node name="Gate1" type="Area2D" parent="."]
+script = ExtResource("10_p20ku")
+
+[node name="CollisionShape2D47" type="CollisionShape2D" parent="Gate1"]
+position = Vector2(11072.3, -4420)
+shape = SubResource("RectangleShape2D_h75v7")
+debug_color = Color(0.784314, 0.423529, 0.25098, 0.419608)
+
+[node name="Gate" type="StaticBody2D" parent="Gate1"]
+script = ExtResource("11_xt3qs")
+
+[node name="CollisionShape2D48" type="CollisionShape2D" parent="Gate1/Gate"]
+position = Vector2(10961.8, -4560.75)
+shape = SubResource("RectangleShape2D_i0qub")
+
+[node name="Text" type="Label" parent="Gate1"]
+offset_left = 10991.0
+offset_top = -4604.0
+offset_right = 11258.0
+offset_bottom = -4494.0
+theme_override_font_sizes/font_size = 24
+text = "<text>"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RockBreakSFX" type="AudioStreamPlayer2D" parent="Gate1"]
+position = Vector2(10957, -4559)
+stream = ExtResource("11_4aklc")
+volume_db = -3.759
+
+[node name="MinotaurArenaGate" type="Node2D" parent="."]
+script = ExtResource("10_vg865")
+
+[node name="Gate" type="StaticBody2D" parent="MinotaurArenaGate"]
+script = ExtResource("6_gut3w")
+
+[node name="CollisionShape2D47" type="CollisionShape2D" parent="MinotaurArenaGate/Gate"]
+position = Vector2(21209.5, -7585.25)
+shape = SubResource("RectangleShape2D_fynmm")
+
+[node name="CollisionShape2D48" type="CollisionShape2D" parent="MinotaurArenaGate/Gate"]
+position = Vector2(21520.3, -6957.5)
+shape = SubResource("RectangleShape2D_0gnew")
+
+[node name="MinotaurGateTimer" type="Timer" parent="MinotaurArenaGate"]
+wait_time = 3.0
+
+[node name="RockBreakSFX" type="AudioStreamPlayer2D" parent="MinotaurArenaGate"]
+position = Vector2(21360, -7317)
+stream = ExtResource("11_4aklc")
+volume_db = -3.759
 
 [node name="StaticHookableArea" type="StaticBody2D" parent="."]
 position = Vector2(20, 23)
@@ -2758,10 +2831,6 @@ shape = SubResource("RectangleShape2D_7dulr")
 [node name="CollisionShape2D13" type="CollisionShape2D" parent="StaticHookableArea"]
 position = Vector2(9237, -3162.75)
 shape = SubResource("RectangleShape2D_gtpow")
-
-[node name="CollisionShape2D30" type="CollisionShape2D" parent="StaticHookableArea"]
-position = Vector2(10941, -4654)
-shape = SubResource("RectangleShape2D_03qb5")
 
 [node name="CollisionShape2D24" type="CollisionShape2D" parent="StaticHookableArea"]
 position = Vector2(10215.1, -4120)
@@ -2804,12 +2873,20 @@ position = Vector2(20825.5, -4674)
 shape = SubResource("RectangleShape2D_tt5f5")
 
 [node name="CollisionShape2D33" type="CollisionShape2D" parent="StaticHookableArea"]
-position = Vector2(20822, -6434.94)
+position = Vector2(20822, -6068.94)
 shape = SubResource("RectangleShape2D_mjnfq")
 
 [node name="CollisionShape2D37" type="CollisionShape2D" parent="StaticHookableArea"]
 position = Vector2(20623, -8076)
 shape = SubResource("RectangleShape2D_7jpow")
+
+[node name="CollisionShape2D45" type="CollisionShape2D" parent="StaticHookableArea"]
+position = Vector2(20798.2, -7257.5)
+shape = SubResource("RectangleShape2D_8w36q")
+
+[node name="CollisionShape2D46" type="CollisionShape2D" parent="StaticHookableArea"]
+position = Vector2(21415.9, -7349)
+shape = SubResource("RectangleShape2D_0fycv")
 
 [node name="CollisionShape2D41" type="CollisionShape2D" parent="StaticHookableArea"]
 position = Vector2(21984, -8902)
@@ -2828,7 +2905,7 @@ position = Vector2(22124, -7179.5)
 shape = SubResource("RectangleShape2D_c81jb")
 
 [node name="CollisionShape2D39" type="CollisionShape2D" parent="StaticHookableArea"]
-position = Vector2(21641, -7608)
+position = Vector2(21640.5, -7608)
 shape = SubResource("RectangleShape2D_fmhwd")
 
 [node name="CollisionShape2D42" type="CollisionShape2D" parent="StaticHookableArea"]
@@ -2958,13 +3035,13 @@ position = Vector2(22136, -6395)
 position = Vector2(21034, -8225)
 
 [node name="HookPoint31" parent="HookPoints" instance=ExtResource("7_2ahnc")]
-position = Vector2(21949, -8101)
+position = Vector2(21993, -8101)
 
 [node name="HookPoint32" parent="HookPoints" instance=ExtResource("7_2ahnc")]
 position = Vector2(21478, -8101)
 
 [node name="HookPoint33" parent="HookPoints" instance=ExtResource("7_2ahnc")]
-position = Vector2(22421, -8103)
+position = Vector2(22484, -8101)
 
 [node name="HookPoint30" parent="HookPoints" instance=ExtResource("7_2ahnc")]
 position = Vector2(22963, -8225)
@@ -3331,9 +3408,14 @@ Press esc to pause"
 position = Vector2(22640, -4885)
 
 [node name="Minotaur" parent="." instance=ExtResource("17_18bky")]
-position = Vector2(22569, -7735)
+position = Vector2(22819, -7738)
 
 [connection signal="area_entered" from="EventTriggerAreas/CameraZoomout3" to="EventTriggerAreas/CameraZoomout3" method="_on_area_entered"]
 [connection signal="area_exited" from="EventTriggerAreas/CameraZoomout3" to="EventTriggerAreas/CameraZoomout3" method="_on_area_exited"]
 [connection signal="area_entered" from="EventTriggerAreas/MinotaurBossRoom" to="EventTriggerAreas/MinotaurBossRoom" method="_on_area_entered"]
 [connection signal="boss_room_entered" from="EventTriggerAreas/MinotaurBossRoom" to="." method="_on_minotaur_boss_room_boss_room_entered"]
+[connection signal="area_entered" from="Gate1" to="Gate1" method="_on_area_entered"]
+[connection signal="area_exited" from="Gate1" to="Gate1" method="_on_area_exited"]
+[connection signal="timeout" from="MinotaurArenaGate/MinotaurGateTimer" to="MinotaurArenaGate" method="_on_minotaur_gate_timer_timeout"]
+[connection signal="death" from="Minotaur" to="." method="_on_minotaur_death"]
+[connection signal="death" from="Minotaur" to="MinotaurArenaGate" method="_on_minotaur_death"]
