@@ -2787,7 +2787,7 @@ position = Vector2(21520.3, -6957.5)
 shape = SubResource("RectangleShape2D_0gnew")
 
 [node name="MinotaurGateTimer" type="Timer" parent="MinotaurArenaGate"]
-wait_time = 3.0
+wait_time = 2.25
 
 [node name="RockBreakSFX" type="AudioStreamPlayer2D" parent="MinotaurArenaGate"]
 position = Vector2(21360, -7317)

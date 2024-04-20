@@ -17,6 +17,7 @@ func interact(player: Player):
 		player.save(position)
 		player.current_hp = player.max_hp
 		$IgniteSFX.play()
+		$Tooltip.text = "Saved!"
 		on_cooldown = true
 		$CDTimer.start()
 	
@@ -25,3 +26,14 @@ func interact(player: Player):
 
 func _on_cd_timer_timeout():
 	on_cooldown = false
+	$Tooltip.text = "press e to save"
+
+
+func _on_area_entered(area):
+	if area.has_meta("player"):
+		$Tooltip.show()
+
+
+func _on_area_exited(area):
+	if area.has_meta("player"):
+		$Tooltip.hide()
