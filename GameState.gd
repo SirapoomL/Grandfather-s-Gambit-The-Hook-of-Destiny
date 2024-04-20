@@ -4,7 +4,8 @@ enum State {
 	NOT_STARTED,
 	PLAYING,
 	GAME_OVER,
-	PAUSED
+	PAUSED,
+	CUT_SCENE
 }
 var player_status
 var save_pointx = 393
@@ -37,4 +38,7 @@ func get_player_status():
 	return player_status
 
 func get_save_point():
-	return [save_pointx,save_pointy]
+	return 
+	
+func is_cutscene():
+	return _current_state == State.CUT_SCENE

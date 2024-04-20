@@ -10,7 +10,7 @@ signal player_level_up(level)
 enum State {DEAD, IDLE, RUN, JUMP, 
 LIGHT_ATTACK_1, LIGHT_ATTACK_2, HEAVY_ATTACK, SWING_ATTACK, 
 JUST_HOOKED, HOOKING, HOLD_HOOK, SWING, WALL_HOOK,
-BOUNCE, GLIDE}
+BOUNCE, GLIDE, CUT_SCENE}
 const NORMAL_STATE = [State.IDLE, State.RUN, State.JUMP, State.GLIDE]
 const ATTACK_STATE = [State.LIGHT_ATTACK_1, State.LIGHT_ATTACK_2, State.HEAVY_ATTACK, State.SWING_ATTACK]
 const HOOKING_STATE = [State.HOOKING, State.HOLD_HOOK, State.SWING, State.WALL_HOOK, State.SWING_ATTACK]
@@ -65,6 +65,8 @@ var i_frame = 0
 var max_i_frame = 1.25
 var just_take_damage = 0
 
+var interact_event_focus: InteractEvent = null
+
 func get_debug_hud():
 	return get_tree().root.get_node("Main/DebugHud")
 
@@ -103,7 +105,7 @@ func start(pos):
 	show()
 	$CollisionShape2D.disabled = false
 
-func save():
+func save(pos: Vector2 = Vector2.ZERO):
 	var status = {
 		"jump_quota": jump_quota,
 		"hook_quota": hook_quota,
@@ -120,7 +122,7 @@ func save():
 		"max_exp": max_exp,
 		"skill_point": skill_point,
 		"level": level,
-		"position": position,
+		"position": pos if pos != Vector2.ZERO else position,
 	}
 	print("save",status)
 	GameState.set_player_status(status)
@@ -162,31 +164,37 @@ func _physics_process(delta):
 		if state != State.BOUNCE:
 			state = State.IDLE
 	state_lock_time = new_state_lock_time
-	if !GameState.is_playing():
+	if !GameState.is_playing() && !GameState.is_cutscene():
 		return
 
 	if state == State.DEAD: return
-	
+
+		
 	# Handling shoot
 	# TODO: extract this as a method
-	if GameInputMapper.is_action_just_released("shoot"):
-		if is_instance_valid(swing_hook):
-			swing_hook.queue_free()
-			swing_hook = null
-			
-		change_state(State.IDLE)
-		if shoot_hold_duration <= hold_threshold:
-			shoot_action(false)
-		shoot_hold_duration = 0
-		hold_triggered = false
-	
-	if GameInputMapper.is_action_pressed("shoot"):
-		shoot_hold_duration += delta
-		if not hold_triggered && shoot_hold_duration > hold_threshold:
+	if !GameState.is_cutscene():
+		if GameInputMapper.is_action_just_released("shoot"):
+			if is_instance_valid(swing_hook):
+				swing_hook.queue_free()
+				swing_hook = null
+				
 			change_state(State.IDLE)
-			hold_triggered = true
-			shoot_action(true)
-			print("hold triggered")
+			if shoot_hold_duration <= hold_threshold:
+				shoot_action(false)
+			shoot_hold_duration = 0
+			hold_triggered = false
+		
+		if GameInputMapper.is_action_pressed("shoot"):
+			shoot_hold_duration += delta
+			if not hold_triggered && shoot_hold_duration > hold_threshold:
+				change_state(State.IDLE)
+				hold_triggered = true
+				shoot_action(true)
+				print("hold triggered")
+				
+	if state in NORMAL_STATE:
+		if GameInputMapper.is_action_pressed("interact") and interact_event_focus != null:
+			interact_event_focus.interact(self)
 			
 	if hook_count < hook_quota:
 		$HookHandler.timer_on(hook_cooldown)
@@ -197,13 +205,15 @@ func _physics_process(delta):
 	process_hitbox_overlapped()
 	if is_instance_valid($MainCamera2D):
 		$CameraHandler.process($MainCamera2D, delta)
-	get_node("CombatHandler").process(self, delta)
+	if !GameState.is_cutscene():
+		get_node("CombatHandler").process(self, delta)
 	get_node("MovementHandler").process(self, delta)
 	get_debug_hud().update_hook_count(hook_count)
 	get_debug_hud().update_hook_cooldown($HookHandler.get_time_left())
 	get_debug_hud().update_player_position(global_position)
 	get_debug_hud().get_node("PlayerState").text = "State: " + State.keys()[state]
 	get_debug_hud().get_node("PlayerVelocity").text =  "Velocity: " + str(round(velocity))
+	get_debug_hud().get_node("GameState").text = "GameState: " + GameState.State.keys()[GameState._current_state]
 
 func reset_camera_transform_default():
 	if is_instance_valid($MainCamera2D):
@@ -221,6 +231,7 @@ func shoot_action(is_holding):
 		var hook_snap_pos = get_node("HookHandler").snap_pos
 		var clickPos = get_local_mouse_position()
 		if  hook_snap_pos != null :
+			print("shooting snapped")
 			clickPos = Vector2(hook_snap_pos.x - global_position.x, hook_snap_pos.y - global_position.y) 
 		var direction = clickPos.normalized()
 		shoot.emit(direction, is_holding)
@@ -311,7 +322,6 @@ func die():
 	hide()
 	dead.emit()
 	change_state(State.DEAD)
-	save()
 	get_node("CollisionShape2D").set_deferred("disabled", true)
 
 
@@ -336,11 +346,15 @@ func _on_hit_box_area_2d_area_entered(area):
 	if area is CameraOverrideArea:
 		print("enter camera override")
 		$CameraHandler.set_camera_override_area(area)
+	if area is InteractEvent:
+		interact_event_focus = area
 
 
 func _on_hit_box_area_2d_area_exited(area):
 	if area is CameraOverrideArea:
 		$CameraHandler.remove_camera_override_area()
+	if area is InteractEvent:
+		interact_event_focus = null
 		
 		
 func _shake_camera(time):

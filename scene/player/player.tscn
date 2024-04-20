@@ -377,7 +377,6 @@ texture = ExtResource("6_4ign3")
 offset = Vector2(0, -15)
 hframes = 8
 vframes = 19
-frame = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -418,6 +417,7 @@ debug_color = Color(0.956863, 0.027451, 0.0352941, 0.227451)
 [node name="HitBoxArea2D" type="Area2D" parent="."]
 collision_layer = 32769
 collision_mask = 32769
+metadata/player = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxArea2D"]
 shape = SubResource("CapsuleShape2D_w4y3r")

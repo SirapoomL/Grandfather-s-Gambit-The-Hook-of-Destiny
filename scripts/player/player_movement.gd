@@ -36,6 +36,10 @@ func process_normal_state(player, delta):
 			player.velocity.x = 0
 			player.change_state(player.State.IDLE)
 		player.jump_state = 0
+		
+	if GameState.is_cutscene():
+		return
+	
 	if GameInputMapper.is_action_pressed("move_right"):
 		if player.state != player.State.GLIDE:
 			player.change_state(player.State.RUN)
@@ -137,6 +141,8 @@ func process_movement(player, delta):
 				#pass
 				player.change_state(player.State.IDLE)
 				print("on floor")
+		if player.state == player.State.CUT_SCENE:
+			process_gravity(player, delta)
 		return
 	if GameInputMapper.is_action_just_pressed("jump") and (player.jump_state < player.jump_quota || player.state == player.State.SWING || player.state == player.State.HOOKING):
 		player.hang_time = 0

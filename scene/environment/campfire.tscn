@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8t8ckassyw0e"]
+[gd_scene load_steps=7 format=3 uid="uid://c8t8ckassyw0e"]
 
 [ext_resource type="Texture2D" uid="uid://bw346lhpy6b32" path="res://art/campf.png" id="1_8cp22"]
+[ext_resource type="Script" path="res://scripts/level/checkpoint.gd" id="1_r1i60"]
+[ext_resource type="Script" path="res://scripts/events/checkpoint_event.gd" id="2_enr6v"]
 
 [sub_resource type="Animation" id="Animation_lsp6a"]
 resource_name = "idle_1"
@@ -24,7 +26,11 @@ _data = {
 "idle_1": SubResource("Animation_lsp6a")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i8vh2"]
+size = Vector2(314, 103)
+
 [node name="Campfire" type="Node2D"]
+script = ExtResource("1_r1i60")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.45, 0.45)
@@ -37,3 +43,24 @@ libraries = {
 "": SubResource("AnimationLibrary_r14dq")
 }
 autoplay = "idle_1"
+
+[node name="InteractArea" type="Area2D" parent="."]
+script = ExtResource("2_enr6v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(0, -18.5)
+shape = SubResource("RectangleShape2D_i8vh2")
+debug_color = Color(0.847059, 0.368627, 0.227451, 0.419608)
+
+[node name="Tooltip" type="Label" parent="."]
+visible = false
+offset_left = -78.0
+offset_top = -74.0
+offset_right = 82.0
+offset_bottom = -43.0
+theme_override_font_sizes/font_size = 20
+text = "press e to save"
+horizontal_alignment = 1
+
+[connection signal="area_entered" from="InteractArea" to="." method="_on_interact_area_area_entered"]
+[connection signal="area_exited" from="InteractArea" to="." method="_on_interact_area_area_exited"]

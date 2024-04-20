@@ -21,6 +21,12 @@ offset_right = 1501.0
 offset_bottom = 21.0
 text = "pos"
 
+[node name="GameState" type="Label" parent="."]
+offset_left = 1169.0
+offset_right = 1251.0
+offset_bottom = 23.0
+text = "gamestate"
+
 [node name="PlayerState" type="Label" parent="."]
 offset_left = 1167.0
 offset_top = 125.0

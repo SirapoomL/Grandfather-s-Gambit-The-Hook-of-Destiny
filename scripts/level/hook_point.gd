@@ -13,10 +13,10 @@ func _process(delta):
 
 
 func _on_snap_range_mouse_entered():
-	get_tree().root.get_node("Main/Player").get_node("HookHandler").snap_pos = null
-	#get_tree().root.get_node("Main/Player").get_node("HookHandler").snap_pos = get_node("SnapRange").global_position
+	get_tree().root.get_node("Main/Player").get_node("HookHandler").snap_pos = get_node("SnapRange").global_position
 	print("snapping: ", get_node("SnapRange").global_position)
 
 
 func _on_snap_range_mouse_exited():
+	print("snap out")
 	get_tree().root.get_node("Main/Player").get_node("HookHandler").snap_pos = null

@@ -8,6 +8,8 @@ class_name CameraOverrideArea
 
 @export var set_offset = false
 @export var offset = Vector2(0, 0)
+@export var offset_facing_sensitive = false
+var original_offset = Vector2(0, 0)
 
 @export var set_anchor_mode = false
 @export var anchor_mode = 1
@@ -24,11 +26,32 @@ class_name CameraOverrideArea
 
 @export var transition_speed = 4.0
 
+@export var switch_camera = false
+@export var camera: Camera2D = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	original_offset = offset
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+	
+
+
+
+func _on_area_entered(area):
+	if area.has_meta("player"):
+		if offset_facing_sensitive and is_instance_valid(get_node("CollisionShape2D")):
+			if get_node("CollisionShape2D").global_position.x < area.global_position.x:
+				offset.x = -offset.x
+				
+
+		
+
+
+func _on_area_exited(area):
+	if area.has_meta("player"):
+		if offset_facing_sensitive:
+			offset = original_offset
