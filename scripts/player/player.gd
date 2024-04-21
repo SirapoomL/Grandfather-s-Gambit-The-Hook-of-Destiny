@@ -132,6 +132,8 @@ func save(pos: Vector2 = Vector2.ZERO):
 func _ready():
 	hook_count = hook_quota
 	screen_size = get_viewport_rect().size
+	if is_instance_valid($MainCamera2D):
+		$MainCamera2D.make_current()
 	hide()
 		
 func change_state(s: State):

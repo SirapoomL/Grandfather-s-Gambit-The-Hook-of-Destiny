@@ -48,6 +48,7 @@ autoplay = "idle_1"
 script = ExtResource("2_enr6v")
 
 [node name="Tooltip" type="Label" parent="InteractArea"]
+visible = false
 offset_left = -78.0
 offset_top = -74.0
 offset_right = 82.0
