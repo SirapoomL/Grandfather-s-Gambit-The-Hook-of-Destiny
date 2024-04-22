@@ -1,4 +1,4 @@
-[gd_scene load_steps=146 format=3 uid="uid://bnycfvgjngbs1"]
+[gd_scene load_steps=147 format=3 uid="uid://bnycfvgjngbs1"]
 
 [ext_resource type="Script" path="res://scripts/level/level_manager.gd" id="1_kdlm8"]
 [ext_resource type="PackedScene" uid="uid://si486osg7gro" path="res://scene/BG.tscn" id="2_ai2ce"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://c8t8ckassyw0e" path="res://scene/environment/campfire.tscn" id="16_f2c15"]
 [ext_resource type="PackedScene" uid="uid://c0ovhe8mmkg4b" path="res://scene/boss/minotaur/minotaur.tscn" id="17_18bky"]
 [ext_resource type="PackedScene" uid="uid://hsljntlg7xjm" path="res://scene/enemy/ground_enemy_warm.tscn" id="22_0pxjl"]
+[ext_resource type="PackedScene" uid="uid://dyy1lswl3dow8" path="res://scene/environment/xp_gem.tscn" id="23_nhdd6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ptre1"]
 texture = ExtResource("3_irxxh")
@@ -2900,7 +2901,7 @@ shape = SubResource("RectangleShape2D_81cxk")
 debug_color = Color(0.611765, 0.364706, 1, 0.0901961)
 
 [node name="RefPlayer" parent="." instance=ExtResource("13_x4vtw")]
-position = Vector2(15446, -8623)
+position = Vector2(11627, 503)
 
 [node name="Gate1" type="Area2D" parent="."]
 script = ExtResource("10_p20ku")
@@ -3703,6 +3704,9 @@ position = Vector2(15468.3, -4169)
 [node name="Ground_Enemy_Spirit8" parent="Enemies" instance=ExtResource("13_symc6")]
 position = Vector2(14444, -3966)
 
+[node name="Ground_Enemy_Spirit20" parent="Enemies" instance=ExtResource("13_symc6")]
+position = Vector2(16904, -4136)
+
 [node name="Ground_Enemy_Spirit9" parent="Enemies" instance=ExtResource("13_symc6")]
 position = Vector2(13774, -3970)
 
@@ -3719,7 +3723,7 @@ position = Vector2(15843, -6074)
 position = Vector2(10513, -1280)
 
 [node name="Ground_Enemy_Spirit11" parent="Enemies" instance=ExtResource("13_symc6")]
-position = Vector2(11518, -2995)
+position = Vector2(11310, -2990)
 
 [node name="Ground_Enemy_Spirit12" parent="Enemies" instance=ExtResource("13_symc6")]
 position = Vector2(14129, -3968)
@@ -3772,6 +3776,9 @@ position = Vector2(9773, -2719)
 [node name="Ground_Enemy_Creeper8" parent="Enemies" instance=ExtResource("15_3xj4w")]
 position = Vector2(10629, -3040)
 
+[node name="Ground_Enemy_Creeper18" parent="Enemies" instance=ExtResource("15_3xj4w")]
+position = Vector2(11556, -2994)
+
 [node name="Ground_Enemy_Creeper9" parent="Enemies" instance=ExtResource("15_3xj4w")]
 position = Vector2(9980, -3337)
 
@@ -3783,6 +3790,24 @@ position = Vector2(9682, -3045)
 
 [node name="Ground_Enemy_Spirit16" parent="Enemies" instance=ExtResource("13_symc6")]
 position = Vector2(10492, -3327)
+
+[node name="Ground_Enemy_Warm" parent="Enemies" instance=ExtResource("22_0pxjl")]
+position = Vector2(13270, -6436)
+
+[node name="Ground_Enemy_Warm5" parent="Enemies" instance=ExtResource("22_0pxjl")]
+position = Vector2(17882, -7168)
+
+[node name="Ground_Enemy_Warm6" parent="Enemies" instance=ExtResource("22_0pxjl")]
+position = Vector2(17720, -6711)
+
+[node name="Ground_Enemy_Warm4" parent="Enemies" instance=ExtResource("22_0pxjl")]
+position = Vector2(12263, -6849)
+
+[node name="Ground_Enemy_Warm2" parent="Enemies" instance=ExtResource("22_0pxjl")]
+position = Vector2(11057, -6043)
+
+[node name="Ground_Enemy_Warm3" parent="Enemies" instance=ExtResource("22_0pxjl")]
+position = Vector2(10423, -6734)
 
 [node name="TutorialTexts" type="Node" parent="."]
 
@@ -3803,6 +3828,15 @@ theme_override_font_sizes/font_size = 22
 text = "Hold R to use swing hook"
 horizontal_alignment = 1
 
+[node name="Label9" type="Label" parent="TutorialTexts"]
+offset_left = 4832.0
+offset_top = -539.0
+offset_right = 5100.0
+offset_bottom = -461.0
+theme_override_font_sizes/font_size = 22
+text = "collect gems to gain EXPs"
+horizontal_alignment = 1
+
 [node name="Label5" type="Label" parent="TutorialTexts"]
 offset_left = 6485.0
 offset_top = -626.0
@@ -3811,6 +3845,16 @@ offset_bottom = -548.0
 theme_override_font_sizes/font_size = 22
 text = "Press Mouse 1 to perform light attack,
 mouse 2 for heavy attack"
+horizontal_alignment = 1
+
+[node name="Label10" type="Label" parent="TutorialTexts"]
+offset_left = 7506.0
+offset_top = -970.0
+offset_right = 7914.0
+offset_bottom = -892.0
+theme_override_font_sizes/font_size = 22
+text = "use hook points to
+hook yourself up"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="TutorialTexts"]
@@ -3857,44 +3901,120 @@ theme_override_font_sizes/font_size = 22
 text = "Press tab to upgrade player stat
 Press esc to pause"
 
-[node name="Campfire" parent="." instance=ExtResource("16_f2c15")]
-position = Vector2(22640, -4885)
-
 [node name="Minotaur" parent="." instance=ExtResource("17_18bky")]
 position = Vector2(22819, -7788)
 
-[node name="Campfire2" parent="." instance=ExtResource("16_f2c15")]
+[node name="gems" type="Node" parent="."]
+
+[node name="XpGem10" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(18785, -5140)
+
+[node name="XpGem11" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(14148, -4602)
+
+[node name="XpGem12" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(21994, -5588)
+
+[node name="XpGem13" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(21929, -6125)
+
+[node name="XpGem14" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(22058, -6694)
+
+[node name="XpGem15" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(11820, -3026)
+scale = Vector2(1.5, 1.5)
+exp = 40
+
+[node name="XpGem16" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(11312, -7149)
+
+[node name="XpGem17" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(12135, -6253)
+exp = 10
+
+[node name="XpGem18" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(12708, -6248)
+exp = 10
+
+[node name="XpGem19" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(12425, -6079)
+exp = 10
+
+[node name="XpGem8" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(18501, -4829)
+scale = Vector2(2, 2)
+exp = 50
+
+[node name="XpGem" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(11973, -702)
+scale = Vector2(2.5, 2.5)
+exp = 50
+
+[node name="XpGem2" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(148, -656)
+exp = 30
+
+[node name="XpGem3" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(279, -654)
+exp = 30
+
+[node name="XpGem4" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(216, -726)
+exp = 30
+
+[node name="XpGem5" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(8093, -1193)
+
+[node name="XpGem7" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(4960, -456)
+exp = 10
+
+[node name="XpGem6" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(9160, -1201)
+
+[node name="XpGem9" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(18227, -5131)
+
+[node name="XpGem20" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(13631, -7241)
+
+[node name="XpGem22" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(14402, -6618)
+
+[node name="XpGem21" parent="gems" instance=ExtResource("23_nhdd6")]
+position = Vector2(13946, -6621)
+
+[node name="checkpoints" type="Node" parent="."]
+
+[node name="Campfire" parent="checkpoints" instance=ExtResource("16_f2c15")]
+position = Vector2(22640, -4885)
+
+[node name="Campfire2" parent="checkpoints" instance=ExtResource("16_f2c15")]
 position = Vector2(12470, -4342)
 
-[node name="Campfire3" parent="." instance=ExtResource("16_f2c15")]
+[node name="Campfire3" parent="checkpoints" instance=ExtResource("16_f2c15")]
 position = Vector2(4317, -407)
 
-[node name="Campfire4" parent="." instance=ExtResource("16_f2c15")]
+[node name="Campfire4" parent="checkpoints" instance=ExtResource("16_f2c15")]
 position = Vector2(9413, -5576)
 
-[node name="Campfire5" parent="." instance=ExtResource("16_f2c15")]
+[node name="Campfire5" parent="checkpoints" instance=ExtResource("16_f2c15")]
 position = Vector2(14685, -7369)
 
-[node name="Campfire6" parent="." instance=ExtResource("16_f2c15")]
+[node name="Campfire6" parent="checkpoints" instance=ExtResource("16_f2c15")]
 position = Vector2(16252, -7911)
 
-[node name="Ground_Enemy_Warm" parent="." instance=ExtResource("22_0pxjl")]
-position = Vector2(13270, -6436)
+[node name="XpGem" parent="." instance=ExtResource("23_nhdd6")]
+position = Vector2(17899, -6778)
+scale = Vector2(2, 2)
+exp = 50
 
-[node name="Ground_Enemy_Warm5" parent="." instance=ExtResource("22_0pxjl")]
-position = Vector2(17882, -7168)
+[node name="XpGem2" parent="." instance=ExtResource("23_nhdd6")]
+position = Vector2(17247, -7098)
 
-[node name="Ground_Enemy_Warm6" parent="." instance=ExtResource("22_0pxjl")]
-position = Vector2(17788, -6717)
-
-[node name="Ground_Enemy_Warm4" parent="." instance=ExtResource("22_0pxjl")]
-position = Vector2(12263, -6849)
-
-[node name="Ground_Enemy_Warm2" parent="." instance=ExtResource("22_0pxjl")]
-position = Vector2(11057, -6043)
-
-[node name="Ground_Enemy_Warm3" parent="." instance=ExtResource("22_0pxjl")]
-position = Vector2(10423, -6734)
+[node name="XpGem3" parent="." instance=ExtResource("23_nhdd6")]
+position = Vector2(10759, -4446)
 
 [connection signal="area_entered" from="EventTriggerAreas/CameraZoomout3" to="EventTriggerAreas/CameraZoomout3" method="_on_area_entered"]
 [connection signal="area_exited" from="EventTriggerAreas/CameraZoomout3" to="EventTriggerAreas/CameraZoomout3" method="_on_area_exited"]

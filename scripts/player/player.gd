@@ -289,9 +289,7 @@ func _on_attack_box_body_entered(body):
 		var damage_dealt = x[0]
 		exp_gained = x[1]
 	
-	exp += exp_gained
-	if exp >= max_exp:
-		level_up()
+	gain_exp(exp_gained)
 		
 
 func _on_check_area_area_exited(area):
@@ -383,4 +381,9 @@ func level_up():
 func get_max_exp_for_level(level):
 	max_exp = base_exp * pow(growth_factor, level - 1)
 	return int(max_exp)
+	
+func gain_exp(exp_gained):
+	exp += exp_gained
+	if exp >= max_exp:
+		level_up()
 	
