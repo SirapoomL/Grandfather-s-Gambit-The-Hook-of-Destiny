@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameState="*res://GameState.gd"
-GameInputMapper="*res://GameInputMapper.gd"
+GameState="*res://scripts/GameState.gd"
+GameInputMapper="*res://scripts/GameInputMapper.gd"
 
 [display]
 

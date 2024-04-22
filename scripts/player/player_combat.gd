@@ -77,7 +77,7 @@ func change_state(player, node_name, next_state, attack_direction, lock_time, ha
 	player.state_lock_time = lock_time
 	
 	player.face_left = attack_direction
-	
+	player.get_node("AtkSound").play()
 	if attack_direction:
 		player.global_position.x -= player.speed * 0.02
 	else:
