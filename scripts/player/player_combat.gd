@@ -123,4 +123,5 @@ func take_damage(player, damage, damage_source_pos_x= -99999, knockback_pow=150)
 		player.velocity.x = -knockback_pow if player.position.x < damage_source_pos_x else knockback_pow
 		player.position.y -= 5
 		player.state_lock_time = 0.2
+	player.get_node("HurtSound").play()
 	return damage

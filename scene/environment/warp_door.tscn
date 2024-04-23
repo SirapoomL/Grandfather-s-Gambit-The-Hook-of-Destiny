@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7eoevw56orvm"]
+
+[ext_resource type="Script" path="res://scripts/level/warp_door.gd" id="1_4h885"]
+[ext_resource type="Script" path="res://scripts/events/warp_door_event.gd" id="2_0q5a4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0bbts"]
+size = Vector2(144, 96)
+
+[node name="WarpDoor" type="Node2D"]
+script = ExtResource("1_4h885")
+
+[node name="InteractArea" type="Area2D" parent="."]
+script = ExtResource("2_0q5a4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource("RectangleShape2D_0bbts")
+
+[node name="Label" type="Label" parent="InteractArea"]
+visible = false
+offset_left = -84.0
+offset_top = -94.0
+offset_right = 85.0
+offset_bottom = -60.0
+theme_override_font_sizes/font_size = 22
+text = "press e to enter"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="area_entered" from="InteractArea" to="InteractArea" method="_on_area_entered"]
+[connection signal="area_exited" from="InteractArea" to="InteractArea" method="_on_area_exited"]
+[connection signal="player_exit" from="InteractArea" to="." method="_on_interact_area_player_exit"]
+[connection signal="player_warp" from="InteractArea" to="." method="_on_interact_area_player_warp"]
+[connection signal="timeout" from="Timer" to="InteractArea" method="_on_timer_timeout"]

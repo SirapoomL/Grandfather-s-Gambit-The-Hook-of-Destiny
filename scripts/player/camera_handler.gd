@@ -8,6 +8,8 @@ var camera_override_area: CameraOverrideArea = null
 
 var t = 0
 
+var force_disable_camera_smoothing = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -35,22 +37,24 @@ func process(camera: Camera2D, delta):
 		if coa.set_camera_pos:
 			camera.global_position = camera.global_position.lerp(coa.target_camera_pos, delta * coa.transition_speed)
 			camera.position_smoothing_enabled = false
-		#if coa.set_camera_limit:
-			#camera.limit_left = coa.camera_limit.x
-			#camera.limit_top = coa.camera_limit.y
-			#camera.limit_right = coa.camera_limit.z
-			#camera.limit_bottom = coa.camera_limit.w 			
+		if coa.set_camera_limit:
+			camera.limit_left = coa.camera_limit.x
+			camera.limit_top = coa.camera_limit.y
+			camera.limit_right = coa.camera_limit.z
+			camera.limit_bottom = coa.camera_limit.w 			
 	else:
 		camera.enabled = true
 		camera.position_smoothing_enabled = true
+		if force_disable_camera_smoothing:
+			camera.position_smoothing_enabled = false
 		camera.anchor_mode = 1
 		camera.zoom = camera.zoom.lerp(default_zoom, delta * transition_speed)
 		camera.offset = camera.offset.lerp(default_offset, delta * transition_speed)
 		camera.make_current()
-		#camera.limit_left = default_camera_limit.x
-		#camera.limit_top = default_camera_limit.y
-		#camera.limit_right = default_camera_limit.z
-		#camera.limit_bottom = default_camera_limit.w
+		camera.limit_left = default_camera_limit.x
+		camera.limit_top = default_camera_limit.y
+		camera.limit_right = default_camera_limit.z
+		camera.limit_bottom = default_camera_limit.w
 		
 func set_camera_override_area(coa: CameraOverrideArea):
 	camera_override_area = coa

@@ -386,4 +386,10 @@ func gain_exp(exp_gained):
 	exp += exp_gained
 	if exp >= max_exp:
 		level_up()
+		
+func set_main_cam_pos(pos):
+	$MainCamera2D.global_position = pos
+	
+func force_disable_cam_smoothing(val: bool):
+	$CameraHandler.force_disable_camera_smoothing = val
 	

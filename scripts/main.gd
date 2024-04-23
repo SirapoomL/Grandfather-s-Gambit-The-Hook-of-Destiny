@@ -19,7 +19,7 @@ func _on_player_dead():
 func game_over():
 	print("game over")
 	GameState.set_current_state(GameState.State.GAME_OVER)
-	$Music.stop()
+	$Level.stop_music()
 	$DeathSound.play()
 	$ScoreTimer.stop()
 	$MobTimer.stop()
@@ -33,19 +33,19 @@ func main_menu():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 	$MainMenu.show_main_menu()
-	$Music.stop()
+	$Level.stop_music()
 	get_tree().reload_current_scene()
 	
 
 func toggle_pause():
 	if GameState.is_playing():
 		GameState.set_current_state(GameState.State.PAUSED)
-		$Music.stream_paused = true
+		$Level.pause_music()
 		$ScoreTimer.paused = true
 		$Player.get_node("HookHandler").set_paused(true)
 	else:
 		GameState.set_current_state(GameState.State.PLAYING)
-		$Music.stream_paused = false
+		$Level.resume_music()
 		$ScoreTimer.paused = false
 		$Player.get_node("HookHandler").set_paused(false)
 
@@ -59,7 +59,7 @@ func new_game():
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$MainMenu.update_score(score)
-	$Music.play()
+	$Level.play_music($Level.MusicState.MAIN)
 	
 func _on_mob_timer_timeout():
 	if !GameState.is_playing():

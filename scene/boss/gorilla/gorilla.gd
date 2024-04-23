@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 class_name Gorilla
 
+signal dead
+
 @export var speed : float = 200.0
 @export var charge_speed : float = 350.0
 @export var health : int = 1000
@@ -71,6 +73,7 @@ func _ready():
 	animation_tree.active = true
 	animation_playback = animation_tree["parameters/playback"]
 	collision.disabled = false
+	idle()
 
 func _physics_process(delta):
 	if state == State.DEAD:
@@ -166,6 +169,7 @@ func switch_state(next_state : State):
 		State.DEAD:
 			collision.set_deferred("disabled", true)
 			animation_playback.travel("dead")
+			dead.emit()
 		State.COUNTER:
 			stagger_cooldown_remaining = stagger_cooldown
 			animation_playback.travel("counter")
