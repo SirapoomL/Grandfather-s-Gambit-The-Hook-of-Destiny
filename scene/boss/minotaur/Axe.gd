@@ -15,14 +15,17 @@ func _on_body_entered(body):
 	if body.name != "Player" || minotaur.state not in ATTACKING_STATE:
 		return
 	var damage : int
+	var knockback : int = 150
 	match(minotaur.state):
 		minotaur.State.CLEAVE:
 			damage = minotaur.cleave_damage
+			knockback = 300
 		minotaur.State.IMPALE:
 			damage = minotaur.impale_damage
 		minotaur.State.WHIRLING:
 			damage = minotaur.whirl_damage
-	body.get_node("CombatHandler").take_damage(body, damage, minotaur.position.x)
+			knockback = 600
+	body.get_node("CombatHandler").take_damage(body, damage, minotaur.position.x, knockback)
 
 func _on_minotaur_facing_direction_changed(facing_right : bool):
 	for child in get_children():
