@@ -626,12 +626,12 @@ size = Vector2(43, 12.25)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3rpq5"]
 size = Vector2(91.25, 20)
 
-[node name="Minotaur" type="CharacterBody2D"]
+[node name="Minotaur" type="CharacterBody2D" groups=["Boss"]]
 scale = Vector2(8, 8)
 script = ExtResource("1_1lbsk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3, -5.75)
+position = Vector2(-3, -3.5)
 shape = SubResource("CapsuleShape2D_7u011")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

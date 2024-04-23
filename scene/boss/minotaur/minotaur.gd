@@ -8,11 +8,15 @@ signal death
 @export var health : int = 200
 @export var experience : int = 40
 
-@export var attack_range : float = 35 * scale.x
+@export var attack_range : float = 35
 @export var action_cooldown : int = 2
 @export var cleave_cooldown : int = 6
 @export var impale_cooldown : int = 4
 @export var whirl_cooldown : int = 20
+
+@export var cleave_damage : int = 40
+@export var impale_damage : int = 20
+@export var whirl_damage : int = 40
 
 @onready var collision : CollisionShape2D = $CollisionShape2D
 @onready var sprite : Sprite2D = $Sprite2D
@@ -62,7 +66,7 @@ func _physics_process(delta):
 	
 	direction = 1 if (player_direction.x > 0) else -1
 	
-	if abs(player_direction.x) < attack_range && state in ATTACKABLE_STATE:
+	if abs(player_direction.x) < (attack_range * scale.x) && state in ATTACKABLE_STATE:
 		if action_cooldown_remaining < 0:
 			action_cooldown_remaining = 100
 			var random = rng.randf()
