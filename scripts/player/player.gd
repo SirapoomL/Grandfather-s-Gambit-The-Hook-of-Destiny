@@ -226,7 +226,7 @@ func reset_camera_transform_default():
 
 func shoot_action(is_holding):
 	# swing hook can't be duplicated
-	if swing_hook && is_holding:
+	if swing_hook && is_instance_valid(swing_hook) && is_holding:
 		return
 	if hook_count:
 		hook_count -= 1 # (for separate by hook type) 0 if is_holding else 1
