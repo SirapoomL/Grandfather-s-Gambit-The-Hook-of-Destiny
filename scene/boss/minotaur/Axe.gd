@@ -2,10 +2,6 @@ extends Area2D
 
 @export var minotaur : Minotaur
 
-@export var cleave_damage : int = 40
-@export var impale_damage : int = 20
-@export var whirl_damage : int = 40
-
 const ATTACKING_STATE = [minotaur.State.CLEAVE, minotaur.State.IMPALE, minotaur.State.WHIRLING]
 
 func _ready():
@@ -21,11 +17,11 @@ func _on_body_entered(body):
 	var damage : int
 	match(minotaur.state):
 		minotaur.State.CLEAVE:
-			damage = cleave_damage
+			damage = minotaur.cleave_damage
 		minotaur.State.IMPALE:
-			damage = impale_damage
+			damage = minotaur.impale_damage
 		minotaur.State.WHIRLING:
-			damage = whirl_damage
+			damage = minotaur.whirl_damage
 	body.get_node("CombatHandler").take_damage(body, damage, minotaur.position.x)
 
 func _on_minotaur_facing_direction_changed(facing_right : bool):
