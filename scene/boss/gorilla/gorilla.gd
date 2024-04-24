@@ -11,7 +11,7 @@ signal dead
 
 @export var melee_range : float = 35
 @export var charge_range : float = 250
-@export var min_dive_range : float = 100
+@export var min_dive_range : float = 50
 @export var max_dive_range : float = 300
 @export var provoke_range : float = 200
 

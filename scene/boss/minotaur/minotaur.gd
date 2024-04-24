@@ -13,6 +13,7 @@ signal death
 @export var cleave_cooldown : int = 6
 @export var impale_cooldown : int = 4
 @export var whirl_cooldown : int = 20
+@export var stagger_cooldown : int = 5
 
 @export var cleave_damage : int = 40
 @export var impale_damage : int = 20
@@ -41,6 +42,7 @@ var action_cooldown_remaining : int = 0
 var cleave_cooldown_remaining : int = 5
 var impale_cooldown_remaining : int = 3
 var whirl_cooldown_remaining : int = 10
+var stagger_cooldown_remaining : int = 0
 var rng = RandomNumberGenerator.new()
 
 var player_direction : Vector2
@@ -109,6 +111,7 @@ func _on_timer_timeout():
 	cleave_cooldown_remaining -= 1
 	impale_cooldown_remaining -= 1
 	whirl_cooldown_remaining -= 1
+	stagger_cooldown_remaining -= 1
 
 func switch_state(next_state : State):
 	match(next_state):
@@ -169,6 +172,8 @@ func hit(damage : int):
 		return [prev_health - health, experience]
 	
 	if state in IMPACTABLE_STATE:
-		switch_state(State.HIT)
+		if stagger_cooldown_remaining < 0:
+			stagger_cooldown_remaining = stagger_cooldown
+			switch_state(State.HIT)
 	
 	return [prev_health - health, 0]
