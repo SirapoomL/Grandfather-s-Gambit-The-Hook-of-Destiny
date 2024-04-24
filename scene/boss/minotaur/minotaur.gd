@@ -170,6 +170,8 @@ func hit(damage : int):
 	if health <= 0:
 		switch_state(State.DEAD)
 		return [prev_health - health, experience]
+		
+	red_flash()
 	
 	if state in IMPACTABLE_STATE:
 		if stagger_cooldown_remaining < 0:
@@ -177,3 +179,8 @@ func hit(damage : int):
 			switch_state(State.HIT)
 	
 	return [prev_health - health, 0]
+
+func red_flash():
+	sprite.modulate = Color(1,0.5,0.5)
+	await get_tree().create_timer(0.1).timeout
+	sprite.modulate = Color(1,1,1)
