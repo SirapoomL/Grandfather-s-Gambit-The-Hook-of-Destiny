@@ -22,7 +22,7 @@ func _on_body_entered(body):
 	match(gorilla.state):
 		gorilla.State.SLAM:
 			damage = gorilla.slam_damage
-			knockback = 300
+			knockback = 600
 		gorilla.State.CHARGE:
 			damage = gorilla.charge_damage
 		gorilla.State.COUNTER:

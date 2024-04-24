@@ -4172,6 +4172,8 @@ shape = SubResource("RectangleShape2D_0wdis")
 [node name="Gorilla" parent="." instance=ExtResource("24_7rm48")]
 position = Vector2(2658, -2966)
 scale = Vector2(8, 8)
+slam_damage = 40
+charge_damage = 25
 
 [node name="WarpDoor" parent="." node_paths=PackedStringArray("dest") instance=ExtResource("26_nn3em")]
 position = Vector2(17248, -8144)
