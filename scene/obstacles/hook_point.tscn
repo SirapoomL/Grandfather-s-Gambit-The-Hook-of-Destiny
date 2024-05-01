@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bb7ln7ij1hrvk"]
+[gd_scene load_steps=5 format=3 uid="uid://bb7ln7ij1hrvk"]
 
 [ext_resource type="Script" path="res://scripts/level/hook_point.gd" id="1_e76tv"]
+[ext_resource type="Texture2D" uid="uid://du8wjf1qtgnhi" path="res://art/bush.png" id="2_o0ha8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nk0r4"]
 radius = 17.0294
@@ -13,10 +14,23 @@ collision_layer = 8
 collision_mask = 8
 script = ExtResource("1_e76tv")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -9)
+scale = Vector2(0.104, 0.0845)
+texture = ExtResource("2_o0ha8")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(0.297304, 9.44595)
+rotation = 3.14159
+scale = Vector2(0.102831, 0.0905137)
+texture = ExtResource("2_o0ha8")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_nk0r4")
 
 [node name="SnapRange" type="Area2D" parent="."]
+visible = false
 collision_layer = 16384
 collision_mask = 16384
 
