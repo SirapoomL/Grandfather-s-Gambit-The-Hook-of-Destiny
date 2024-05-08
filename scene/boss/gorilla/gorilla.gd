@@ -6,12 +6,12 @@ signal dead
 
 @export var speed : float = 200.0
 @export var charge_speed : float = 350.0
-@export var health : int = 1000
+@export var max_health : int = 1000
 @export var experience : int = 100
 
 @export var melee_range : float = 35
 @export var charge_range : float = 250
-@export var min_dive_range : float = 50
+@export var min_dive_range : float = 30
 @export var max_dive_range : float = 300
 @export var provoke_range : float = 200
 
@@ -37,7 +37,7 @@ signal dead
 @onready var animation_tree : AnimationTree = $AnimationTree
 
 # States
-enum State {NORMAL, HIT, DEAD, PROVOKE, COUNTER, SLAM, 
+enum State {NORMAL, HIT, DEAD, PROVOKE, COUNTER, SLAM, ENHANCE,
 	CHARGE_START, CHARGE, CHARGE_END, 
 	DIVE_START, DIVE_MIDAIR, DIVE_LANDING,
 	TRIPLE_DIVE_START, TRIPLE_DIVE_MIDAIR, TRIPLE_DIVE_LANDING,}
@@ -48,9 +48,11 @@ const IMPACTABLE_STATE = [State.NORMAL, State.PROVOKE]
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var health : int = max_health
 var direction : int = 0
 var is_idle : bool = false
 var state : State = State.NORMAL
+var is_enhanced : bool = false
 var animation_playback : AnimationNodeStateMachinePlayback
 
 signal facing_direction(facing_right : bool)
@@ -73,6 +75,9 @@ func _ready():
 	animation_tree.active = true
 	animation_playback = animation_tree["parameters/playback"]
 	collision.disabled = false
+	state = State.NORMAL
+	health = max_health
+	is_enhanced = false
 	idle()
 
 func _physics_process(delta):
@@ -96,6 +101,18 @@ func _physics_process(delta):
 	
 	if state in TURNABLE_STATE:
 		direction = 1 if (player_direction.x > 0) else -1
+		
+	if state == State.NORMAL && not is_enhanced && (float(health)/max_health) < 0.4:
+		switch_state(State.ENHANCE)
+	
+	if state == State.ENHANCE:
+		randomize()
+		player._shake_camera(randi() % 100)
+		if abs(player_direction.x) < (80 * scale.x):
+			if player.is_on_floor():
+				player.velocity.y = -100
+				player.position.y -= 5
+			player.velocity.x = -600 if player.position.x < position.x else 600
 	
 	#if abs(player_direction.x) < (attack_range * scale.x) && state in ATTACKABLE_STATE:
 	if state in ATTACKABLE_STATE:
@@ -109,7 +126,7 @@ func _physics_process(delta):
 					doable.append(State.CHARGE_START)
 				if dive_cooldown_remaining < 0 && (min_dive_range * scale.x) < abs(player_direction.x) && abs(player_direction.x) < (max_dive_range * scale.x):
 					doable.append(State.DIVE_START)
-				if triple_dive_cooldown_remaining < 0 && (min_dive_range * scale.x) < abs(player_direction.x) && abs(player_direction.x) < (max_dive_range * scale.x):
+				if triple_dive_cooldown_remaining < 0 && (min_dive_range * scale.x) < abs(player_direction.x) && abs(player_direction.x) < (max_dive_range * scale.x) && is_enhanced:
 					doable.append(State.TRIPLE_DIVE_START)
 				if provoke_cooldown_remaining < 0 && abs(player_direction.x) > (provoke_range * scale.x):
 					doable.append(State.PROVOKE)
@@ -170,6 +187,10 @@ func switch_state(next_state : State):
 			collision.set_deferred("disabled", true)
 			animation_playback.travel("dead")
 			dead.emit()
+		State.ENHANCE:
+			is_enhanced = true
+			sprite.modulate = Color(1.5,1.5,0)
+			animation_playback.travel("enhance")
 		State.COUNTER:
 			stagger_cooldown_remaining = stagger_cooldown
 			animation_playback.travel("counter")
@@ -235,6 +256,8 @@ func _on_animation_tree_animation_finished(anim_name):
 		"provoke":
 			action_cooldown_remaining = action_cooldown
 			switch_state(State.NORMAL)
+		"enhance":
+			switch_state(State.NORMAL)
 		"hit":
 			switch_state(State.NORMAL)
 		"dead":
@@ -279,10 +302,6 @@ func hit(damage : int):
 	red_flash()
 	
 	if state in IMPACTABLE_STATE:
-		print(randf())
-		print(action_cooldown_remaining < 0)
-		print(counter_cooldown_remaining < 0)
-		print(randf() < 0.3)
 		if stagger_cooldown_remaining < 0 && counter_cooldown_remaining < 0 && randf() < 0.4:
 			switch_state(State.COUNTER)
 		elif stagger_cooldown_remaining < 0:
@@ -293,4 +312,4 @@ func hit(damage : int):
 func red_flash():
 	sprite.modulate = Color(1,0.5,0.5)
 	await get_tree().create_timer(0.1).timeout
-	sprite.modulate = Color(1,1,1)
+	sprite.modulate = Color(1.5,1.5,0) if is_enhanced else Color(1,1,1)

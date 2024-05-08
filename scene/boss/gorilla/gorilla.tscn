@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://y5annpbamoql"]
+[gd_scene load_steps=92 format=3 uid="uid://y5annpbamoql"]
 
 [ext_resource type="Script" path="res://scene/boss/gorilla/gorilla.gd" id="1_ssldm"]
 [ext_resource type="Texture2D" uid="uid://cpuocpoy1tbfv" path="res://art/boss/Gorilla.png" id="2_nxcpj"]
@@ -527,6 +527,22 @@ tracks/1/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_7evla"]
+resource_name = "enhance"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 1.7, 1.9, 2.1, 2.3, 2.5, 2.7, 2.9, 3.1, 3.3, 3.5, 3.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [24, 25, 26, 72, 73, 74, 75, 72, 73, 74, 75, 72, 73, 74, 75, 72, 73, 26, 25, 24]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_teno3"]
 _data = {
 "RESET": SubResource("Animation_axnda"),
@@ -538,6 +554,7 @@ _data = {
 "dive_bomb": SubResource("Animation_coilf"),
 "dive_midair": SubResource("Animation_n1l3k"),
 "dive_start": SubResource("Animation_pcaek"),
+"enhance": SubResource("Animation_7evla"),
 "hit": SubResource("Animation_vo08f"),
 "idle": SubResource("Animation_elsfn"),
 "provoke": SubResource("Animation_v8p0m"),
@@ -572,6 +589,9 @@ animation = &"dive_midair"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vdrvy"]
 animation = &"dive_start"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cqh11"]
+animation = &"enhance"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ii6qc"]
 animation = &"hit"
@@ -707,6 +727,12 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2kn5p"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y7tlm"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_k614d"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_fkh8m"]
 states/End/position = Vector2(1075, 105)
 states/Start/position = Vector2(134, 100)
@@ -726,6 +752,8 @@ states/dive_midair/node = SubResource("AnimationNodeAnimation_qmgrn")
 states/dive_midair/position = Vector2(667, 17.621)
 states/dive_start/node = SubResource("AnimationNodeAnimation_vdrvy")
 states/dive_start/position = Vector2(506, 17.621)
+states/enhance/node = SubResource("AnimationNodeAnimation_cqh11")
+states/enhance/position = Vector2(316, -3.95398)
 states/hit/node = SubResource("AnimationNodeAnimation_ii6qc")
 states/hit/position = Vector2(134, 228.621)
 states/move/node = SubResource("AnimationNodeBlendSpace1D_xjfbj")
@@ -742,8 +770,8 @@ states/triple_dive_jump/node = SubResource("AnimationNodeAnimation_hxtia")
 states/triple_dive_jump/position = Vector2(706, 184.621)
 states/triple_dive_start/node = SubResource("AnimationNodeAnimation_t5om3")
 states/triple_dive_start/position = Vector2(506, 184.621)
-transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_rfec4"), "hit", "move", SubResource("AnimationNodeStateMachineTransition_utw6o"), "counter", "move", SubResource("AnimationNodeStateMachineTransition_6dup7"), "provoke", "move", SubResource("AnimationNodeStateMachineTransition_h51tr"), "slam", "move", SubResource("AnimationNodeStateMachineTransition_hqd6s"), "charge_end", "move", SubResource("AnimationNodeStateMachineTransition_i27kf"), "triple_dive_end", "move", SubResource("AnimationNodeStateMachineTransition_w1wq5"), "dive_bomb", "move", SubResource("AnimationNodeStateMachineTransition_f4ng3"), "move", "hit", SubResource("AnimationNodeStateMachineTransition_uybvt"), "move", "counter", SubResource("AnimationNodeStateMachineTransition_kygdr"), "move", "provoke", SubResource("AnimationNodeStateMachineTransition_cdqj4"), "move", "slam", SubResource("AnimationNodeStateMachineTransition_l2use"), "move", "triple_dive_start", SubResource("AnimationNodeStateMachineTransition_kttvb"), "move", "dive_start", SubResource("AnimationNodeStateMachineTransition_hskqv"), "move", "charge_start", SubResource("AnimationNodeStateMachineTransition_emm0u"), "charge_start", "charge", SubResource("AnimationNodeStateMachineTransition_0agkg"), "charge", "charge_end", SubResource("AnimationNodeStateMachineTransition_pry0u"), "dive_start", "dive_midair", SubResource("AnimationNodeStateMachineTransition_1f2da"), "dive_midair", "dive_bomb", SubResource("AnimationNodeStateMachineTransition_qy3fa"), "triple_dive_start", "triple_dive_jump", SubResource("AnimationNodeStateMachineTransition_ljcyo"), "triple_dive_jump", "triple_dive_bomb", SubResource("AnimationNodeStateMachineTransition_axnfp"), "triple_dive_bomb", "triple_dive_jump", SubResource("AnimationNodeStateMachineTransition_2askv"), "triple_dive_bomb", "triple_dive_end", SubResource("AnimationNodeStateMachineTransition_8j7hh"), "provoke", "dead", SubResource("AnimationNodeStateMachineTransition_stnvc"), "triple_dive_start", "dead", SubResource("AnimationNodeStateMachineTransition_5hiru"), "triple_dive_jump", "dead", SubResource("AnimationNodeStateMachineTransition_w44re"), "triple_dive_end", "dead", SubResource("AnimationNodeStateMachineTransition_pdd7g"), "triple_dive_bomb", "dead", SubResource("AnimationNodeStateMachineTransition_suq67"), "slam", "dead", SubResource("AnimationNodeStateMachineTransition_0gsnn"), "dive_start", "dead", SubResource("AnimationNodeStateMachineTransition_d4fj2"), "dive_midair", "dead", SubResource("AnimationNodeStateMachineTransition_t4p2t"), "dive_bomb", "dead", SubResource("AnimationNodeStateMachineTransition_p75yj"), "charge_end", "dead", SubResource("AnimationNodeStateMachineTransition_jqju2"), "charge", "dead", SubResource("AnimationNodeStateMachineTransition_lqr0w"), "charge_start", "dead", SubResource("AnimationNodeStateMachineTransition_3byes"), "provoke", "hit", SubResource("AnimationNodeStateMachineTransition_2kn5p")]
-graph_offset = Vector2(24.303, 64.4173)
+transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_rfec4"), "hit", "move", SubResource("AnimationNodeStateMachineTransition_utw6o"), "counter", "move", SubResource("AnimationNodeStateMachineTransition_6dup7"), "provoke", "move", SubResource("AnimationNodeStateMachineTransition_h51tr"), "slam", "move", SubResource("AnimationNodeStateMachineTransition_hqd6s"), "charge_end", "move", SubResource("AnimationNodeStateMachineTransition_i27kf"), "triple_dive_end", "move", SubResource("AnimationNodeStateMachineTransition_w1wq5"), "dive_bomb", "move", SubResource("AnimationNodeStateMachineTransition_f4ng3"), "move", "hit", SubResource("AnimationNodeStateMachineTransition_uybvt"), "move", "counter", SubResource("AnimationNodeStateMachineTransition_kygdr"), "move", "provoke", SubResource("AnimationNodeStateMachineTransition_cdqj4"), "move", "slam", SubResource("AnimationNodeStateMachineTransition_l2use"), "move", "triple_dive_start", SubResource("AnimationNodeStateMachineTransition_kttvb"), "move", "dive_start", SubResource("AnimationNodeStateMachineTransition_hskqv"), "move", "charge_start", SubResource("AnimationNodeStateMachineTransition_emm0u"), "charge_start", "charge", SubResource("AnimationNodeStateMachineTransition_0agkg"), "charge", "charge_end", SubResource("AnimationNodeStateMachineTransition_pry0u"), "dive_start", "dive_midair", SubResource("AnimationNodeStateMachineTransition_1f2da"), "dive_midair", "dive_bomb", SubResource("AnimationNodeStateMachineTransition_qy3fa"), "triple_dive_start", "triple_dive_jump", SubResource("AnimationNodeStateMachineTransition_ljcyo"), "triple_dive_jump", "triple_dive_bomb", SubResource("AnimationNodeStateMachineTransition_axnfp"), "triple_dive_bomb", "triple_dive_jump", SubResource("AnimationNodeStateMachineTransition_2askv"), "triple_dive_bomb", "triple_dive_end", SubResource("AnimationNodeStateMachineTransition_8j7hh"), "provoke", "dead", SubResource("AnimationNodeStateMachineTransition_stnvc"), "triple_dive_start", "dead", SubResource("AnimationNodeStateMachineTransition_5hiru"), "triple_dive_jump", "dead", SubResource("AnimationNodeStateMachineTransition_w44re"), "triple_dive_end", "dead", SubResource("AnimationNodeStateMachineTransition_pdd7g"), "triple_dive_bomb", "dead", SubResource("AnimationNodeStateMachineTransition_suq67"), "slam", "dead", SubResource("AnimationNodeStateMachineTransition_0gsnn"), "dive_start", "dead", SubResource("AnimationNodeStateMachineTransition_d4fj2"), "dive_midair", "dead", SubResource("AnimationNodeStateMachineTransition_t4p2t"), "dive_bomb", "dead", SubResource("AnimationNodeStateMachineTransition_p75yj"), "charge_end", "dead", SubResource("AnimationNodeStateMachineTransition_jqju2"), "charge", "dead", SubResource("AnimationNodeStateMachineTransition_lqr0w"), "charge_start", "dead", SubResource("AnimationNodeStateMachineTransition_3byes"), "provoke", "hit", SubResource("AnimationNodeStateMachineTransition_2kn5p"), "move", "enhance", SubResource("AnimationNodeStateMachineTransition_y7tlm"), "enhance", "move", SubResource("AnimationNodeStateMachineTransition_k614d")]
+graph_offset = Vector2(24.303, -125.954)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bwsa2"]
 radius = 25.0
